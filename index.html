@@ -33,13 +33,13 @@
     <div id="root"></div>
 
     <script type="text/babel" data-type="module">
-        import React, { useState, useRef } from 'react';
+        import React, { useState, useRef, useEffect } from 'react';
         import { createRoot } from 'react-dom/client';
         import { 
             Sun, ChevronRight, ChevronLeft, Camera, FileText, CheckCircle, 
             AlertTriangle, Home, DollarSign, Menu, X, Phone, Upload, 
             BookOpen, ShieldCheck, Wrench, Image as ImageIcon, BarChart3,
-            MapPin, Calendar, Award
+            MapPin, Calendar, Award, Maximize2, Minimize2
         } from 'lucide-react';
 
         // --- IMAGE CONFIGURATION LIST ---
@@ -123,8 +123,32 @@
             };
 
             const togglePresentation = () => {
-                setIsPresenting(!isPresenting);
+                const newIsPresenting = !isPresenting;
+                setIsPresenting(newIsPresenting);
                 setCurrentSlide(0);
+                setIsMobileMenuOpen(false);
+
+                // --- FULLSCREEN LOGIC ---
+                // When entering presentation mode, try to request fullscreen
+                if (newIsPresenting) {
+                    const elem = document.documentElement;
+                    if (elem.requestFullscreen) {
+                        elem.requestFullscreen().catch(err => console.log(err));
+                    } else if (elem.webkitRequestFullscreen) { /* Safari */
+                        elem.webkitRequestFullscreen();
+                    } else if (elem.msRequestFullscreen) { /* IE11 */
+                        elem.msRequestFullscreen();
+                    }
+                } else {
+                    // When exiting presentation mode, exit fullscreen
+                    if (document.exitFullscreen && document.fullscreenElement) {
+                        document.exitFullscreen().catch(err => console.log(err));
+                    } else if (document.webkitExitFullscreen) { /* Safari */
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) { /* IE11 */
+                        document.msExitFullscreen();
+                    }
+                }
             };
 
             const nextSlide = () => {
@@ -847,7 +871,7 @@
                     </div>
                     
                     {/* Slide Content */}
-                    <div className="flex-grow flex flex-col items-center justify-center p-8 text-center overflow-y-auto">
+                    <div className="flex-grow flex flex-col items-center justify-center p-8 text-center overflow-y-auto min-h-0">
                         <div className="w-full max-w-5xl">
                             {data.content}
                         </div>
