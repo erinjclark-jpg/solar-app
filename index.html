@@ -58,7 +58,7 @@
             ThumbsUp, ThumbsDown, Scale, FileSearch
         } from 'lucide-react';
 
-        const APP_VERSION = "1.2.0";
+        const APP_VERSION = "1.2.1";
 
         // --- IMAGE CONFIGURATION LIST ---
         const projectImages = {
@@ -143,6 +143,18 @@
             };
 
             const togglePresentation = () => {
+                // DETECT IF RUNNING IN IFRAME
+                const isInIframe = window.self !== window.top;
+
+                // If in iframe and entering presentation mode, open in new tab
+                if (isInIframe && !isPresenting) {
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('presentation', 'true');
+                    url.hash = activeTab;
+                    window.open(url.toString(), '_blank');
+                    return;
+                }
+
                 const newIsPresenting = !isPresenting;
                 setIsPresenting(newIsPresenting);
                 setCurrentSlide(0);
