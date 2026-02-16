@@ -103,10 +103,10 @@
             AlertTriangle, Home, DollarSign, Menu, X, Phone, Upload, 
             BookOpen, ShieldCheck, Wrench, Image as ImageIcon, BarChart3,
             MapPin, Calendar, Award, Maximize2, Minimize2, ExternalLink,
-            ThumbsUp, ThumbsDown, Scale, FileSearch
+            ThumbsUp, ThumbsDown, Scale, FileSearch, ArrowRight
         } from 'lucide-react';
 
-        const APP_VERSION = "1.3.6";
+        const APP_VERSION = "1.4.0";
 
         // --- IMAGE CONFIGURATION LIST ---
         const projectImages = {
@@ -715,31 +715,57 @@
                         headerLogo: projectImages.logo, // Applied header logo consistent with Home
                         content: (
                             <div className="text-center mt-12">
-                                <div className="flex justify-center mb-8">
-                                    <FileText size={120} className="text-yellow-500" />
-                                </div>
                                 <p className="text-3xl md:text-4xl text-slate-300 max-w-4xl mx-auto leading-relaxed mb-12">Understanding Third Party Ownership (TPO) so you can close the deal.</p>
                                 
-                                {/* Moved from Slide 3 */}
-                                <div className="mt-8">
-                                    <RenderImageOrFallback imageKey="tpo_options" alt="Energy Options" fallback={null} />
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-                                        <div className="bg-slate-800 p-6 rounded text-center">
-                                            <Home size={48} className="mx-auto text-slate-400 mb-2" />
-                                            <h3 className="text-xl font-bold">Utility</h3>
-                                            <p className="text-sm text-slate-400">Renting power forever (PG&E/SMUD)</p>
+                                {/* CUSTOM SOLAR OWNERSHIP SPECTRUM GRAPHIC */}
+                                <div className="flex flex-col md:flex-row justify-between items-center gap-6 w-full max-w-6xl mx-auto px-4">
+                                    
+                                    {/* Option 1: Utility */}
+                                    <div className="flex flex-col items-center text-center group bg-slate-800 p-8 rounded-xl border-2 border-slate-700 w-full md:w-1/3 hover:border-slate-500 transition-colors">
+                                        <div className="bg-slate-700 p-4 rounded-full mb-4 group-hover:bg-slate-600 transition-colors">
+                                            <Home size={48} className="text-slate-400" />
                                         </div>
-                                        <div className="bg-slate-800 p-6 rounded text-center border-2 border-yellow-500">
-                                            <Sun size={48} className="mx-auto text-yellow-500 mb-2" />
-                                            <h3 className="text-xl font-bold">Solar (Owned)</h3>
-                                            <p className="text-sm text-slate-400">Asset + Debt (or Cash)</p>
-                                        </div>
-                                        <div className="bg-slate-800 p-6 rounded text-center border-2 border-blue-500">
-                                            <FileText size={48} className="mx-auto text-blue-500 mb-2" />
-                                            <h3 className="text-xl font-bold">Solar (TPO)</h3>
-                                            <p className="text-sm text-slate-400">Lease or PPA (Renting equipment)</p>
+                                        <h3 className="text-3xl font-bold text-slate-200 mb-2">Utility</h3>
+                                        <p className="text-lg text-slate-400 font-medium uppercase tracking-wide">Renting Power</p>
+                                        <div className="mt-4 text-slate-500 text-sm">
+                                            Forever Payments<br/>Rate Hikes
                                         </div>
                                     </div>
+
+                                    {/* Arrow 1 */}
+                                    <div className="hidden md:flex text-slate-600">
+                                        <ArrowRight size={48} />
+                                    </div>
+
+                                    {/* Option 2: TPO */}
+                                    <div className="flex flex-col items-center text-center group bg-slate-800 p-8 rounded-xl border-2 border-blue-500 w-full md:w-1/3 shadow-lg shadow-blue-900/10">
+                                        <div className="bg-blue-500/20 p-4 rounded-full mb-4">
+                                            <FileText size={48} className="text-blue-400" />
+                                        </div>
+                                        <h3 className="text-3xl font-bold text-white mb-2">TPO / Lease</h3>
+                                        <p className="text-lg text-blue-400 font-bold uppercase tracking-wide">Renting System</p>
+                                        <div className="mt-4 text-slate-400 text-sm">
+                                            Lower Bill<br/>Contract Transfer
+                                        </div>
+                                    </div>
+
+                                    {/* Arrow 2 */}
+                                    <div className="hidden md:flex text-slate-600">
+                                        <ArrowRight size={48} />
+                                    </div>
+
+                                    {/* Option 3: Ownership */}
+                                    <div className="flex flex-col items-center text-center group bg-slate-800 p-8 rounded-xl border-2 border-yellow-500 w-full md:w-1/3 shadow-lg shadow-yellow-900/10">
+                                        <div className="bg-yellow-500/20 p-4 rounded-full mb-4">
+                                            <Sun size={48} className="text-yellow-500" />
+                                        </div>
+                                        <h3 className="text-3xl font-bold text-white mb-2">Owned</h3>
+                                        <p className="text-lg text-yellow-400 font-bold uppercase tracking-wide">Owning Asset</p>
+                                        <div className="mt-4 text-slate-400 text-sm">
+                                            No Payments<br/>Home Value +
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         )
@@ -927,7 +953,7 @@
                         )
                     },
                     {
-                        title: "The Silent Killer: Escalators",
+                        title: "The Impact of Escalators",
                         headerLogo: projectImages.logo,
                         content: (
                             <div className="w-full max-w-3xl overflow-x-auto">
@@ -970,7 +996,7 @@
                         headerLogo: projectImages.logo,
                         content: (
                             <div className="flex flex-col items-center">
-                                <RenderImageOrFallback imageKey="tpo_discrepancy_panels" alt="27 vs 24 Panels" fallback={null} />
+                                <RenderImageOrFallback imageKey="slide_myth3" alt="27 vs 24 Panels" fallback={null} />
                                 <div className="bg-slate-800 p-6 rounded-lg border-l-4 border-red-500 text-left mt-4 max-w-2xl">
                                     <h3 className="text-xl font-bold text-red-400 mb-2">Paperwork != Roof</h3>
                                     <p>The Lease Document listed <strong>27</strong> solar panels.</p>
@@ -981,90 +1007,88 @@
                         )
                     },
                     {
-                        title: "Discrepancy #2: Equipment",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center">
-                                <RenderImageOrFallback imageKey="tpo_discrepancy_equip" alt="Equipment Mismatch" fallback={null} />
-                                <div className="bg-slate-800 p-6 rounded-lg border-l-4 border-red-500 text-left mt-4 max-w-2xl">
-                                    <h3 className="text-xl font-bold text-red-400 mb-2">Contract Mismatch</h3>
-                                    <p>The contract listed <strong>SunPower</strong> high-efficiency panels.</p>
-                                    <p>The roof had <strong>Canadian Solar</strong> (economy) panels.</p>
-                                    <p className="mt-2 italic text-slate-400">This drastically affects the system's value and output.</p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
                         title: "Performance Guarantees",
                         headerLogo: projectImages.logo,
                         content: (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full items-start">
-                                <div>
-                                    <h3 className="text-xl font-bold text-green-400 mb-2">The Good</h3>
-                                    <RenderImageOrFallback imageKey="tpo_guarantee_table" alt="Guarantee Table" fallback={<div className="bg-white text-black p-4 h-48 flex items-center justify-center">Table showing kWh guaranteed per year</div>} />
-                                    <p className="text-sm text-slate-400 mt-2">Clear table showing minimum kWh production per year.</p>
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-bold text-red-400 mb-2">The Bad</h3>
-                                    <RenderImageOrFallback imageKey="tpo_no_guarantee" alt="No Guarantee Email" fallback={<div className="bg-white text-black p-4 h-48 flex items-center justify-center">Email: "We do not provide reimbursements."</div>} />
-                                    <p className="text-sm text-slate-400 mt-2">"Per your contract, we do not guarantee any refund or compensation."</p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Transfer Process",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col space-y-4 w-full max-w-2xl">
-                                {['Notify Provider', 'Credit Check for Buyer', 'Review Agreement', 'Clear Title (UCC-1)', 'Close Escrow'].map((step, idx) => (
-                                    <div key={idx} className="flex items-center bg-slate-800 p-4 rounded border border-slate-700">
-                                        <div className="bg-yellow-500 text-slate-900 w-10 h-10 rounded-full flex items-center justify-center font-bold mr-4 text-xl">
-                                            {idx + 1}
+                            <div className="flex flex-col gap-8 w-full max-w-6xl">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                                    {/* Lease Logic */}
+                                    <div className="bg-slate-800 p-8 rounded-xl border-t-8 border-yellow-500 text-left flex flex-col">
+                                        <h3 className="text-3xl font-bold text-yellow-500 mb-4">Leases: The Guarantee Table</h3>
+                                        <RenderImageOrFallback imageKey="tpo_guarantee_table" alt="Guarantee Table" fallback={<div className="bg-white text-slate-900 font-bold p-4 h-32 flex items-center justify-center mb-4 rounded border border-slate-400">Example: Year 1 - 10,000 kWh Guaranteed</div>} className="max-h-40 w-auto mb-4 self-center" />
+                                        <p className="text-xl text-slate-200 mb-4 flex-grow">
+                                            For a Lease (fixed monthly rent), this table is <strong>vital</strong>. It holds the company accountable. 
+                                            If the system produces less than the guaranteed amount, they must compensate the homeowner.
+                                        </p>
+                                        <div className="bg-red-900/30 p-4 rounded border border-red-500 text-center">
+                                            <p className="text-red-400 font-bold text-xl">No Table = No Recourse</p>
                                         </div>
-                                        <span className="text-xl">{step}</span>
                                     </div>
-                                ))}
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Gold Rush Era",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_wildwest" alt="Gold Miner" fallback={null} />
-                                <div className="max-w-3xl mx-auto mt-6">
-                                    <p className="text-xl mb-4">The solar industry exploded like a Gold Rush. Volume was prioritized over quality.</p>
-                                    <p className="text-slate-400">Result: "Solar Bros" used the lowest bidder for installs. TPO companies often own systems with exposed wires, missing clamps, and leaks.</p>
+
+                                    {/* PPA Logic */}
+                                    <div className="bg-slate-800 p-8 rounded-xl border-t-8 border-blue-500 text-left flex flex-col">
+                                        <h3 className="text-3xl font-bold text-blue-500 mb-4">PPAs: "Self Policing"</h3>
+                                        <div className="flex-grow">
+                                            <p className="text-xl text-slate-200 mb-4">
+                                                PPAs are pay-per-kWh. If the system underproduces, the bill drops automatically. You only pay for what is produced.
+                                            </p>
+                                            <div className="flex items-center gap-4 bg-slate-900 p-4 rounded border border-slate-700 mb-4">
+                                                <Scale size={48} className="text-blue-500 flex-shrink-0" />
+                                                <p className="text-lg text-slate-400 italic">
+                                                    "If it doesn't work, you don't pay. No harm, no foul."
+                                                </p>
+                                            </div>
+                                            <p className="text-lg text-slate-300">
+                                                <strong className="text-white">The Catch:</strong> While you aren't paying the solar company, you lose the savings and buy expensive power from the utility instead.
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )
                     },
                     {
-                        title: "The City Inspector Myth",
+                        title: "Protecting Your Client",
                         headerLogo: projectImages.logo,
                         content: (
-                            <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-red-500 max-w-4xl">
-                                <h3 className="text-3xl font-bold mb-4">"But it passed final inspection!"</h3>
-                                <p className="text-xl leading-relaxed">
-                                    City inspectors check for <span className="text-yellow-500 font-bold">safety code compliance</span> from the ground. 
-                                    They rarely get on the roof to check for loose wires, broken tiles, or future leaks.
-                                </p>
-                                <p className="mt-6 text-slate-400 text-lg">A "Finaled Permit" does NOT guarantee a quality installation.</p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Maintenance is Required",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_service" alt="Cleaning" fallback={null} />
-                                <div className="mt-6 max-w-2xl mx-auto">
-                                    <h3 className="text-2xl font-bold text-yellow-500 mb-2">Annual Cleaning & Checkup</h3>
-                                    <p className="text-lg">TPO contracts usually state the <strong>homeowner</strong> is responsible for keeping the panels clean to maintain the production guarantee.</p>
+                            <div className="flex flex-col items-center justify-center h-full">
+                                <p className="text-3xl text-slate-300 mb-12 max-w-4xl">Whether you represent the Seller or the Buyer, the solar agreement is a critical transaction point.</p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-6xl">
+                                    {/* Listing Agent */}
+                                    <div className="bg-slate-800 p-8 rounded-xl border-t-8 border-yellow-500 shadow-xl flex flex-col text-left">
+                                        <div className="flex items-center mb-6">
+                                            <div className="bg-yellow-500/20 p-4 rounded-full mr-4">
+                                                <FileText size={40} className="text-yellow-500" />
+                                            </div>
+                                            <h3 className="text-3xl font-bold text-white">Listing Agent</h3>
+                                        </div>
+                                        <p className="text-xl text-slate-300 leading-relaxed mb-4">
+                                            <strong>The Risk:</strong> A predatory TPO agreement (high escalator, low production) can scare off potential buyers or kill the deal during escrow.
+                                        </p>
+                                        <div className="mt-auto p-4 bg-yellow-500/10 rounded border border-yellow-500/30">
+                                            <p className="text-lg text-yellow-200">
+                                                <strong>Goal:</strong> Know the terms upfront. If it's a bad lease, prepare a strategy (buyout vs. concession) <em>before</em> listing.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Buyer's Agent */}
+                                    <div className="bg-slate-800 p-8 rounded-xl border-t-8 border-blue-500 shadow-xl flex flex-col text-left">
+                                        <div className="flex items-center mb-6">
+                                            <div className="bg-blue-500/20 p-4 rounded-full mr-4">
+                                                <ShieldCheck size={40} className="text-blue-500" />
+                                            </div>
+                                            <h3 className="text-3xl font-bold text-white">Buyer's Agent</h3>
+                                        </div>
+                                        <p className="text-xl text-slate-300 leading-relaxed mb-4">
+                                            <strong>The Risk:</strong> Your buyer might assume a liability that costs more than the utility company, with no way out for 20 years.
+                                        </p>
+                                        <div className="mt-auto p-4 bg-blue-500/10 rounded border border-blue-500/30">
+                                            <p className="text-lg text-blue-200">
+                                                <strong>Goal:</strong> Ensure the system works and the financial terms are favorable. Don't let them sign a bad deal blindly.
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )
