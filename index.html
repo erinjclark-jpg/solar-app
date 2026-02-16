@@ -27,6 +27,15 @@
         ::-webkit-scrollbar-track { background: #1e293b; }
         ::-webkit-scrollbar-thumb { background: #eab308; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #ca8a04; }
+        
+        /* Animation utilities */
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -37,26 +46,6 @@
           =========================================================================
           *** ROCKLIN SOLAR REPAIR WEB APP - MASTER CONTEXT ***
           =========================================================================
-          
-          7. AI BEHAVIORAL INSTRUCTIONS (CRITICAL - READ FIRST):
-             - SOURCE OF TRUTH: This code IS the application.
-             - INCREMENTAL EDITS: Only modify the specific sections requested by the user. 
-             - PRESERVE STRUCTURE: This is a Single-File React App.
-             
-             - *** CONTENT LOCKING PROTOCOL ***
-               1. HOME PAGE: LOCKED. Do not modify.
-               2. INSPECTIONS 101: LOCKED. Do not modify.
-               3. TPO & LEASES: ACTIVE EDITING.
-               4. SELLERS: Pending.
-               5. CHECKLIST: Pending.
-
-          =========================================================================
-
-          Business: "Rocklin Solar Repair"
-          Specialization: Residential solar inspections for real estate transactions.
-          
-          5. VERSION CONTROL:
-             - Current Version: 1.1.1
         */
 
         import React, { useState, useRef, useEffect } from 'react';
@@ -69,14 +58,14 @@
             ThumbsUp, ThumbsDown, Scale, FileSearch
         } from 'lucide-react';
 
-        const APP_VERSION = "1.1.1";
+        const APP_VERSION = "1.2.0";
 
         // --- IMAGE CONFIGURATION LIST ---
         const projectImages = {
             // --- HOME PAGE ---
             logo: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/RSR%20Logo%20Sun.png?raw=true", 
             
-            // --- INSPECTIONS 101 (LOCKED) ---
+            // --- INSPECTIONS 101 ---
             qrCode: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/QR%20code.png?raw=true",
             slide_goal: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/Happy%20couple%20with%20agent.jpg?raw=true",
             slide_reality: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/8%20out%20of%2010%20houses%20have%20issues.jpg?raw=true",
@@ -154,15 +143,6 @@
             };
 
             const togglePresentation = () => {
-                const isInIframe = window.self !== window.top;
-                if (isInIframe && !isPresenting) {
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('presentation', 'true');
-                    url.hash = activeTab;
-                    window.open(url.toString(), '_blank');
-                    return;
-                }
-
                 const newIsPresenting = !isPresenting;
                 setIsPresenting(newIsPresenting);
                 setCurrentSlide(0);
@@ -170,8 +150,9 @@
 
                 if (newIsPresenting) {
                     const elem = document.documentElement;
-                    if (elem.requestFullscreen) elem.requestFullscreen().catch(err => console.log(err));
-                    else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+                    if (elem.requestFullscreen) {
+                        elem.requestFullscreen().catch(err => console.log(err));
+                    }
                 } else {
                     if (document.exitFullscreen && document.fullscreenElement) {
                         document.exitFullscreen().catch(err => console.log(err));
@@ -202,6 +183,7 @@
                 }
             };
 
+            // UPDATED: Significantly larger max-height for presentation visibility
             const RenderImageOrFallback = ({ imageKey, alt, fallback }) => {
                 if (projectImages[imageKey]) {
                     return (
@@ -209,8 +191,14 @@
                             <img 
                                 src={projectImages[imageKey]} 
                                 alt={alt} 
-                                className="max-h-64 md:max-h-96 rounded-lg shadow-lg object-contain border border-slate-700 bg-slate-800"
+                                className="max-h-[50vh] md:max-h-[65vh] rounded-lg shadow-lg object-contain border border-slate-700 bg-slate-800"
+                                onError={(e) => {
+                                    e.target.onerror = null; 
+                                    e.target.style.display = 'none';
+                                    if (e.target.nextSibling) e.target.nextSibling.style.display = 'block';
+                                }}
                             />
+                            <div className="hidden">{fallback}</div>
                         </div>
                     );
                 }
@@ -230,53 +218,53 @@
                             <div className="text-center space-y-8">
                                 <div className="flex justify-center mb-6">
                                     {projectImages.logo ? (
-                                        <img src={projectImages.logo} alt="RSR Logo" className="h-32 object-contain" />
+                                        <img src={projectImages.logo} alt="RSR Logo" className="h-48 object-contain" />
                                     ) : (
                                         <div className="relative">
-                                            <Sun size={100} className="text-yellow-500" />
+                                            <Sun size={120} className="text-yellow-500" />
                                             <div className="absolute inset-0 flex items-center justify-center">
-                                                <Wrench size={40} className="text-slate-900" />
+                                                <Wrench size={50} className="text-slate-900" />
                                             </div>
                                         </div>
                                     )}
                                 </div>
                                 
-                                <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
+                                <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
                                     Real Estate Inspections <span className="text-yellow-500">&</span> System Repairs
                                 </h1>
 
-                                <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                                <p className="text-2xl md:text-4xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
                                     We are strictly an <span className="text-white font-bold">inspection and repair company</span>, 
                                     not a sales organization. We provide unbiased assessments with no pressure to buy a new system.
                                 </p>
 
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-left">
-                                    <div className="bg-slate-800 p-6 rounded-lg border-t-4 border-yellow-500 shadow-lg">
-                                        <CheckCircle className="text-yellow-500 mb-4" size={32} />
-                                        <h3 className="text-xl font-bold text-white mb-2">Licensed C-46</h3>
-                                        <p className="text-slate-400">Professional contractors (Lic# 1050566) who can quote and fix issues immediately.</p>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left">
+                                    <div className="bg-slate-800 p-8 rounded-lg border-t-8 border-yellow-500 shadow-lg">
+                                        <CheckCircle className="text-yellow-500 mb-4" size={48} />
+                                        <h3 className="text-3xl font-bold text-white mb-2">Licensed C-46</h3>
+                                        <p className="text-slate-400 text-xl">Professional contractors (Lic# 1050566) who can quote and fix issues immediately.</p>
                                     </div>
-                                    <div className="bg-slate-800 p-6 rounded-lg border-t-4 border-yellow-500 shadow-lg">
-                                        <FileText className="text-yellow-500 mb-4" size={32} />
-                                        <h3 className="text-xl font-bold text-white mb-2">Detailed Reports</h3>
-                                        <p className="text-slate-400">Digital, interactive reports that make negotiation easy and transparent.</p>
+                                    <div className="bg-slate-800 p-8 rounded-lg border-t-8 border-yellow-500 shadow-lg">
+                                        <FileText className="text-yellow-500 mb-4" size={48} />
+                                        <h3 className="text-3xl font-bold text-white mb-2">Detailed Reports</h3>
+                                        <p className="text-slate-400 text-xl">Digital, interactive reports that make negotiation easy and transparent.</p>
                                     </div>
-                                    <div className="bg-slate-800 p-6 rounded-lg border-t-4 border-yellow-500 shadow-lg">
-                                        <ShieldCheck className="text-yellow-500 mb-4" size={32} />
-                                        <h3 className="text-xl font-bold text-white mb-2">Unbiased Expert</h3>
-                                        <p className="text-slate-400">We don't sell solar panels. We just make sure they work and are safe.</p>
+                                    <div className="bg-slate-800 p-8 rounded-lg border-t-8 border-yellow-500 shadow-lg">
+                                        <ShieldCheck className="text-yellow-500 mb-4" size={48} />
+                                        <h3 className="text-3xl font-bold text-white mb-2">Unbiased Expert</h3>
+                                        <p className="text-slate-400 text-xl">We don't sell solar panels. We just make sure they work and are safe.</p>
                                     </div>
                                 </div>
                                 
                                 <div className="mt-12 p-6 bg-slate-800/50 rounded-lg inline-block">
-                                    <p className="text-lg text-slate-300 font-mono">CA License # 1050566 • Bonded • Insured</p>
+                                    <p className="text-2xl text-slate-300 font-mono">CA License # 1050566 • Bonded • Insured</p>
                                 </div>
                             </div>
                         )
                     }
                 ],
                 // =========================================================================
-                // *** LOCKED CONTENT: INSPECTIONS 101 ***
+                // *** INSPECTIONS 101 - UPGRADED FOR LARGE PROJECTION ***
                 // =========================================================================
                 inspections: [
                     {
@@ -286,41 +274,41 @@
                                 <div className="mb-8">
                                     <RenderImageOrFallback imageKey="logo" alt="RSR Logo" fallback={<Sun size={120} className="text-yellow-500" />} />
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl text-left">
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex items-center">
-                                        <div className="bg-yellow-500/10 p-3 rounded-full mr-4">
-                                            <Calendar size={32} className="text-yellow-500" />
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl text-left">
+                                    <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 flex items-center">
+                                        <div className="bg-yellow-500/10 p-4 rounded-full mr-6">
+                                            <Calendar size={48} className="text-yellow-500" />
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-bold text-white">Established 2005</h3>
-                                            <p className="text-slate-400">20 Years of Solar Experience</p>
+                                            <h3 className="text-3xl font-bold text-white">Established 2005</h3>
+                                            <p className="text-2xl text-slate-400">20 Years of Solar Experience</p>
                                         </div>
                                     </div>
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex items-center">
-                                        <div className="bg-yellow-500/10 p-3 rounded-full mr-4">
-                                            <Award size={32} className="text-yellow-500" />
+                                    <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 flex items-center">
+                                        <div className="bg-yellow-500/10 p-4 rounded-full mr-6">
+                                            <Award size={48} className="text-yellow-500" />
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-bold text-white">Dual Licensed</h3>
-                                            <p className="text-slate-400">CSLB #1050566 • General B & Solar C-46</p>
+                                            <h3 className="text-3xl font-bold text-white">Dual Licensed</h3>
+                                            <p className="text-2xl text-slate-400">CSLB #1050566 • General B & Solar C-46</p>
                                         </div>
                                     </div>
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex items-center">
-                                        <div className="bg-yellow-500/10 p-3 rounded-full mr-4">
-                                            <Wrench size={32} className="text-yellow-500" />
+                                    <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 flex items-center">
+                                        <div className="bg-yellow-500/10 p-4 rounded-full mr-6">
+                                            <Wrench size={48} className="text-yellow-500" />
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-bold text-white">Proven Track Record</h3>
-                                            <p className="text-slate-400">Installed or Repaired Hundreds of Systems</p>
+                                            <h3 className="text-3xl font-bold text-white">Proven Track Record</h3>
+                                            <p className="text-2xl text-slate-400">Installed or Repaired Hundreds of Systems</p>
                                         </div>
                                     </div>
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex items-center">
-                                        <div className="bg-yellow-500/10 p-3 rounded-full mr-4">
-                                            <MapPin size={32} className="text-yellow-500" />
+                                    <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 flex items-center">
+                                        <div className="bg-yellow-500/10 p-4 rounded-full mr-6">
+                                            <MapPin size={48} className="text-yellow-500" />
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-bold text-white">Local & Reliable</h3>
-                                            <p className="text-slate-400">Based in Rocklin • Serving Northern CA</p>
+                                            <h3 className="text-3xl font-bold text-white">Local & Reliable</h3>
+                                            <p className="text-2xl text-slate-400">Based in Rocklin • Serving Northern CA</p>
                                         </div>
                                     </div>
                                 </div>
@@ -330,20 +318,22 @@
                     {
                         title: "Booking",
                         content: (
-                            <div className="flex flex-col items-center space-y-4">
-                                <p className="text-xl">Call, Email, or Scan to Book.</p>
-                                <RenderImageOrFallback 
-                                    imageKey="qrCode" 
-                                    alt="Booking QR Code" 
-                                    fallback={
-                                        <div className="bg-white p-4 rounded-lg shadow-xl">
-                                            <div className="w-48 h-48 bg-slate-200 flex items-center justify-center text-slate-900 font-bold text-center p-4">
-                                                SCAN TO BOOK<br/>INSPECTION
+                            <div className="flex flex-col items-center space-y-8">
+                                <p className="text-4xl">Call, Email, or Scan to Book.</p>
+                                <div className="transform scale-125 my-8">
+                                    <RenderImageOrFallback 
+                                        imageKey="qrCode" 
+                                        alt="Booking QR Code" 
+                                        fallback={
+                                            <div className="bg-white p-4 rounded-lg shadow-xl">
+                                                <div className="w-64 h-64 bg-slate-200 flex items-center justify-center text-slate-900 font-bold text-center text-xl p-4">
+                                                    SCAN TO BOOK<br/>INSPECTION
+                                                </div>
                                             </div>
-                                        </div>
-                                    }
-                                />
-                                <p className="text-yellow-500 text-3xl font-bold tracking-wider">916-741-0194</p>
+                                        }
+                                    />
+                                </div>
+                                <p className="text-yellow-500 text-6xl font-bold tracking-wider">916-741-0194</p>
                             </div>
                         )
                     },
@@ -356,7 +346,7 @@
                                     alt="Goal of Inspection" 
                                     fallback={null} 
                                 />
-                                <p className="text-2xl">Make the transaction go smoothly. Eliminate the <span className="text-yellow-500 font-bold">"Solar Blind Spot"</span> that kills deals.</p>
+                                <p className="text-4xl md:text-5xl mt-8 leading-normal">Make the transaction go smoothly. Eliminate the <span className="text-yellow-500 font-bold">"Solar Blind Spot"</span> that kills deals.</p>
                             </div>
                         )
                     },
@@ -365,7 +355,7 @@
                         content: (
                             <div>
                                 <RenderImageOrFallback imageKey="slide_reality" alt="80% Issues" fallback={null} />
-                                <p className="text-2xl">In our experience, <span className="text-red-400 font-bold">80% of residential solar systems</span> have minor to major issues that need to be addressed.</p>
+                                <p className="text-4xl md:text-5xl mt-8 leading-normal">In our experience, <span className="text-red-400 font-bold">80% of residential solar systems</span> have minor to major issues that need to be addressed.</p>
                             </div>
                         )
                     },
@@ -374,14 +364,14 @@
                         content: (
                             <div>
                                 <RenderImageOrFallback imageKey="slide_ownership" alt="Ownership Types" fallback={null} />
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mt-4">
-                                    <div className="bg-slate-800 p-6 rounded border-l-4 border-yellow-500">
-                                        <h3 className="text-2xl font-bold mb-2">Purchase/Loan</h3>
-                                        <p>They own the system. The loan is debt.</p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl mt-8">
+                                    <div className="bg-slate-800 p-8 rounded border-l-8 border-yellow-500">
+                                        <h3 className="text-4xl font-bold mb-4">Purchase/Loan</h3>
+                                        <p className="text-3xl text-slate-300">They own the system. The loan is debt.</p>
                                     </div>
-                                    <div className="bg-slate-800 p-6 rounded border-l-4 border-yellow-500">
-                                        <h3 className="text-2xl font-bold mb-2">TPO (Lease/PPA)</h3>
-                                        <p>Third Party Ownership. They rent the roof or buy the power.</p>
+                                    <div className="bg-slate-800 p-8 rounded border-l-8 border-yellow-500">
+                                        <h3 className="text-4xl font-bold mb-4">TPO (Lease/PPA)</h3>
+                                        <p className="text-3xl text-slate-300">Third Party Ownership. They rent the roof or buy the power.</p>
                                     </div>
                                 </div>
                             </div>
@@ -392,7 +382,7 @@
                         content: (
                             <div>
                                 <RenderImageOrFallback imageKey="slide_confusion" alt="Confusion" fallback={null} />
-                                <p className="text-xl">The "Average Salesperson" signed them up for 25 years but didn't explain the fine print. Homeowners often don't know what they own.</p>
+                                <p className="text-4xl mt-8 leading-normal">The "Average Salesperson" signed them up for 25 years but didn't explain the fine print. Homeowners often don't know what they own.</p>
                             </div>
                         )
                     },
@@ -400,16 +390,16 @@
                         title: "Batteries",
                         content: (
                             <div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <RenderImageOrFallback imageKey="slide17_pic" alt="Battery Install" fallback={null} />
                                     <RenderImageOrFallback imageKey="slide17_app" alt="Battery Monitor" fallback={null} />
                                 </div>
-                                <div className="flex flex-col gap-4 text-left max-w-2xl mx-auto mt-4">
-                                    <div className="p-4 bg-slate-800 rounded">
-                                        <strong className="text-yellow-500">Backup:</strong> Keeps lights on when grid goes down.
+                                <div className="flex flex-col gap-6 text-left max-w-4xl mx-auto mt-8">
+                                    <div className="p-6 bg-slate-800 rounded">
+                                        <p className="text-3xl"><strong className="text-yellow-500">Backup:</strong> Keeps lights on when grid goes down.</p>
                                     </div>
-                                    <div className="p-4 bg-slate-800 rounded">
-                                        <strong className="text-yellow-500">Arbitrage:</strong> Stores cheap solar power to use when rates are high (4pm-9pm).
+                                    <div className="p-6 bg-slate-800 rounded">
+                                        <p className="text-3xl"><strong className="text-yellow-500">Arbitrage:</strong> Stores cheap solar power to use when rates are high (4pm-9pm).</p>
                                     </div>
                                 </div>
                             </div>
@@ -423,27 +413,27 @@
                                 imageKey="slide_goals" 
                                 alt="3 Goals" 
                                 fallback={
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-4">
-                                        <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex flex-col items-center text-center shadow-lg transform transition hover:scale-105">
-                                            <div className="bg-yellow-500/20 p-4 rounded-full mb-4">
-                                                <ShieldCheck size={48} className="text-yellow-500" />
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-4">
+                                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 flex flex-col items-center text-center shadow-lg">
+                                            <div className="bg-yellow-500/20 p-6 rounded-full mb-6">
+                                                <ShieldCheck size={64} className="text-yellow-500" />
                                             </div>
-                                            <h3 className="text-xl font-bold text-white mb-2">1. Install Quality</h3>
-                                            <p className="text-slate-300 text-sm">We document condition: "How well was it installed?"</p>
+                                            <h3 className="text-3xl font-bold text-white mb-4">1. Install Quality</h3>
+                                            <p className="text-slate-300 text-2xl">We document condition: "How well was it installed?"</p>
                                         </div>
-                                        <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex flex-col items-center text-center shadow-lg transform transition hover:scale-105">
-                                            <div className="bg-yellow-500/20 p-4 rounded-full mb-4">
-                                                <BarChart3 size={48} className="text-yellow-500" />
+                                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 flex flex-col items-center text-center shadow-lg">
+                                            <div className="bg-yellow-500/20 p-6 rounded-full mb-6">
+                                                <BarChart3 size={64} className="text-yellow-500" />
                                             </div>
-                                            <h3 className="text-xl font-bold text-white mb-2">2. Performance</h3>
-                                            <p className="text-slate-300 text-sm">Lifetime production check: "Is it saving money?"</p>
+                                            <h3 className="text-3xl font-bold text-white mb-4">2. Performance</h3>
+                                            <p className="text-slate-300 text-2xl">Lifetime production check: "Is it saving money?"</p>
                                         </div>
-                                        <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex flex-col items-center text-center shadow-lg transform transition hover:scale-105">
-                                            <div className="bg-yellow-500/20 p-4 rounded-full mb-4">
-                                                <BookOpen size={48} className="text-yellow-500" />
+                                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 flex flex-col items-center text-center shadow-lg">
+                                            <div className="bg-yellow-500/20 p-6 rounded-full mb-6">
+                                                <BookOpen size={64} className="text-yellow-500" />
                                             </div>
-                                            <h3 className="text-xl font-bold text-white mb-2">3. Education</h3>
-                                            <p className="text-slate-300 text-sm">Answering the big question: "What am I actually buying?"</p>
+                                            <h3 className="text-3xl font-bold text-white mb-4">3. Education</h3>
+                                            <p className="text-slate-300 text-2xl">Answering the big question: "What am I actually buying?"</p>
                                         </div>
                                     </div>
                                 } 
@@ -454,22 +444,22 @@
                     {
                         title: "What We Check",
                         content: (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                                <div className="bg-slate-800 p-4 rounded flex items-start">
-                                    <CheckCircle className="text-yellow-500 mr-3 mt-1 flex-shrink-0" />
-                                    <div><strong>Structural Integrity</strong><p className="text-sm text-slate-400">Mounting looseness, roof damage, leaks.</p></div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                                <div className="bg-slate-800 p-6 rounded flex items-start">
+                                    <CheckCircle className="text-yellow-500 mr-4 mt-2 flex-shrink-0" size={40} />
+                                    <div><strong className="text-3xl block mb-2">Structural Integrity</strong><p className="text-2xl text-slate-400">Mounting looseness, roof damage, leaks.</p></div>
                                 </div>
-                                <div className="bg-slate-800 p-4 rounded flex items-start">
-                                    <CheckCircle className="text-yellow-500 mr-3 mt-1 flex-shrink-0" />
-                                    <div><strong>Wiring & Connections</strong><p className="text-sm text-slate-400">Corrosion, fraying, loose connections.</p></div>
+                                <div className="bg-slate-800 p-6 rounded flex items-start">
+                                    <CheckCircle className="text-yellow-500 mr-4 mt-2 flex-shrink-0" size={40} />
+                                    <div><strong className="text-3xl block mb-2">Wiring & Connections</strong><p className="text-2xl text-slate-400">Corrosion, fraying, loose connections.</p></div>
                                 </div>
-                                <div className="bg-slate-800 p-4 rounded flex items-start">
-                                    <CheckCircle className="text-yellow-500 mr-3 mt-1 flex-shrink-0" />
-                                    <div><strong>Shading & Soiling</strong><p className="text-sm text-slate-400">Dirt, bird droppings, tree growth.</p></div>
+                                <div className="bg-slate-800 p-6 rounded flex items-start">
+                                    <CheckCircle className="text-yellow-500 mr-4 mt-2 flex-shrink-0" size={40} />
+                                    <div><strong className="text-3xl block mb-2">Shading & Soiling</strong><p className="text-2xl text-slate-400">Dirt, bird droppings, tree growth.</p></div>
                                 </div>
-                                <div className="bg-slate-800 p-4 rounded flex items-start">
-                                    <CheckCircle className="text-yellow-500 mr-3 mt-1 flex-shrink-0" />
-                                    <div><strong>Inverter Health</strong><p className="text-sm text-slate-400">Error codes, red lights, production drop.</p></div>
+                                <div className="bg-slate-800 p-6 rounded flex items-start">
+                                    <CheckCircle className="text-yellow-500 mr-4 mt-2 flex-shrink-0" size={40} />
+                                    <div><strong className="text-3xl block mb-2">Inverter Health</strong><p className="text-2xl text-slate-400">Error codes, red lights, production drop.</p></div>
                                 </div>
                             </div>
                         )
@@ -479,17 +469,18 @@
                         content: (
                             <div>
                                 <RenderImageOrFallback imageKey="slide_cost" alt="Cost Benefit" fallback={null} />
-                                <p className="text-2xl">"Another $299?!" <br/><span className="text-slate-400 text-lg mt-4 block">Here is why it pays back in spades. Avoiding one bad inverter replacement covers the cost immediately.</span></p>
+                                <p className="text-5xl font-bold">"Another $299?!"</p>
+                                <p className="text-slate-300 text-3xl mt-6 leading-relaxed">Here is why it pays back in spades. <br/>Avoiding one bad inverter replacement covers the cost immediately.</p>
                             </div>
                         )
                     },
                     {
                         title: "Common Objections",
                         content: (
-                            <div className="space-y-4">
-                                <div className="p-4 bg-slate-800 rounded">"It's a new home, surely it's fine."</div>
-                                <div className="p-4 bg-slate-800 rounded">"I have negative bills, it must be working."</div>
-                                <div className="p-4 bg-slate-800 rounded">"It's a leased system, the company covers it."</div>
+                            <div className="space-y-6 w-full max-w-5xl">
+                                <div className="p-8 bg-slate-800 rounded text-3xl md:text-4xl">"It's a new home, surely it's fine."</div>
+                                <div className="p-8 bg-slate-800 rounded text-3xl md:text-4xl">"I have negative bills, it must be working."</div>
+                                <div className="p-8 bg-slate-800 rounded text-3xl md:text-4xl">"It's a leased system, the company covers it."</div>
                             </div>
                         )
                     },
@@ -497,40 +488,40 @@
                         title: "Myths vs Reality",
                         content: (
                             <div className="grid grid-cols-1 gap-6 text-left w-full">
-                                <div className="bg-slate-800 p-4 rounded flex flex-col md:flex-row items-center gap-4 border border-slate-700">
-                                    <div className="w-full md:w-48 flex-shrink-0">
+                                <div className="bg-slate-800 p-6 rounded flex flex-col md:flex-row items-center gap-6 border border-slate-700">
+                                    <div className="w-full md:w-64 flex-shrink-0">
                                         {projectImages.slide_myth1 && (
-                                            <img src={projectImages.slide_myth1} alt="New Home" className="w-full h-32 object-cover rounded border border-slate-600" />
+                                            <img src={projectImages.slide_myth1} alt="New Home" className="w-full h-48 object-cover rounded border border-slate-600" />
                                         )}
                                     </div>
                                     <div>
-                                        <strong className="text-yellow-500 text-lg block mb-1">Myth 1: "It's a New Home"</strong>
-                                        <p className="text-slate-400 italic mb-2">"Surely it was inspected and works fine."</p>
-                                        <p className="text-slate-100"><strong className="text-red-400">Reality:</strong> Builders use lowest bidders. Unconnected strings and broken tiles are common.</p>
+                                        <strong className="text-yellow-500 text-3xl block mb-2">Myth 1: "It's a New Home"</strong>
+                                        <p className="text-slate-400 italic mb-4 text-2xl">"Surely it was inspected and works fine."</p>
+                                        <p className="text-slate-100 text-2xl"><strong className="text-red-400">Reality:</strong> Builders use lowest bidders. Unconnected strings and broken tiles are common.</p>
                                     </div>
                                 </div>
-                                <div className="bg-slate-800 p-4 rounded flex flex-col md:flex-row items-center gap-4 border border-slate-700">
-                                    <div className="w-full md:w-48 flex-shrink-0">
+                                <div className="bg-slate-800 p-6 rounded flex flex-col md:flex-row items-center gap-6 border border-slate-700">
+                                    <div className="w-full md:w-64 flex-shrink-0">
                                         {projectImages.slide_myth2 && (
-                                            <img src={projectImages.slide_myth2} alt="Negative Bills" className="w-full h-32 object-contain bg-white rounded border border-slate-600" />
+                                            <img src={projectImages.slide_myth2} alt="Negative Bills" className="w-full h-48 object-contain bg-white rounded border border-slate-600" />
                                         )}
                                     </div>
                                     <div>
-                                        <strong className="text-yellow-500 text-lg block mb-1">Myth 2: "Negative Bills"</strong>
-                                        <p className="text-slate-400 italic mb-2">"I have credits! It must be working perfectly."</p>
-                                        <p className="text-slate-100"><strong className="text-red-400">Reality:</strong> You can have credits while a fire hazard cooks on your roof. Efficiency != Safety.</p>
+                                        <strong className="text-yellow-500 text-3xl block mb-2">Myth 2: "Negative Bills"</strong>
+                                        <p className="text-slate-400 italic mb-4 text-2xl">"I have credits! It must be working perfectly."</p>
+                                        <p className="text-slate-100 text-2xl"><strong className="text-red-400">Reality:</strong> You can have credits while a fire hazard cooks on your roof. Efficiency != Safety.</p>
                                     </div>
                                 </div>
-                                <div className="bg-slate-800 p-4 rounded flex flex-col md:flex-row items-center gap-4 border border-slate-700">
-                                    <div className="w-full md:w-48 flex-shrink-0">
+                                <div className="bg-slate-800 p-6 rounded flex flex-col md:flex-row items-center gap-6 border border-slate-700">
+                                    <div className="w-full md:w-64 flex-shrink-0">
                                         {projectImages.slide_myth3 && (
-                                            <img src={projectImages.slide_myth3} alt="Leased System" className="w-full h-32 object-contain bg-white rounded border border-slate-600" />
+                                            <img src={projectImages.slide_myth3} alt="Leased System" className="w-full h-48 object-contain bg-white rounded border border-slate-600" />
                                         )}
                                     </div>
                                     <div>
-                                        <strong className="text-yellow-500 text-lg block mb-1">Myth 3: "Leased System"</strong>
-                                        <p className="text-slate-400 italic mb-2">"The company covers everything."</p>
-                                        <p className="text-slate-100"><strong className="text-red-400">Reality:</strong> Service is slow. Transferring takes time. You need an advocate to push the paperwork.</p>
+                                        <strong className="text-yellow-500 text-3xl block mb-2">Myth 3: "Leased System"</strong>
+                                        <p className="text-slate-400 italic mb-4 text-2xl">"The company covers everything."</p>
+                                        <p className="text-slate-100 text-2xl"><strong className="text-red-400">Reality:</strong> Service is slow. Transferring takes time. You need an advocate to push the paperwork.</p>
                                     </div>
                                 </div>
                             </div>
@@ -541,7 +532,7 @@
                         content: (
                             <div>
                                 <RenderImageOrFallback imageKey="slide_wildwest" alt="Wild West" fallback={null} />
-                                <p className="text-xl">The industry rushed volume over quality from 2015-2022. Homeowners are left with the mess of "Solar Bros" who are now out of business.</p>
+                                <p className="text-4xl leading-normal mt-8">The industry rushed volume over quality from 2015-2022. Homeowners are left with the mess of "Solar Bros" who are now out of business.</p>
                             </div>
                         )
                     },
@@ -549,22 +540,22 @@
                         title: "The Evidence",
                         subtitle: "Upload Site Photos",
                         content: (
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
                                 {['wiring', 'flashing', 'negligence'].map((key) => {
                                     const defaultKey = `slide12_${key}`;
                                     const imageSrc = uploadedImages[key] || projectImages[defaultKey];
                                     return (
-                                        <label key={key} className="bg-slate-800 p-4 rounded border border-slate-700 flex flex-col items-center cursor-pointer group relative overflow-hidden transition-all hover:border-yellow-500">
-                                            <h4 className="font-bold text-yellow-500 capitalize mb-2">{key}</h4>
-                                            <div className="w-full h-40 bg-slate-900 rounded mb-3 flex items-center justify-center overflow-hidden relative border border-dashed border-slate-600">
+                                        <label key={key} className="bg-slate-800 p-6 rounded border border-slate-700 flex flex-col items-center cursor-pointer group relative overflow-hidden transition-all hover:border-yellow-500">
+                                            <h4 className="font-bold text-yellow-500 capitalize mb-4 text-3xl">{key}</h4>
+                                            <div className="w-full h-64 bg-slate-900 rounded mb-3 flex items-center justify-center overflow-hidden relative border border-dashed border-slate-600">
                                                 {imageSrc ? (
                                                     <img src={imageSrc} alt={key} className="w-full h-full object-cover" />
                                                 ) : (
-                                                    <Camera className="text-slate-600" size={40} />
+                                                    <Camera className="text-slate-600" size={60} />
                                                 )}
                                                 <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                                    <Upload className="text-yellow-500 mb-2" size={24} />
-                                                    <span className="text-white font-bold text-sm">Click to Change</span>
+                                                    <Upload className="text-yellow-500 mb-2" size={40} />
+                                                    <span className="text-white font-bold text-xl">Click to Change</span>
                                                 </div>
                                             </div>
                                             <input type="file" className="hidden" accept="image/*" onChange={(e) => handleImageUpload(key, e)} />
@@ -578,27 +569,26 @@
                         title: "City Inspector Gap",
                         content: (
                             <div>
-                                <div className="grid grid-cols-3 gap-4 mb-6">
+                                <div className="grid grid-cols-3 gap-6 mb-8">
                                     {['wiring', 'flashing', 'negligence'].map(key => (
-                                        <div key={key} className="relative rounded overflow-hidden border-2 border-red-500">
+                                        <div key={key} className="relative rounded overflow-hidden border-4 border-red-500">
                                             <img 
                                                 src={projectImages[`slide12_${key}`] || "https://placehold.co/200x200?text=Missing+Image"} 
                                                 alt="Passed Inspection" 
-                                                className="w-full h-32 object-cover opacity-75"
+                                                className="w-full h-48 object-cover opacity-75"
                                             />
                                             <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="bg-red-600/90 text-white font-bold text-xs md:text-sm px-2 py-1 transform -rotate-12 border-2 border-white">
+                                                <div className="bg-red-600/90 text-white font-bold text-xl md:text-2xl px-4 py-2 transform -rotate-12 border-4 border-white">
                                                     PASSED INSPECTION
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
-                                <RenderImageOrFallback imageKey="slide_inspector" alt="Inspector Gap" fallback={null} />
-                                <div className="bg-slate-800 p-6 rounded-lg border-l-4 border-red-500 text-left">
-                                    <p className="text-xl mb-2"><strong>The Scary Truth:</strong></p>
-                                    <p className="text-xl">All three of those installations have an approved, final building permit.</p>
-                                    <p className="text-lg text-slate-400 mt-2">Inspectors check ground-level code. They do not climb the roof to check wire management or flashings.</p>
+                                <div className="bg-slate-800 p-8 rounded-lg border-l-8 border-red-500 text-left">
+                                    <p className="text-3xl mb-4"><strong>The Scary Truth:</strong></p>
+                                    <p className="text-3xl">All three of those installations have an approved, final building permit.</p>
+                                    <p className="text-2xl text-slate-400 mt-4">Inspectors check ground-level code. They do not climb the roof to check wire management or flashings.</p>
                                 </div>
                             </div>
                         )
@@ -608,7 +598,7 @@
                         content: (
                             <div>
                                 <RenderImageOrFallback imageKey="slide_report" alt="Report Example" fallback={null} />
-                                <p className="text-xl">We provide an interactive, digital report. <br/>Easy to read. Easy to forward to the other agent.</p>
+                                <p className="text-4xl mt-8">We provide an interactive, digital report. <br/>Easy to read. Easy to forward to the other agent.</p>
                             </div>
                         )
                     },
@@ -617,17 +607,17 @@
                         content: (
                             <div className="text-center">
                                 <RenderImageOrFallback imageKey="slide_fixit" alt="We Fix It" fallback={null} />
-                                <h3 className="text-3xl font-bold text-yellow-500 mb-4 mt-6">Dual Licensed Contractor</h3>
-                                <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-4">
-                                    <div className="bg-slate-800 px-6 py-2 rounded-full border border-yellow-500">
-                                        <strong className="text-white">General B License</strong>
+                                <h3 className="text-5xl font-bold text-yellow-500 mb-8 mt-8">Dual Licensed Contractor</h3>
+                                <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-8">
+                                    <div className="bg-slate-800 px-10 py-4 rounded-full border-2 border-yellow-500">
+                                        <strong className="text-white text-3xl">General B License</strong>
                                     </div>
-                                    <div className="text-yellow-500 font-bold">+</div>
-                                    <div className="bg-slate-800 px-6 py-2 rounded-full border border-yellow-500">
-                                        <strong className="text-white">Solar C-46 License</strong>
+                                    <div className="text-yellow-500 font-bold text-4xl">+</div>
+                                    <div className="bg-slate-800 px-10 py-4 rounded-full border-2 border-yellow-500">
+                                        <strong className="text-white text-3xl">Solar C-46 License</strong>
                                     </div>
                                 </div>
-                                <p className="text-xl">We don't just find problems. We have the credentials to quote and fix them correctly.</p>
+                                <p className="text-3xl text-slate-300">We don't just find problems. We have the credentials to quote and fix them correctly.</p>
                             </div>
                         )
                     },
@@ -636,12 +626,12 @@
                         content: (
                             <div>
                                 <RenderImageOrFallback imageKey="slide_service" alt="Annual Service" fallback={null} />
-                                <div className="flex flex-col items-center mt-6">
-                                    <div className="bg-yellow-500/10 p-4 rounded-lg border border-yellow-500 mb-4 max-w-2xl">
-                                        <p className="text-lg font-bold text-yellow-500 mb-1">Why Hire Us for Cleaning?</p>
-                                        <p className="text-white">Most solar cleaners are unlicensed. Because we hold <span className="text-yellow-500 font-bold">General B & C-46 Licenses</span>, we can identify and repair issues while we clean.</p>
+                                <div className="flex flex-col items-center mt-8">
+                                    <div className="bg-yellow-500/10 p-8 rounded-lg border-2 border-yellow-500 mb-6 max-w-4xl">
+                                        <p className="text-3xl font-bold text-yellow-500 mb-4">Why Hire Us for Cleaning?</p>
+                                        <p className="text-white text-3xl">Most solar cleaners are unlicensed. Because we hold <span className="text-yellow-500 font-bold">General B & C-46 Licenses</span>, we can identify and repair issues while we clean.</p>
                                     </div>
-                                    <p className="text-xl">Cleaning and maintenance plans available to keep the warranty valid.</p>
+                                    <p className="text-3xl text-slate-400">Cleaning and maintenance plans available to keep the warranty valid.</p>
                                 </div>
                             </div>
                         )
@@ -649,10 +639,10 @@
                     {
                         title: "Client Education",
                         content: (
-                            <div className="text-left max-w-2xl mx-auto">
+                            <div className="text-left max-w-4xl mx-auto">
                                 <RenderImageOrFallback imageKey="slide_questions" alt="Questions" fallback={null} />
-                                <p className="mb-4 text-lg">Clients usually have no idea how their system works. We answer:</p>
-                                <ul className="text-lg space-y-2 list-disc pl-8">
+                                <p className="mb-6 text-4xl">Clients usually have no idea how their system works. We answer:</p>
+                                <ul className="text-3xl space-y-4 list-disc pl-12 text-slate-300">
                                     <li>What is my expected annual savings?</li>
                                     <li>Who do I call to transfer ownership?</li>
                                     <li>Is my system under warranty?</li>
@@ -666,16 +656,16 @@
                         title: "Let's Work Together",
                         content: (
                             <div className="text-center flex flex-col items-center">
-                                <div className="w-full max-w-sm mb-4">
-                                    <RenderImageOrFallback imageKey="slide19_logo" alt="RSR Logo" fallback={<Sun size={80} className="text-yellow-500 mx-auto" />} />
+                                <div className="w-full max-w-md mb-8">
+                                    <RenderImageOrFallback imageKey="slide19_logo" alt="RSR Logo" fallback={<Sun size={100} className="text-yellow-500 mx-auto" />} />
                                 </div>
-                                <p className="text-3xl font-bold text-white mb-6">Rocklin Solar Repair</p>
-                                <div className="inline-block bg-yellow-500 text-slate-900 px-8 py-4 rounded-lg text-3xl font-bold shadow-lg mb-8 hover:scale-105 transition-transform">
+                                <p className="text-5xl md:text-6xl font-bold text-white mb-8">Rocklin Solar Repair</p>
+                                <div className="inline-block bg-yellow-500 text-slate-900 px-12 py-6 rounded-xl text-5xl font-bold shadow-2xl mb-12 hover:scale-105 transition-transform">
                                     916-741-0194
                                 </div>
-                                <div className="w-full max-w-xs">
+                                <div className="w-full max-w-sm">
                                     <RenderImageOrFallback imageKey="qrCode" alt="Scan to Contact" fallback={null} />
-                                    <p className="text-slate-400 font-bold">Scan QR to save contact</p>
+                                    <p className="text-slate-400 font-bold text-2xl mt-4">Scan QR to save contact</p>
                                 </div>
                             </div>
                         )
@@ -960,12 +950,12 @@
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full items-start">
                                 <div>
                                     <h3 className="text-xl font-bold text-green-400 mb-2">The Good</h3>
-                                    <RenderImageOrFallback imageKey="tpo_guarantee_table" alt="Guarantee Table" fallback={<div className="bg-white text-black p-4 h-48">Table showing kWh guaranteed per year</div>} />
+                                    <RenderImageOrFallback imageKey="tpo_guarantee_table" alt="Guarantee Table" fallback={<div className="bg-white text-black p-4 h-48 flex items-center justify-center">Table showing kWh guaranteed per year</div>} />
                                     <p className="text-sm text-slate-400 mt-2">Clear table showing minimum kWh production per year.</p>
                                 </div>
                                 <div>
                                     <h3 className="text-xl font-bold text-red-400 mb-2">The Bad</h3>
-                                    <RenderImageOrFallback imageKey="tpo_no_guarantee" alt="No Guarantee Email" fallback={<div className="bg-white text-black p-4 h-48">Email from Tesla: "We do not provide reimbursements."</div>} />
+                                    <RenderImageOrFallback imageKey="tpo_no_guarantee" alt="No Guarantee Email" fallback={<div className="bg-white text-black p-4 h-48 flex items-center justify-center">Email: "We do not provide reimbursements."</div>} />
                                     <p className="text-sm text-slate-400 mt-2">"Per your contract, we do not guarantee any refund or compensation."</p>
                                 </div>
                             </div>
@@ -1042,13 +1032,23 @@
                 sellers: [
                     {
                         title: "For Sellers",
-                        content: "Coming Soon"
+                        content: (
+                            <div className="text-center">
+                                <h3 className="text-2xl font-bold mb-4">Seller Resources</h3>
+                                <p className="text-slate-400">Content coming soon...</p>
+                            </div>
+                        )
                     }
                 ],
                 checklist: [
                     {
                         title: "Agent Checklist",
-                        content: "Coming Soon"
+                        content: (
+                            <div className="text-center">
+                                <h3 className="text-2xl font-bold mb-4">Agent Checklist</h3>
+                                <p className="text-slate-400">Content coming soon...</p>
+                            </div>
+                        )
                     }
                 ]
             };
@@ -1057,16 +1057,16 @@
                 <div className="flex flex-col h-full bg-slate-900 text-slate-100 animate-fadeIn">
                     <div className="p-8 pb-0 flex justify-between items-start">
                         <div>
-                            <h2 className="text-4xl md:text-5xl font-bold text-yellow-500 mb-2">{data.title}</h2>
-                            {data.subtitle && <h3 className="text-2xl text-slate-400">{data.subtitle}</h3>}
+                            <h2 className="text-5xl md:text-7xl font-bold text-yellow-500 mb-2 tracking-tight">{data.title}</h2>
+                            {data.subtitle && <h3 className="text-3xl text-slate-400">{data.subtitle}</h3>}
                         </div>
-                        <div className="text-slate-600 text-xl font-mono">
+                        <div className="text-slate-600 text-2xl font-mono">
                             {index + 1} / {total}
                         </div>
                     </div>
                     
                     <div className="flex-grow flex flex-col items-center justify-center p-8 text-center overflow-y-auto min-h-0">
-                        <div className="w-full max-w-5xl">
+                        <div className="w-full max-w-7xl">
                             {data.content}
                         </div>
                     </div>
@@ -1075,19 +1075,19 @@
                         <button 
                             onClick={prevSlide} 
                             disabled={index === 0}
-                            className="flex items-center px-6 py-3 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 rounded-lg text-lg font-bold transition"
+                            className="flex items-center px-8 py-4 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 rounded-lg text-2xl font-bold transition"
                         >
-                            <ChevronLeft className="mr-2" /> Previous
+                            <ChevronLeft className="mr-2" size={32} /> Previous
                         </button>
-                        <div className="text-slate-400 text-sm uppercase tracking-widest hidden md:block">
+                        <div className="text-slate-400 text-lg uppercase tracking-widest hidden md:block">
                             Rocklin Solar Repair • Presentation Mode • v{APP_VERSION}
                         </div>
                         <button 
                             onClick={nextSlide} 
                             disabled={index === total - 1}
-                            className="flex items-center px-6 py-3 bg-yellow-500 hover:bg-yellow-400 text-slate-900 rounded-lg text-lg font-bold transition"
+                            className="flex items-center px-8 py-4 bg-yellow-500 hover:bg-yellow-400 text-slate-900 rounded-lg text-2xl font-bold transition"
                         >
-                            Next <ChevronRight className="ml-2" />
+                            Next <ChevronRight className="ml-2" size={32} />
                         </button>
                     </div>
                 </div>
