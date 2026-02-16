@@ -3,7 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rocklin Solar Repair Resource Center</title>
+    
+    <!-- SEO & META DATA -->
+    <title>Rocklin Solar Repair | Inspections & Service | Lic# 1050566</title>
+    <meta name="description" content="The Real Estate Agent's Secret Weapon for Solar. We provide unbiased solar inspections, repairs, and cleaning for real estate transactions in Rocklin and Northern CA. Not a sales company.">
+    <meta name="keywords" content="Solar Repair Rocklin, Solar Inspection, Real Estate Solar Inspection, Solar Maintenance, C-46 Contractor">
+    <meta name="author" content="Rocklin Solar Repair">
+    
+    <!-- SOCIAL SHARE TAGS (Open Graph) -->
+    <meta property="og:title" content="Rocklin Solar Repair Resource Center">
+    <meta property="og:description" content="Expert solar inspections and repairs for real estate agents and homeowners. Unbiased assessments, no sales pressure.">
+    <meta property="og:image" content="https://github.com/erinjclark-jpg/solar-app/blob/main/images/RSR%20Logo%20Sun.png?raw=true">
+    <meta property="og:url" content="https://rocklinsolarrepair.com">
+    <meta property="og:type" content="website">
+
+    <!-- STRUCTURED DATA (JSON-LD) for Local Business SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Rocklin Solar Repair",
+      "image": "https://github.com/erinjclark-jpg/solar-app/blob/main/images/RSR%20Logo%20Sun.png?raw=true",
+      "telephone": "916-741-0194",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Rocklin",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "priceRange": "$$",
+      "description": "Specializing in residential solar inspections for real estate transactions, system repairs, and maintenance. C-46 & General B Licensed.",
+      "areaServed": "Northern California"
+    }
+    </script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -58,7 +90,7 @@
             ThumbsUp, ThumbsDown, Scale, FileSearch
         } from 'lucide-react';
 
-        const APP_VERSION = "1.2.1";
+        const APP_VERSION = "1.2.2";
 
         // --- IMAGE CONFIGURATION LIST ---
         const projectImages = {
@@ -683,9 +715,6 @@
                         )
                     }
                 ],
-                // =========================================================================
-                // *** END LOCKED CONTENT ***
-                // =========================================================================
 
                 // --- TPO & LEASES (ACTIVE EDITING) ---
                 tpo: [
