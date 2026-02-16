@@ -33,6 +33,55 @@
     <div id="root"></div>
 
     <script type="text/babel" data-type="module">
+        /*
+          =========================================================================
+          *** ROCKLIN SOLAR REPAIR WEB APP - MASTER CONTEXT ***
+          =========================================================================
+          
+          7. AI BEHAVIORAL INSTRUCTIONS (CRITICAL - READ FIRST):
+             - SOURCE OF TRUTH: This code IS the application. Do NOT attempt to "scaffold" a new app or rewrite it from scratch.
+             - INCREMENTAL EDITS: Only modify the specific sections requested by the user. Preserve all other code, especially the `projectImages` list.
+             - PRESERVE STRUCTURE: This is a Single-File React App running in the browser via Babel. Do not split it into multiple files.
+             - CONTEXT SUMMARY: 
+               We are building a tool for Real Estate Agents. 
+               "Inspections 101" is complete and LOCKED. 
+               We are currently working on building out the content for:
+               1. TPO & Leases (In progress)
+               2. For Sellers (In progress)
+               3. Agent Checklist (In progress)
+
+          =========================================================================
+
+          Business: "Rocklin Solar Repair"
+          Specialization: Residential solar inspections for real estate transactions.
+          
+          CORE REQUIREMENTS:
+          1. App Structure (SPA):
+             - Navigation: Home, Inspections 101, TPO & Leases, For Sellers, Agent Checklist.
+             
+          2. Key Feature: "Presentation Mode"
+             - Web Mode: Standard scrolling website layout.
+             - Presentation Mode: Full-screen slide deck.
+             - Must include a toggle button in the header.
+
+          3. Critical Content & Logic:
+             - Slide 12 (The Evidence): MUST retain functional photo upload buttons.
+             - TPO & Leases: Comparison tables for Lease vs PPA and Escalator Clauses.
+             - Agent Checklist: The 4 items needed.
+
+          4. Design & Branding:
+             - Colors: Navy Blue (bg-slate-900), Solar Yellow (text-yellow-500).
+             - Contact: Header must always display 916-741-0194.
+             - License: Must display CA License # 1050566.
+
+          5. VERSION CONTROL:
+             - Always update the APP_VERSION constant below when making code changes.
+             - Current Version: 1.0.1
+
+          6. CONTENT LOCKING:
+             - "Inspections 101" section is FINALIZED. Do not modify text/order without explicit instruction.
+        */
+
         import React, { useState, useRef, useEffect } from 'react';
         import { createRoot } from 'react-dom/client';
         import { 
@@ -41,6 +90,8 @@
             BookOpen, ShieldCheck, Wrench, Image as ImageIcon, BarChart3,
             MapPin, Calendar, Award, Maximize2, Minimize2
         } from 'lucide-react';
+
+        const APP_VERSION = "1.0.1";
 
         // --- IMAGE CONFIGURATION LIST ---
         const projectImages = {
@@ -129,7 +180,6 @@
                 setIsMobileMenuOpen(false);
 
                 // --- FULLSCREEN LOGIC ---
-                // When entering presentation mode, try to request fullscreen
                 if (newIsPresenting) {
                     const elem = document.documentElement;
                     if (elem.requestFullscreen) {
@@ -140,7 +190,6 @@
                         elem.msRequestFullscreen();
                     }
                 } else {
-                    // When exiting presentation mode, exit fullscreen
                     if (document.exitFullscreen && document.fullscreenElement) {
                         document.exitFullscreen().catch(err => console.log(err));
                     } else if (document.webkitExitFullscreen) { /* Safari */
@@ -244,6 +293,10 @@
                         )
                     }
                 ],
+                // =========================================================================
+                // *** LOCKED CONTENT: INSPECTIONS 101 ***
+                // DO NOT MODIFY THE ORDER OR CONTENT OF THIS SECTION WITHOUT EXPLICIT INSTRUCTION
+                // =========================================================================
                 inspections: [
                     {
                         title: "About Rocklin Solar Repair",
@@ -647,6 +700,9 @@
                         )
                     }
                 ],
+                // =========================================================================
+                // END OF LOCKED SECTION
+                // =========================================================================
                 tpo: [
                     {
                         title: "Lease vs. PPA",
@@ -887,7 +943,7 @@
                             <ChevronLeft className="mr-2" /> Previous
                         </button>
                         <div className="text-slate-400 text-sm uppercase tracking-widest hidden md:block">
-                            Rocklin Solar Repair • Presentation Mode
+                            Rocklin Solar Repair • Presentation Mode • v{APP_VERSION}
                         </div>
                         <button 
                             onClick={nextSlide} 
@@ -915,7 +971,7 @@
                     ))}
                     <footer className="text-center py-8 text-slate-500 border-t border-slate-800 mt-8 space-y-2">
                         <p>&copy; {new Date().getFullYear()} Rocklin Solar Repair. All Rights Reserved.</p>
-                        <p className="text-sm">CA License # 1050566 • Bonded • Insured</p>
+                        <p className="text-sm">CA License # 1050566 • Bonded • Insured • v{APP_VERSION}</p>
                     </footer>
                 </div>
             );
