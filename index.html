@@ -1,1758 +1,654 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO & META DATA -->
-    <title>Rocklin Solar Repair | Inspections & Service | Lic# 1050566</title>
-    <meta name="description" content="The Real Estate Agent's Secret Weapon for Solar. We provide unbiased solar inspections, repairs, and cleaning for real estate transactions in Rocklin and Northern CA. Not a sales company.">
-    <meta name="keywords" content="Solar Repair Rocklin, Solar Inspection, Real Estate Solar Inspection, Solar Maintenance, C-46 Contractor">
-    <meta name="author" content="Rocklin Solar Repair">
-    
-    <!-- SOCIAL SHARE TAGS (Open Graph) -->
-    <meta property="og:title" content="Rocklin Solar Repair Resource Center">
-    <meta property="og:description" content="Expert solar inspections and repairs for real estate agents and homeowners. Unbiased assessments, no sales pressure.">
-    <meta property="og:image" content="https://github.com/erinjclark-jpg/solar-app/blob/main/images/RSR%20Logo%20Sun.png?raw=true">
-    <meta property="og:url" content="https://rocklinsolarrepair.com">
-    <meta property="og:type" content="website">
-
-    <!-- STRUCTURED DATA (JSON-LD) for Local Business SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Rocklin Solar Repair",
-      "image": "https://github.com/erinjclark-jpg/solar-app/blob/main/images/RSR%20Logo%20Sun.png?raw=true",
-      "telephone": "916-741-0194",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Rocklin",
-        "addressRegion": "CA",
-        "addressCountry": "US"
-      },
-      "priceRange": "$$",
-      "description": "Specializing in residential solar inspections for real estate transactions, system repairs, and maintenance. C-46 & General B Licensed.",
-      "areaServed": "Northern California"
-    }
-    </script>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- React & ReactDOM & Babel -->
-    <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@18.2.0",
-        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-        "lucide-react": "https://esm.sh/lucide-react@0.344.0"
-      }
-    }
-    </script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <style>
-        body { background-color: #0f172a; color: white; }
-        /* Custom Scrollbar for presentation content */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #1e293b; }
-        ::-webkit-scrollbar-thumb { background: #eab308; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #ca8a04; }
-        
-        /* Animation utilities */
-        .animate-fadeIn {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* PRINT STYLES */
-        @media print {
-            body, #root { background-color: white !important; color: black !important; }
-            header { display: none !important; }
-            .no-print { display: none !important; }
-            
-            /* Reset Layout for Print */
-            .container { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
-            
-            /* Color Overrides for Print Legibility */
-            .text-slate-300, .text-slate-400, .text-white { color: #1e293b !important; } /* Dark Slate text */
-            .text-yellow-500, .text-yellow-400 { color: #d97706 !important; } /* Darker yellow/orange */
-            .text-red-400, .text-red-500 { color: #dc2626 !important; }
-            .text-green-400, .text-green-500 { color: #16a34a !important; }
-            
-            /* Remove Dark Backgrounds */
-            .bg-slate-800, .bg-slate-900 { 
-                background-color: white !important; 
-                border: 1px solid #cbd5e1 !important; /* Light gray border */
-                box-shadow: none !important;
-            }
-            .bg-red-900\/20 { background-color: #fee2e2 !important; } /* Light red bg */
-            .bg-yellow-500\/10 { background-color: #fef3c7 !important; } /* Light yellow bg */
-            .bg-blue-500\/10 { background-color: #e0f2fe !important; } /* Light blue bg */
-            
-            /* Typography */
-            h1, h2, h3 { color: black !important; }
-            p, li { color: #334155 !important; }
-            
-            /* Footer/Credits */
-            .print-footer { display: block !important; position: fixed; bottom: 0; width: 100%; text-align: center; font-size: 10px; color: #64748b; }
-        }
-        .print-footer { display: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rocklin Solar Repair</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- React & ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- Babel (to compile JSX in the browser) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
-    <div id="root"></div>
+  <div id="root"></div>
 
-    <script type="text/babel" data-type="module">
-        /*
-          =========================================================================
-          *** ROCKLIN SOLAR REPAIR WEB APP - MASTER CONTEXT ***
-          =========================================================================
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // --- Standalone Icon Definitions ---
+    const createIcon = (paths) => ({ size = 24, className = "", strokeWidth = 2 }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
+        {paths}
+      </svg>
+    );
+
+    const Sun = createIcon(<><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></>);
+    const CheckCircle = createIcon(<><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></>);
+    const AlertTriangle = createIcon(<><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></>);
+    const FileText = createIcon(<><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></>);
+    const Home = createIcon(<><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>);
+    const Camera = createIcon(<><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></>);
+    const ChevronRight = createIcon(<polyline points="9 18 15 12 9 6"/>);
+    const ChevronLeft = createIcon(<polyline points="15 18 9 12 15 6"/>);
+    const X = createIcon(<><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>);
+    const Maximize2 = createIcon(<><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></>);
+    const Minimize2 = createIcon(<><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></>);
+    const Upload = createIcon(<><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></>);
+    const ClipboardList = createIcon(<><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></>);
+    const DollarSign = createIcon(<><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>);
+    const ShieldAlert = createIcon(<><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></>);
+    const Menu = createIcon(<><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></>);
+    const HelpCircle = createIcon(<><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></>);
+    const Search = createIcon(<><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></>);
+    const Phone = createIcon(<><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></>);
+    const MapPin = createIcon(<><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>);
+    const Wrench = createIcon(<><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></>);
+    const Scale = createIcon(<><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></>);
+    const TrendingUp = createIcon(<><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></>);
+    const Clock = createIcon(<><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>);
+
+const App = () => {
+  // --- State Management ---
+  const [activeTab, setActiveTab] = useState('home');
+  const [presentationMode, setPresentationMode] = useState(false);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Photo Upload State
+  const [uploadedPhotos, setUploadedPhotos] = useState({
+    wiring: null,
+    soiling: null,
+    racking: null
+  });
+
+  useEffect(() => {
+    setCurrentSlideIndex(0);
+    setPresentationMode(false);
+    setIsMobileMenuOpen(false);
+  }, [activeTab]);
+
+  const handlePhotoUpload = (category, event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setUploadedPhotos(prev => ({
+        ...prev,
+        [category]: imageUrl
+      }));
+    }
+  };
+
+  // --- Content Data Structure ---
+  const contentData = {
+    home: [
+      {
+        title: "Rocklin Solar Repair",
+        subtitle: "Local Experts in Solar Inspections, Service & Repair",
+        type: "hero",
+        content: "Serving Placer, Sacramento, Nevada, Yolo, Sutter & El Dorado Counties.",
+        icon: <Sun className="w-20 h-20 text-yellow-500" />
+      },
+      {
+        title: "The Agent's Safe Harbor",
+        type: "text",
+        content: "We are strictly an inspection and repair company, not a sales organization. We provide unbiased assessments with NO pressure to buy a new system.",
+        icon: <ShieldAlert className="w-12 h-12 text-blue-600" />
+      },
+      {
+        title: "Our Services",
+        type: "list",
+        items: [
+          "Real Estate Transaction Inspections",
+          "System Maintenance & Repair",
+          "Bird Guard Installation",
+          "Solar Panel Cleaning"
+        ],
+        icon: <Wrench className="w-12 h-12 text-slate-700" />
+      }
+    ],
+    inspections: [
+      {
+        title: "Inspections 101",
+        subtitle: "Why inspect? 80% have issues.",
+        type: "hero",
+        content: "Most home inspectors do NOT touch solar. We bridge the gap. In our experience, 80% of systems have issues that pose a risk to the buyer.",
+        icon: <AlertTriangle className="w-16 h-16 text-orange-500" />
+      },
+      {
+        title: "Goal 1: Installation",
+        type: "comparison",
+        leftTitle: "City Inspector",
+        leftContent: "Checks for basic code compliance and structural safety at the time of install. They often stay on the ground.",
+        rightTitle: "Our Inspection",
+        rightContent: "A top-to-bottom physical check. We verify the condition of equipment, wiring, and racking years after the initial install.",
+        icon: <Home className="w-12 h-12 text-blue-600" />
+      },
+      {
+        title: "Goal 2: Performance",
+        type: "text",
+        content: "Is it actually saving money? We review the system's lifetime production against what was promised. If the inverter is dead, the home is just an expensive roof ornament.",
+        icon: <DollarSign className="w-12 h-12 text-green-600" />
+      },
+      {
+        title: "Goal 3: Client Education",
+        subtitle: "Answering the Buyer's Questions",
+        type: "list",
+        items: [
+          "What is my annual savings expectation?",
+          "Who do I call to transfer ownership?",
+          "Is there an active warranty?",
+          "How do I monitor it on my phone?",
+          "Who do I call for service?"
+        ],
+        icon: <HelpCircle className="w-12 h-12 text-purple-600" />
+      },
+      {
+        title: "From the Field",
+        subtitle: "Common Issues We Find",
+        type: "photo-upload",
+        content: "Upload examples from recent inspections to show agents what '80% failure' looks like.",
+        icon: <Camera className="w-12 h-12 text-slate-500" />
+      }
+    ],
+    tpo: [
+      {
+        title: "Mastering Solar Contracts",
+        subtitle: "Handshake or Handcuffs?",
+        type: "hero",
+        content: "Solar transfers are a common cause of delayed closings. TPO systems (Leases/PPAs) are 20-25 year commitments. We help you distinguish a routine transfer from a 'deal killer'.",
+        icon: <FileText className="w-16 h-16 text-indigo-600" />
+      },
+      {
+        title: "TPO 101: Lease vs. PPA",
+        type: "comparison",
+        leftTitle: "The Lease (Rent)",
+        leftContent: "Homeowner pays a fixed monthly 'rent' for the equipment. They use all the power produced. It's like leasing a car—flat fee regardless of mileage.",
+        rightTitle: "The PPA (Power Bill)",
+        rightContent: "Homeowner pays for the power generated at a set rate per kWh. It's like a utility bill—you pay for what you produce.",
+        icon: <Scale className="w-12 h-12 text-blue-600" />
+      },
+      {
+        title: "The Big 5 Framework",
+        subtitle: "The only variables that matter.",
+        type: "list",
+        items: [
+          "1. Price: Monthly payment amount or Cost per kWh.",
+          "2. Escalator: Does the cost rise annually? (Compound interest is powerful).",
+          "3. Transfer: Credit requirements (FICO 650+) and assignment fees.",
+          "4. Guarantee: Is production guaranteed? Is there a refund (True-Up)?",
+          "5. Equipment: Quality of panels and inverter maintenance responsibilities."
+        ],
+        icon: <CheckCircle className="w-12 h-12 text-green-600" />
+      },
+      {
+        title: "The Silent Killer: Escalators",
+        subtitle: "Compound Interest over 20 Years",
+        type: "comparison",
+        leftTitle: "0% vs 2.9% (Manageable)",
+        leftContent: "0% is best (flat forever). 2.9% is standard for older contracts. A $150 bill becomes $199 in Year 10 and $265 in Year 20.",
+        rightTitle: "3.5% (Aggressive)",
+        rightContent: "A 3.5% escalator is dangerous. A $150 bill becomes $300 in Year 20. This often exceeds utility rates, making the home harder to sell.",
+        icon: <TrendingUp className="w-12 h-12 text-red-500" />
+      },
+      {
+        title: "Case Study: Good vs. Bad",
+        subtitle: "Real Provider Comparisons",
+        type: "table",
+        headers: ["Feature", "The Bad (Provider A)", "The Good (Provider B)"],
+        rows: [
+          ["Starting Rate", "$0.310 / kWh", "$0.150 / kWh"],
+          ["Escalator", "3.50% Annually", "2.90% Annually"],
+          ["Est. Payment (Yr 1)", "~$295 / month", "~$106 / month"],
+          ["Break-even Point", "Immediate loss vs Grid", "Immediate savings vs Grid"],
+          ["Impact on Sale", "High Risk: Buyer Refusal", "Low Risk: Asset to Home"]
+        ],
+        icon: <Search className="w-12 h-12 text-slate-600" />
+      },
+      {
+        title: "The Transfer Process",
+        subtitle: "Don't Wait Until Closing",
+        type: "list",
+        items: [
+          "Step 1: Notify Solar Company immediately upon listing.",
+          "Step 2: Buyer submits credit application (Usually FICO 650+).",
+          "Step 3: Review the Transfer Agreement.",
+          "Step 4: Seller clears any outstanding payments.",
+          "Step 5: Title company records the UCC-1 termination/refiling."
+        ],
+        icon: <Clock className="w-12 h-12 text-blue-500" />
+      },
+      {
+        title: "Title Issues: UCC-1",
+        type: "text",
+        content: "A UCC-1 is a 'Fixture Filing' that appears on the title report. It indicates a TPO system. Sellers often mistakenly believe they own the system because they forget about the lease. The Preliminary Title Report reveals the truth.",
+        icon: <FileText className="w-12 h-12 text-yellow-600" />
+      }
+    ],
+    sellers: [
+      {
+        title: "Preparing for Sale",
+        subtitle: "Turn a Liability into an Asset",
+        type: "hero",
+        content: "A confusing solar system scares buyers. A well-documented, performing system justifies a higher asking price.",
+        icon: <Home className="w-16 h-16 text-green-600" />
+      },
+      {
+        title: "The Financial One-Pager",
+        type: "comparison",
+        leftTitle: "Without Data",
+        leftContent: "Buyer sees a monthly lease payment and assumes it's a debt/burden.",
+        rightTitle: "With Our Report",
+        rightContent: "Buyer sees a $10 utility bill vs. a $300 neighbor's bill. The solar payment is now an investment, not a debt.",
+        icon: <FileText className="w-12 h-12 text-blue-600" />
+      },
+      {
+        title: "The NEM 2.0 Asset",
+        type: "text",
+        content: "In PG&E territory, 'Grandfathered' NEM 2.0 status stays with the meter/system, not the owner. Verify this via the Utility Bill. This status is worth thousands in avoided costs compared to new NEM 3.0 rates.",
+        icon: <Sun className="w-12 h-12 text-yellow-500" />
+      }
+    ],
+    checklist: [
+      {
+        title: "Agent Checklist",
+        subtitle: "Documents needed BEFORE listing",
+        type: "hero",
+        content: "Don't wait until closing. Collect these 4 items immediately to prevent escrow delays.",
+        icon: <ClipboardList className="w-16 h-16 text-teal-600" />
+      },
+      {
+        title: "1. The Contract",
+        type: "text",
+        content: "Don't rely on memory. Get the TPO agreement to check the 'Big 5': Price, Escalator, Transfer fees, Guarantee, and Equipment quality.",
+        icon: <FileText className="w-12 h-12 text-indigo-600" />
+      },
+      {
+        title: "2. Title Report",
+        type: "text",
+        content: "Confirm ownership early. Look for the UCC-1 filing. If it exists, it's likely a TPO system. Note the company name listed.",
+        icon: <Search className="w-12 h-12 text-slate-500" />
+      },
+      {
+        title: "3. Utility Bill",
+        type: "text",
+        content: "Ask for 12 months of bills or the 'True-Up' statement. This confirms annual usage and the Net Metering program (NEM 2.0 vs 3.0).",
+        icon: <DollarSign className="w-12 h-12 text-green-600" />
+      },
+      {
+        title: "4. Schedule Inspection",
+        type: "text",
+        content: "Verify the system is actually working. A broken inverter discovered during the final walkthrough is a guaranteed closing delay.",
+        icon: <Wrench className="w-12 h-12 text-purple-600" />
+      }
+    ]
+  };
+
+  // --- Components ---
+
+  const NavItem = ({ id, label, icon: Icon }) => (
+    <button
+      onClick={() => setActiveTab(id)}
+      className={`flex items-center space-x-2 px-4 py-3 rounded-lg transition-all duration-200 w-full md:w-auto text-left
+        ${activeTab === id 
+          ? 'bg-yellow-500 text-slate-900 shadow-md font-bold' 
+          : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+        }`}
+    >
+      <Icon size={20} />
+      <span>{label}</span>
+    </button>
+  );
+
+  const PhotoUploadCard = ({ category, label }) => (
+    <div className="bg-white p-6 rounded-xl shadow-md border border-slate-200 flex flex-col items-center text-center hover:shadow-lg transition-shadow">
+      <h3 className="font-bold text-lg text-slate-800 mb-4">{label}</h3>
+      
+      <div className="w-full aspect-video bg-slate-100 rounded-lg mb-4 flex items-center justify-center overflow-hidden relative group">
+        {uploadedPhotos[category] ? (
+          <>
+            <img 
+              src={uploadedPhotos[category]} 
+              alt={label} 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+               <span className="text-white text-sm font-medium">Click to Change</span>
+            </div>
+          </>
+        ) : (
+          <div className="text-slate-400 flex flex-col items-center">
+            <Camera size={40} className="mb-2" />
+            <span className="text-sm">No photo uploaded</span>
+          </div>
+        )}
+        <input 
+          type="file" 
+          accept="image/*"
+          onChange={(e) => handlePhotoUpload(category, e)}
+          className="absolute inset-0 opacity-0 cursor-pointer"
+        />
+      </div>
+      
+      <label className="cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg font-medium text-sm transition-colors flex items-center gap-2 border border-slate-300">
+        <Upload size={16} />
+        {uploadedPhotos[category] ? 'Replace Photo' : 'Upload Photo'}
+        <input 
+          type="file" 
+          accept="image/*"
+          onChange={(e) => handlePhotoUpload(category, e)}
+          className="hidden"
+        />
+      </label>
+    </div>
+  );
+
+  // --- Renderers ---
+
+  const renderSlideContent = (slide) => {
+    switch (slide.type) {
+      case 'hero':
+        return (
+          <div className="text-center max-w-5xl mx-auto">
+            <div className="flex justify-center mb-8 animate-bounce-slow">
+              {slide.icon}
+            </div>
+            <h1 className={`${presentationMode ? 'text-6xl' : 'text-5xl'} font-extrabold text-slate-900 mb-6 tracking-tight`}>
+              {slide.title}
+            </h1>
+            <h2 className={`${presentationMode ? 'text-4xl' : 'text-2xl'} font-medium text-blue-700 mb-8`}>
+              {slide.subtitle}
+            </h2>
+            <p className={`${presentationMode ? 'text-3xl' : 'text-xl'} text-slate-600 leading-relaxed max-w-3xl mx-auto`}>
+              {slide.content}
+            </p>
+          </div>
+        );
+      case 'list':
+        return (
+          <div className="max-w-5xl mx-auto w-full">
+            <div className="flex items-center gap-4 mb-8">
+              {slide.icon}
+              <h2 className={`${presentationMode ? 'text-5xl' : 'text-4xl'} font-bold text-slate-900`}>{slide.title}</h2>
+            </div>
+            {slide.subtitle && (
+              <h3 className={`${presentationMode ? 'text-3xl' : 'text-2xl'} text-blue-700 mb-8 font-semibold`}>{slide.subtitle}</h3>
+            )}
+            <ul className="space-y-6">
+              {slide.items.map((item, idx) => (
+                <li key={idx} className={`flex items-start gap-4 p-6 bg-white rounded-xl shadow-sm border-l-4 border-yellow-500 ${presentationMode ? 'text-3xl' : 'text-xl'} text-slate-800`}>
+                  <div className="mt-1 min-w-[24px]">
+                    <ChevronRight className="text-blue-600" strokeWidth={3} />
+                  </div>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      case 'comparison':
+        return (
+          <div className="max-w-6xl mx-auto w-full">
+            <h2 className={`${presentationMode ? 'text-5xl' : 'text-4xl'} font-bold text-slate-900 text-center mb-12`}>{slide.title}</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-red-50 p-10 rounded-2xl border-2 border-red-100 shadow-sm">
+                <h3 className={`${presentationMode ? 'text-3xl' : 'text-2xl'} font-bold text-red-700 mb-4 flex items-center gap-2`}>
+                   <X className="w-8 h-8" /> {slide.leftTitle}
+                </h3>
+                <p className={`${presentationMode ? 'text-2xl' : 'text-lg'} text-red-900/80 leading-relaxed`}>{slide.leftContent}</p>
+              </div>
+              <div className="bg-green-50 p-10 rounded-2xl border-2 border-green-100 shadow-sm">
+                <h3 className={`${presentationMode ? 'text-3xl' : 'text-2xl'} font-bold text-green-700 mb-4 flex items-center gap-2`}>
+                   <CheckCircle className="w-8 h-8" /> {slide.rightTitle}
+                </h3>
+                <p className={`${presentationMode ? 'text-2xl' : 'text-lg'} text-green-900/80 leading-relaxed`}>{slide.rightContent}</p>
+              </div>
+            </div>
+          </div>
+        );
+      case 'table':
+        return (
+          <div className="max-w-6xl mx-auto w-full">
+             <div className="flex items-center gap-4 mb-8 justify-center">
+              {slide.icon}
+              <h2 className={`${presentationMode ? 'text-5xl' : 'text-4xl'} font-bold text-slate-900`}>{slide.title}</h2>
+            </div>
+             <h3 className={`${presentationMode ? 'text-3xl' : 'text-2xl'} text-blue-700 mb-8 font-semibold text-center`}>{slide.subtitle}</h3>
+             
+             <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
+               <div className="grid grid-cols-3 bg-slate-900 text-white p-6 font-bold text-lg md:text-xl">
+                 {slide.headers.map((header, idx) => (
+                   <div key={idx} className={idx === 0 ? "text-left" : "text-center"}>{header}</div>
+                 ))}
+               </div>
+               {slide.rows.map((row, idx) => (
+                 <div key={idx} className={`grid grid-cols-3 p-6 border-b border-slate-100 items-center ${idx % 2 === 0 ? 'bg-slate-50' : 'bg-white'}`}>
+                   <div className={`font-bold text-slate-700 ${presentationMode ? 'text-2xl' : 'text-lg'}`}>{row[0]}</div>
+                   <div className={`text-center text-red-600 font-medium ${presentationMode ? 'text-2xl' : 'text-lg'}`}>{row[1]}</div>
+                   <div className={`text-center text-green-600 font-bold ${presentationMode ? 'text-2xl' : 'text-lg'}`}>{row[2]}</div>
+                 </div>
+               ))}
+             </div>
+          </div>
+        );
+      case 'photo-upload':
+        return (
+          <div className="max-w-6xl mx-auto w-full">
+            <h2 className={`${presentationMode ? 'text-5xl' : 'text-4xl'} font-bold text-slate-900 mb-6 text-center`}>{slide.title}</h2>
+            <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto text-xl">{slide.content}</p>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              <PhotoUploadCard category="wiring" label="Exposed Wiring" />
+              <PhotoUploadCard category="soiling" label="Heavy Soiling" />
+              <PhotoUploadCard category="racking" label="Racking Damage" />
+            </div>
+          </div>
+        );
+      default: // text
+        return (
+          <div className="max-w-5xl mx-auto">
+            <div className="flex items-center gap-4 mb-8">
+              {slide.icon}
+              <h2 className={`${presentationMode ? 'text-5xl' : 'text-4xl'} font-bold text-slate-900`}>{slide.title}</h2>
+            </div>
+            {slide.subtitle && (
+              <h3 className={`${presentationMode ? 'text-3xl' : 'text-2xl'} text-blue-700 mb-8 font-semibold`}>{slide.subtitle}</h3>
+            )}
+            <p className={`${presentationMode ? 'text-4xl leading-loose' : 'text-xl leading-loose'} text-slate-700`}>
+              {slide.content}
+            </p>
+          </div>
+        );
+    }
+  };
+
+  // --- Main Render Block ---
+  const currentSlides = contentData[activeTab];
+
+  return (
+    <div className={`min-h-screen font-sans ${presentationMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
+      
+      {/* --- Navigation (Hidden in Presentation Mode) --- */}
+      {!presentationMode && (
+        <nav className="bg-slate-900 sticky top-0 z-50 shadow-lg border-b border-slate-800">
+          {/* Top Bar Contact Info */}
+          <div className="bg-yellow-500 text-slate-900 py-1 px-4 text-xs font-bold text-center sm:text-right sm:px-8">
+            CALL NOW: 916-741-0194
+          </div>
           
-          STATUS:
-          - HOME: LOCKED
-          - INSPECTIONS 101: LOCKED
-          - TPO & LEASES: LOCKED
-          - FOR SELLERS: LOCKED
-          - AGENT CHECKLIST: LOCKED (Cleaned & Fixed)
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-20">
+              <div className="flex items-center gap-3">
+                <Sun className="h-10 w-10 text-yellow-500" />
+                <div className="flex flex-col">
+                    <span className="font-extrabold text-xl text-white tracking-tight leading-none">ROCKLIN</span>
+                    <span className="font-bold text-lg text-slate-300 tracking-wide leading-none">SOLAR REPAIR</span>
+                </div>
+              </div>
+              
+              {/* Desktop Nav */}
+              <div className="hidden md:flex space-x-1 items-center">
+                <NavItem id="home" label="Home" icon={Home} />
+                <NavItem id="inspections" label="Inspections 101" icon={Camera} />
+                <NavItem id="tpo" label="TPO & Leases" icon={FileText} />
+                <NavItem id="sellers" label="For Sellers" icon={DollarSign} />
+                <NavItem id="checklist" label="Agent Checklist" icon={ClipboardList} />
+              </div>
+
+              {/* Mobile Menu Button */}
+              <div className="md:hidden flex items-center">
+                <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white p-2 hover:bg-slate-800 rounded">
+                  {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+              </div>
+            </div>
+          </div>
           
-          =========================================================================
-        */
+          {/* Mobile Nav Dropdown */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden bg-slate-800 border-t border-slate-700 px-4 pt-2 pb-4 space-y-2 shadow-lg">
+                <NavItem id="home" label="Home" icon={Home} />
+                <NavItem id="inspections" label="Inspections 101" icon={Camera} />
+                <NavItem id="tpo" label="TPO & Leases" icon={FileText} />
+                <NavItem id="sellers" label="For Sellers" icon={DollarSign} />
+                <NavItem id="checklist" label="Agent Checklist" icon={ClipboardList} />
+            </div>
+          )}
+        </nav>
+      )}
 
-        import React, { useState, useRef, useEffect } from 'react';
-        import { createRoot } from 'react-dom/client';
-        import { 
-            Sun, ChevronRight, ChevronLeft, Camera, FileText, CheckCircle, 
-            AlertTriangle, Home, DollarSign, Menu, X, Phone, Upload, 
-            BookOpen, ShieldCheck, Wrench, Image as ImageIcon, BarChart3,
-            MapPin, Calendar, Award, Maximize2, Minimize2, ExternalLink,
-            ThumbsUp, ThumbsDown, Scale, FileSearch, ArrowRight, Printer, Square
-        } from 'lucide-react';
+      {/* --- Content Area --- */}
+      <main className={`transition-all duration-300 ${presentationMode ? 'h-screen w-screen overflow-hidden flex flex-col' : 'max-w-7xl mx-auto px-4 py-8 pb-32'}`}>
+        
+        {/* Presentation Toggle Bar */}
+        <div className={`flex justify-end items-center mb-6 ${presentationMode ? 'absolute top-6 right-6 z-50' : ''}`}>
+          <button 
+            onClick={() => setPresentationMode(!presentationMode)}
+            className={`flex items-center gap-2 px-6 py-2 rounded-full font-bold shadow-lg transition-all border-2
+              ${presentationMode 
+                ? 'bg-red-600 hover:bg-red-700 text-white border-red-500' 
+                : 'bg-slate-900 hover:bg-slate-800 text-yellow-500 border-slate-900'
+              }`}
+          >
+            {presentationMode ? (
+              <>
+                <Minimize2 size={18} /> Exit Presentation
+              </>
+            ) : (
+              <>
+                <Maximize2 size={18} /> Start Presentation
+              </>
+            )}
+          </button>
+        </div>
 
-        const APP_VERSION = "1.7.1";
+        {/* View Logic */}
+        {presentationMode ? (
+          // --- Presentation Mode View ---
+          <div className="flex-1 bg-white flex items-center justify-center p-12 relative">
+            {/* Slide Content */}
+            <div className="w-full max-w-7xl animate-fade-in">
+              {renderSlideContent(currentSlides[currentSlideIndex])}
+            </div>
 
-        // --- IMAGE CONFIGURATION LIST ---
-        const projectImages = {
-            // --- HOME PAGE ---
-            logo: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/RSR%20Logo%20Sun.png?raw=true", 
+            {/* Navigation Controls */}
+            <div className="absolute bottom-0 left-0 right-0 h-24 bg-slate-900 border-t border-slate-800 flex items-center justify-between px-12 text-white">
+              <button 
+                onClick={() => setCurrentSlideIndex(Math.max(0, currentSlideIndex - 1))}
+                disabled={currentSlideIndex === 0}
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white font-bold hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              >
+                <ChevronLeft size={24} /> Previous
+              </button>
+
+              <div className="flex gap-2">
+                {currentSlides.map((_, idx) => (
+                  <div 
+                    key={idx} 
+                    className={`h-3 rounded-full transition-all duration-300 ${idx === currentSlideIndex ? 'w-12 bg-yellow-500' : 'w-3 bg-slate-700'}`}
+                  />
+                ))}
+              </div>
+
+              <button 
+                onClick={() => setCurrentSlideIndex(Math.min(currentSlides.length - 1, currentSlideIndex + 1))}
+                disabled={currentSlideIndex === currentSlides.length - 1}
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-yellow-500 text-slate-900 font-bold hover:bg-yellow-400 disabled:opacity-50 disabled:bg-slate-700 disabled:text-slate-500 disabled:cursor-not-allowed transition-colors shadow-md"
+              >
+                Next <ChevronRight size={24} />
+              </button>
+            </div>
+          </div>
+        ) : (
+          // --- Web Scroll View ---
+          <div className="space-y-16 animate-fade-in-up">
+            {currentSlides.map((slide, idx) => (
+              <div key={idx} className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                {renderSlideContent(slide)}
+              </div>
+            ))}
+          </div>
+        )}
+
+      </main>
+
+      {/* --- Footer (Web Only) --- */}
+      {!presentationMode && (
+        <footer className="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <div className="flex flex-col items-center gap-2 mb-6">
+              <Sun className="text-yellow-500 h-12 w-12" />
+              <span className="text-white font-extrabold text-2xl tracking-tight">ROCKLIN SOLAR REPAIR</span>
+            </div>
             
-            // --- INSPECTIONS 101 ---
-            qrCode: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/QR%20code.png?raw=true",
-            slide_goal: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/Happy%20couple%20with%20agent.jpg?raw=true",
-            slide_reality: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/8%20out%20of%2010%20houses%20have%20issues.jpg?raw=true",
-            slide_confusion: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/Solar%20salesman.png?raw=true",
-            slide_ownership: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/two%20ways%20to%20get%20solar.jpg?raw=true",
-            slide_goals: null, 
-            slide_cost: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/$299%20is%20a%20value.jpg?raw=true",
-            
-            slide_myth1: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/New%20solar%20home.jpg?raw=true",
-            slide_myth2: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/Utility%20bill.png?raw=true",
-            slide_myth3: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/Leased%20system.png?raw=true",
-
-            slide_wildwest: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/Gold%20miner.png?raw=true",
-            slide_inspector: null,
-            slide_report: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/Spectora%20report.png?raw=true",
-            
-            slide_fixit: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/Erin%20Steve%20Rob.jpg?raw=true",
-            slide_service: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/Solar%20panel%20cleaning.png?raw=true",
-            cslb_logo: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/CSLB%20Logo.png?raw=true",
-
-            slide17_app: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/battery%20app.png?raw=true",
-            slide17_pic: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/battery%20pic.png?raw=true",
-            
-            slide_questions: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/Confused%20homeowners.png?raw=true",
-            slide19_logo: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/RSR%20Logo%20Sun.png?raw=true",
-
-            slide12_wiring: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/Exposed%20wire.jpg?raw=true",
-            slide12_flashing: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/No%20flashing.png?raw=true",
-            slide12_negligence: "https://github.com/erinjclark-jpg/solar-app/blob/main/images/End%20clamp%20not%20installed.png?raw=true",
-
-            // --- TPO & LEASES ---
-            tpo_options: null,             
-            tpo_logos: null,               
-            tpo_contract: null,            
-            tpo_discrepancy_panels: null,  
-            tpo_discrepancy_equip: null,   
-            tpo_guarantee_table: null,     
-            tpo_no_guarantee: null,        
-            
-            // --- FOR SELLERS & CHECKLIST ---
-            // Using existing assets or icons for now
-        };
-
-        const App = () => {
-            const [activeTab, setActiveTab] = useState(() => {
-                const hash = window.location.hash.replace('#', '');
-                const validTabs = ['home', 'inspections', 'tpo', 'sellers', 'checklist'];
-                return validTabs.includes(hash) ? hash : 'home';
-            });
-
-            const [isPresenting, setIsPresenting] = useState(false);
-            const [currentSlide, setCurrentSlide] = useState(0);
-            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-            const [uploadedImages, setUploadedImages] = useState({
-                wiring: null,
-                flashing: null,
-                negligence: null
-            });
-
-            useEffect(() => {
-                const params = new URLSearchParams(window.location.search);
-                if (params.get('presentation') === 'true') {
-                    setIsPresenting(true);
-                }
-            }, []);
-
-            const handleTabChange = (tab) => {
-                setActiveTab(tab);
-                window.location.hash = tab; 
-                setCurrentSlide(0);
-                setIsPresenting(false);
-                setIsMobileMenuOpen(false);
-            };
-
-            const togglePresentation = () => {
-                // DETECT IF RUNNING IN IFRAME
-                const isInIframe = window.self !== window.top;
-
-                // If in iframe and entering presentation mode, open in new tab
-                if (isInIframe && !isPresenting) {
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('presentation', 'true');
-                    url.hash = activeTab;
-                    window.open(url.toString(), '_blank');
-                    return;
-                }
-
-                const newIsPresenting = !isPresenting;
-                setIsPresenting(newIsPresenting);
-                setCurrentSlide(0);
-                setIsMobileMenuOpen(false);
-
-                if (newIsPresenting) {
-                    const elem = document.documentElement;
-                    if (elem.requestFullscreen) {
-                        elem.requestFullscreen().catch(err => console.log(err));
-                    }
-                } else {
-                    if (document.exitFullscreen && document.fullscreenElement) {
-                        document.exitFullscreen().catch(err => console.log(err));
-                    }
-                }
-            };
-
-            const nextSlide = () => {
-                const totalSlides = contentData[activeTab].length;
-                if (currentSlide < totalSlides - 1) setCurrentSlide(currentSlide + 1);
-            };
-
-            const prevSlide = () => {
-                if (currentSlide > 0) setCurrentSlide(currentSlide - 1);
-            };
-
-            const handleImageUpload = (key, event) => {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                        setUploadedImages(prev => ({
-                            ...prev,
-                            [key]: reader.result
-                        }));
-                    };
-                    reader.readAsDataURL(file);
-                }
-            };
-
-            const handlePrint = () => {
-                window.print();
-            };
-
-            // UPDATED: Now supports custom classes for size control
-            const RenderImageOrFallback = ({ imageKey, alt, fallback, className }) => {
-                if (projectImages[imageKey]) {
-                    return (
-                        <div className="w-full flex justify-center mb-6">
-                            <img 
-                                src={projectImages[imageKey]} 
-                                alt={alt} 
-                                className={`${className || "max-h-[40vh] md:max-h-[50vh]"} w-auto rounded-lg shadow-lg object-contain border border-slate-700 bg-slate-800`}
-                                onError={(e) => {
-                                    e.target.onerror = null; 
-                                    e.target.style.display = 'none';
-                                    if (e.target.nextSibling) e.target.nextSibling.style.display = 'block';
-                                }}
-                            />
-                            <div className="hidden">{fallback}</div>
-                        </div>
-                    );
-                }
-                return fallback;
-            };
-
-            // --- Data / Content Structure ---
-            const contentData = {
-                // =========================================================================
-                // *** LOCKED CONTENT: HOME PAGE ***
-                // =========================================================================
-                home: [
-                    {
-                        title: "Rocklin Solar Repair",
-                        subtitle: "The Real Estate Agent's Secret Weapon",
-                        headerLogo: projectImages.logo, // Moved Logo to Header
-                        content: (
-                            <div className="text-center space-y-8 mt-8">
-                                <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
-                                    Real Estate Inspections <span className="text-yellow-500">&</span> System Repairs
-                                </h1>
-
-                                <p className="text-2xl md:text-4xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
-                                    We are strictly an <span className="text-white font-bold">inspection and repair company</span>, 
-                                    not a sales organization. We provide unbiased assessments with no pressure to buy a new system.
-                                </p>
-
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left">
-                                    <div className="bg-slate-800 p-8 rounded-lg border-t-8 border-yellow-500 shadow-lg">
-                                        <CheckCircle className="text-yellow-500 mb-4" size={48} />
-                                        <h3 className="text-3xl font-bold text-white mb-2">Licensed C-46</h3>
-                                        <p className="text-slate-400 text-xl">Professional contractors (Lic# 1050566) who can quote and fix issues immediately.</p>
-                                    </div>
-                                    <div className="bg-slate-800 p-8 rounded-lg border-t-8 border-yellow-500 shadow-lg">
-                                        <FileText className="text-yellow-500 mb-4" size={48} />
-                                        <h3 className="text-3xl font-bold text-white mb-2">Detailed Reports</h3>
-                                        <p className="text-slate-400 text-xl">Digital, interactive reports that make negotiation easy and transparent.</p>
-                                    </div>
-                                    <div className="bg-slate-800 p-8 rounded-lg border-t-8 border-yellow-500 shadow-lg">
-                                        <ShieldCheck className="text-yellow-500 mb-4" size={48} />
-                                        <h3 className="text-3xl font-bold text-white mb-2">Unbiased Expert</h3>
-                                        <p className="text-slate-400 text-xl">We don't sell solar panels. We just make sure they work and are safe.</p>
-                                    </div>
-                                </div>
-                                
-                                <div className="mt-12 p-6 bg-slate-800/50 rounded-lg inline-block">
-                                    <p className="text-2xl text-slate-300 font-mono">CA License # 1050566 • Bonded • Insured</p>
-                                </div>
-                            </div>
-                        )
-                    }
-                ],
-                // =========================================================================
-                // *** LOCKED CONTENT: INSPECTIONS 101 ***
-                // =========================================================================
-                inspections: [
-                    {
-                        title: "About Rocklin Solar Repair",
-                        content: (
-                            <div className="flex flex-col items-center justify-center">
-                                <div className="mb-4">
-                                    <RenderImageOrFallback 
-                                        imageKey="logo" 
-                                        alt="RSR Logo" 
-                                        className="max-h-[28vh] md:max-h-[35vh]"
-                                        fallback={<Sun size={120} className="text-yellow-500" />} 
-                                    />
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-6xl text-left">
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex items-center">
-                                        <div className="bg-yellow-500/10 p-4 rounded-full mr-6">
-                                            <Calendar size={48} className="text-yellow-500" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-2xl font-bold text-white">Established 2005</h3>
-                                            <p className="text-xl text-slate-400">20 Years of Solar Experience</p>
-                                        </div>
-                                    </div>
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex items-center">
-                                        <div className="bg-yellow-500/10 p-4 rounded-full mr-6">
-                                            <Award size={48} className="text-yellow-500" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-2xl font-bold text-white">Dual Licensed</h3>
-                                            <p className="text-xl text-slate-400">CSLB #1050566 • General B & Solar C-46</p>
-                                        </div>
-                                    </div>
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex items-center">
-                                        <div className="bg-yellow-500/10 p-4 rounded-full mr-6">
-                                            <Wrench size={48} className="text-yellow-500" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-2xl font-bold text-white">Proven Track Record</h3>
-                                            <p className="text-xl text-slate-400">Installed or Repaired Hundreds of Systems</p>
-                                        </div>
-                                    </div>
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 flex items-center">
-                                        <div className="bg-yellow-500/10 p-4 rounded-full mr-6">
-                                            <MapPin size={48} className="text-yellow-500" />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-2xl font-bold text-white">Local & Reliable</h3>
-                                            <p className="text-xl text-slate-400">Based in Rocklin • Serving Northern CA</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Booking",
-                        content: (
-                            <div className="flex flex-col items-center space-y-8">
-                                <p className="text-4xl">Call, Email, or Scan to Book.</p>
-                                <div className="transform scale-110 my-8">
-                                    <RenderImageOrFallback 
-                                        imageKey="qrCode" 
-                                        alt="Booking QR Code" 
-                                        fallback={
-                                            <div className="bg-white p-4 rounded-lg shadow-xl">
-                                                <div className="w-64 h-64 bg-slate-200 flex items-center justify-center text-slate-900 font-bold text-center text-xl p-4">
-                                                    SCAN TO BOOK<br/>INSPECTION
-                                                </div>
-                                            </div>
-                                        }
-                                    />
-                                </div>
-                                <p className="text-yellow-500 text-6xl font-bold tracking-wider">916-741-0194</p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Goal",
-                        content: (
-                            <div>
-                                <RenderImageOrFallback 
-                                    imageKey="slide_goal" 
-                                    alt="Goal of Inspection" 
-                                    fallback={null} 
-                                    className="max-h-[40vh] md:max-h-[50vh]"
-                                />
-                                <p className="text-4xl md:text-5xl mt-8 leading-normal">Make the transaction go smoothly. Eliminate the <span className="text-yellow-500 font-bold">"Solar Blind Spot"</span> that kills deals.</p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Reality",
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_reality" alt="80% Issues" fallback={null} />
-                                <p className="text-4xl md:text-5xl mt-8 leading-normal">In our experience, <span className="text-red-400 font-bold">80% of residential solar systems</span> have minor to major issues that need to be addressed.</p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Ownership",
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_ownership" alt="Ownership Types" fallback={null} />
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl mt-8">
-                                    <div className="bg-slate-800 p-8 rounded border-l-8 border-yellow-500">
-                                        <h3 className="text-4xl font-bold mb-4">Purchase/Loan</h3>
-                                        <p className="text-3xl text-slate-300">The <strong>Homeowner</strong> owns the equipment. The loan is just debt.</p>
-                                    </div>
-                                    <div className="bg-slate-800 p-8 rounded border-l-8 border-yellow-500">
-                                        <h3 className="text-4xl font-bold mb-4">TPO (Lease/PPA)</h3>
-                                        <p className="text-3xl text-slate-300">The <strong>TPO Provider</strong> owns the equipment. The homeowner just rents it.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Solar Financing: TPO",
-                        subtitle: "Third Party Ownership",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center">
-                                <p className="text-2xl mb-8">Two flavors of the same concept:</p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mb-8">
-                                    <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-yellow-500 text-left">
-                                        <h3 className="text-3xl font-bold mb-2">Lease</h3>
-                                        <p className="text-xl text-slate-300">You rent the <strong>equipment</strong>.</p>
-                                        <p className="mt-4 text-sm text-slate-400">Example: $150/month fixed rent for the panels on the roof.</p>
-                                    </div>
-                                    <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-blue-500 text-left">
-                                        <h3 className="text-3xl font-bold mb-2">PPA</h3>
-                                        <p className="text-xl text-slate-300">You buy the <strong>power</strong>.</p>
-                                        <p className="mt-4 text-sm text-slate-400">Example: $0.18 per kWh produced by the system.</p>
-                                    </div>
-                                </div>
-                                <div className="bg-slate-800/50 p-6 rounded-lg max-w-4xl text-left border border-slate-600">
-                                    <p className="text-2xl font-bold text-yellow-500 mb-2">Why do both exist?</p>
-                                    <p className="text-xl text-slate-300 leading-relaxed">
-                                        Mainly due to regulatory laws. In some states, selling power (kWh) classifies you as a "Utility" (illegal for private companies). 
-                                        To bypass this, they "lease equipment" instead. In California, both are legal, but the end result is effectively the same: <strong>You do not own the system.</strong>
-                                    </p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Confusion",
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_confusion" alt="Confusion" fallback={null} />
-                                <p className="text-4xl mt-8 leading-normal">The "Average Salesperson" signed them up for 25 years but didn't explain the fine print. Homeowners often don't know what they own.</p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Batteries",
-                        content: (
-                            <div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <RenderImageOrFallback imageKey="slide17_pic" alt="Battery Install" fallback={null} />
-                                    <RenderImageOrFallback imageKey="slide17_app" alt="Battery Monitor" fallback={null} />
-                                </div>
-                                <div className="flex flex-col gap-6 text-left max-w-4xl mx-auto mt-8">
-                                    <div className="p-6 bg-slate-800 rounded">
-                                        <p className="text-3xl"><strong className="text-yellow-500">Backup:</strong> Keeps lights on when grid goes down.</p>
-                                    </div>
-                                    <div className="p-6 bg-slate-800 rounded">
-                                        <p className="text-3xl"><strong className="text-yellow-500">Arbitrage:</strong> Stores cheap solar power to use when rates are high (4pm-9pm).</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "3 Goals of Inspection",
-                        content: (
-                            <div className="w-full">
-                                <RenderImageOrFallback 
-                                imageKey="slide_goals" 
-                                alt="3 Goals" 
-                                fallback={
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-4">
-                                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 flex flex-col items-center text-center shadow-lg">
-                                            <div className="bg-yellow-500/20 p-6 rounded-full mb-6">
-                                                <ShieldCheck size={64} className="text-yellow-500" />
-                                            </div>
-                                            <h3 className="text-3xl font-bold text-white mb-4">1. Install Quality</h3>
-                                            <p className="text-slate-300 text-2xl">We document condition: "How well was it installed?"</p>
-                                        </div>
-                                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 flex flex-col items-center text-center shadow-lg">
-                                            <div className="bg-yellow-500/20 p-6 rounded-full mb-6">
-                                                <BarChart3 size={64} className="text-yellow-500" />
-                                            </div>
-                                            <h3 className="text-3xl font-bold text-white mb-4">2. Performance</h3>
-                                            <p className="text-slate-300 text-2xl">Lifetime production check: "Is it saving money?"</p>
-                                        </div>
-                                        <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 flex flex-col items-center text-center shadow-lg">
-                                            <div className="bg-yellow-500/20 p-6 rounded-full mb-6">
-                                                <BookOpen size={64} className="text-yellow-500" />
-                                            </div>
-                                            <h3 className="text-3xl font-bold text-white mb-4">3. Education</h3>
-                                            <p className="text-slate-300 text-2xl">Answering the big question: "What am I actually getting?"</p>
-                                        </div>
-                                    </div>
-                                } 
-                                />
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Pushback - Cost",
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_cost" alt="Cost Benefit" fallback={null} />
-                                <p className="text-5xl font-bold">"Another $299?!"</p>
-                                <p className="text-slate-300 text-3xl mt-6 leading-relaxed">Here is why it pays back in spades. <br/>Avoiding a bad TPO agreement or non working system, covers the cost immediately.</p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Common Objections",
-                        content: (
-                            <div className="space-y-6 w-full max-w-5xl">
-                                <div className="p-8 bg-slate-800 rounded text-3xl md:text-4xl">"It's a new home, surely it's fine."</div>
-                                <div className="p-8 bg-slate-800 rounded text-3xl md:text-4xl">"I have negative bills, it must be working."</div>
-                                <div className="p-8 bg-slate-800 rounded text-3xl md:text-4xl">"It's a leased system, the company covers it."</div>
-                            </div>
-                        )
-                    },
-                    // --- SPLIT MYTHS SLIDES ---
-                    {
-                        title: "Myth 1: New Home",
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_myth1" alt="New Home" fallback={null} />
-                                <p className="text-4xl text-slate-400 italic mb-6">"It's a new home, surely it was inspected and works fine."</p>
-                                <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-red-500 text-left mx-auto max-w-4xl">
-                                    <p className="text-4xl leading-relaxed text-white">
-                                        <strong className="text-red-400 block mb-2">Reality:</strong> 
-                                        Builders often use the lowest bidders. We often find installation and commissioning errors.
-                                    </p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Myth 2: Negative Bills",
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_myth2" alt="Negative Bills" fallback={null} />
-                                <p className="text-4xl text-slate-400 italic mb-6">"I have credits on my bill! It must be working perfectly."</p>
-                                <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-red-500 text-left mx-auto max-w-4xl">
-                                    <p className="text-4xl leading-relaxed text-white">
-                                        <strong className="text-red-400 block mb-2">Reality:</strong> 
-                                        You can have credits while a fire hazard cooks on your roof. Efficiency does not equal Safety.
-                                    </p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Myth 3: Leased System",
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_myth3" alt="Leased System" fallback={null} />
-                                <p className="text-4xl text-slate-400 italic mb-6">"It's a leased system, the company covers everything."</p>
-                                <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-red-500 text-left mx-auto max-w-4xl">
-                                    <p className="text-4xl leading-relaxed text-white">
-                                        <strong className="text-red-400 block mb-2">Reality:</strong> 
-                                        TPO systems might not be meeting the estimated or guaranteed output.
-                                    </p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    // --- END SPLIT MYTHS SLIDES ---
-                    {
-                        title: "The Wild West",
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_wildwest" alt="Wild West" fallback={null} />
-                                <p className="text-4xl leading-normal mt-8">The industry rushed volume over quality from 2015-2022. Homeowners are left with the mess of "Solar Bros" who are now out of business.</p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Evidence",
-                        subtitle: "Upload Site Photos",
-                        content: (
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-                                {['wiring', 'flashing', 'negligence'].map((key) => {
-                                    const defaultKey = `slide12_${key}`;
-                                    const imageSrc = uploadedImages[key] || projectImages[defaultKey];
-                                    return (
-                                        <label key={key} className="bg-slate-800 p-6 rounded border border-slate-700 flex flex-col items-center cursor-pointer group relative overflow-hidden transition-all hover:border-yellow-500">
-                                            <h4 className="font-bold text-yellow-500 capitalize mb-4 text-3xl">{key}</h4>
-                                            <div className="w-full h-64 bg-slate-900 rounded mb-3 flex items-center justify-center overflow-hidden relative border border-dashed border-slate-600">
-                                                {imageSrc ? (
-                                                    <img src={imageSrc} alt={key} className="w-full h-full object-cover" />
-                                                ) : (
-                                                    <Camera className="text-slate-600" size={60} />
-                                                )}
-                                                <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                                    <Upload className="text-yellow-500 mb-2" size={40} />
-                                                    <span className="text-white font-bold text-xl">Click to Change</span>
-                                                </div>
-                                            </div>
-                                            <input type="file" className="hidden" accept="image/*" onChange={(e) => handleImageUpload(key, e)} />
-                                        </label>
-                                    );
-                                })}
-                            </div>
-                        )
-                    },
-                    {
-                        title: "City Inspector Gap",
-                        content: (
-                            <div>
-                                <div className="grid grid-cols-3 gap-6 mb-8">
-                                    {['wiring', 'flashing', 'negligence'].map(key => (
-                                        <div key={key} className="relative rounded overflow-hidden border-4 border-red-500">
-                                            <img 
-                                                src={projectImages[`slide12_${key}`] || "https://placehold.co/200x200?text=Missing+Image"} 
-                                                alt="Passed Inspection" 
-                                                className="w-full h-48 object-cover opacity-75"
-                                            />
-                                            <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="bg-red-600/90 text-white font-bold text-xl md:text-2xl px-4 py-2 transform -rotate-12 border-4 border-white">
-                                                    PASSED INSPECTION
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="bg-slate-800 p-8 rounded-lg border-l-8 border-red-500 text-left">
-                                    <p className="text-3xl mb-4"><strong>The Scary Truth:</strong></p>
-                                    <p className="text-3xl">All three of those installations have an approved, final building permit.</p>
-                                    <p className="text-2xl text-slate-400 mt-4">Inspectors check ground-level code. They do not climb the roof to check wire management or flashings.</p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Report",
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_report" alt="Report Example" fallback={null} />
-                                <p className="text-4xl mt-8">We provide an interactive, digital report. <br/>Easy to read. Easy to forward to the other agent.</p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "We Fix It",
-                        content: (
-                            <div className="text-center">
-                                <RenderImageOrFallback imageKey="slide_fixit" alt="We Fix It" fallback={null} />
-                                <h3 className="text-5xl font-bold text-yellow-500 mb-8 mt-8">Dual Licensed Contractor</h3>
-                                <div className="flex flex-col md:flex-row justify-center items-center gap-6 mb-8">
-                                    <div className="bg-slate-800 px-10 py-4 rounded-full border-2 border-yellow-500">
-                                        <strong className="text-white text-3xl">General B License</strong>
-                                    </div>
-                                    <div className="text-yellow-500 font-bold text-4xl">+</div>
-                                    <div className="bg-slate-800 px-10 py-4 rounded-full border-2 border-yellow-500">
-                                        <strong className="text-white text-3xl">Solar C-46 License</strong>
-                                    </div>
-                                </div>
-                                <p className="text-3xl text-slate-300">We don't just find problems. We have the credentials to quote and fix them correctly.</p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Annual Service",
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_service" alt="Annual Service" fallback={null} />
-                                <div className="flex flex-col items-center mt-8">
-                                    <div className="bg-yellow-500/10 p-8 rounded-lg border-2 border-yellow-500 mb-6 max-w-4xl">
-                                        <p className="text-3xl font-bold text-yellow-500 mb-4">Why Hire Us for Cleaning?</p>
-                                        <p className="text-white text-3xl">Most solar cleaners are unlicensed. Because we hold <span className="text-yellow-500 font-bold">General B & C-46 Licenses</span>, we can identify and repair issues while we clean.</p>
-                                    </div>
-                                    <p className="text-3xl text-slate-400">Cleaning and maintenance plans available to keep the warranty valid.</p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Client Education",
-                        content: (
-                            <div className="text-left max-w-4xl mx-auto">
-                                <RenderImageOrFallback imageKey="slide_questions" alt="Questions" fallback={null} />
-                                <p className="mb-6 text-4xl">Clients usually have no idea how their system works. We answer:</p>
-                                <ul className="text-3xl space-y-4 list-disc pl-12 text-slate-300">
-                                    <li>What is my expected annual savings?</li>
-                                    <li>Who do I call to transfer ownership?</li>
-                                    <li>Is my system under warranty?</li>
-                                    <li>How do I monitor it (App login)?</li>
-                                    <li>Who do I call for service?</li>
-                                </ul>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Let's Work Together",
-                        content: (
-                            <div className="text-center flex flex-col items-center">
-                                <div className="w-full max-w-md mb-8">
-                                    <RenderImageOrFallback imageKey="slide19_logo" alt="RSR Logo" fallback={<Sun size={100} className="text-yellow-500 mx-auto" />} />
-                                </div>
-                                <p className="text-5xl md:text-6xl font-bold text-white mb-8">Rocklin Solar Repair</p>
-                                <div className="inline-block bg-yellow-500 text-slate-900 px-12 py-6 rounded-lg text-3xl font-bold shadow-lg mb-8 hover:scale-105 transition-transform">
-                                    916-741-0194
-                                </div>
-                                <div className="w-full max-w-sm">
-                                    <RenderImageOrFallback imageKey="qrCode" alt="Scan to Contact" fallback={null} />
-                                    <p className="text-slate-400 font-bold text-2xl mt-4">Scan QR to save contact</p>
-                                </div>
-                            </div>
-                        )
-                    }
-                ],
-
-                // =========================================================================
-                // *** LOCKED CONTENT: TPO & LEASES ***
-                // =========================================================================
-                tpo: [
-                    {
-                        title: "TPO & Leases",
-                        subtitle: "The Real Estate Agent's Guide to Transferring Solar",
-                        headerLogo: projectImages.logo, 
-                        content: (
-                            <div className="text-center mt-12">
-                                <p className="text-3xl md:text-4xl text-slate-300 max-w-4xl mx-auto leading-relaxed mb-12">Understanding Third Party Ownership (TPO) so you can close the deal.</p>
-                                
-                                {/* CUSTOM SOLAR OWNERSHIP SPECTRUM GRAPHIC */}
-                                <div className="flex flex-col md:flex-row justify-between items-center gap-6 w-full max-w-6xl mx-auto px-4">
-                                    
-                                    {/* Option 1: Utility */}
-                                    <div className="flex flex-col items-center text-center group bg-slate-800 p-8 rounded-xl border-2 border-slate-700 w-full md:w-1/3 hover:border-slate-500 transition-colors">
-                                        <div className="bg-slate-700 p-4 rounded-full mb-4 group-hover:bg-slate-600 transition-colors">
-                                            <Home size={48} className="text-slate-400" />
-                                        </div>
-                                        <h3 className="text-3xl font-bold text-slate-200 mb-2">Utility</h3>
-                                        <p className="text-lg text-slate-400 font-medium uppercase tracking-wide">Renting Power</p>
-                                        <div className="mt-4 text-slate-500 text-sm">
-                                            Forever Payments<br/>Rate Hikes
-                                        </div>
-                                    </div>
-
-                                    {/* Arrow 1 */}
-                                    <div className="hidden md:flex text-slate-600">
-                                        <ArrowRight size={48} />
-                                    </div>
-
-                                    {/* Option 2: TPO */}
-                                    <div className="flex flex-col items-center text-center group bg-slate-800 p-8 rounded-xl border-2 border-blue-500 w-full md:w-1/3 shadow-lg shadow-blue-900/10">
-                                        <div className="bg-blue-500/20 p-4 rounded-full mb-4">
-                                            <FileText size={48} className="text-blue-400" />
-                                        </div>
-                                        <h3 className="text-3xl font-bold text-white mb-2">TPO / Lease</h3>
-                                        <p className="text-lg text-blue-400 font-bold uppercase tracking-wide">Renting System</p>
-                                        <div className="mt-4 text-slate-400 text-sm">
-                                            Lower Bill<br/>Contract Transfer
-                                        </div>
-                                    </div>
-
-                                    {/* Arrow 2 */}
-                                    <div className="hidden md:flex text-slate-600">
-                                        <ArrowRight size={48} />
-                                    </div>
-
-                                    {/* Option 3: Ownership */}
-                                    <div className="flex flex-col items-center text-center group bg-slate-800 p-8 rounded-xl border-2 border-yellow-500 w-full md:w-1/3 shadow-lg shadow-yellow-900/10">
-                                        <div className="bg-yellow-500/20 p-4 rounded-full mb-4">
-                                            <Sun size={48} className="text-yellow-500" />
-                                        </div>
-                                        <h3 className="text-3xl font-bold text-white mb-2">Owned</h3>
-                                        <p className="text-lg text-yellow-400 font-bold uppercase tracking-wide">Owning Asset</p>
-                                        <div className="mt-4 text-slate-400 text-sm">
-                                            No Payments<br/>Home Value +
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The TPO Market",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div>
-                                <p className="text-2xl md:text-3xl text-slate-300 max-w-4xl mx-auto leading-relaxed mb-8">
-                                    Banks and financial institutions recognized the massive potential of the <span className="text-yellow-500 font-bold">30% Federal Tax Credit (ITC)</span>. 
-                                    They created Third Party Ownership (TPO) to monetize these credits on a massive scale, essentially becoming the 'bank' for your roof.
-                                </p>
-                                <p className="text-xl mb-6 text-slate-400">Common companies you will see on Title Reports:</p>
-                                <RenderImageOrFallback imageKey="tpo_logos" alt="Sunrun, SolarCity, Tesla, SunPower" fallback={
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                        {['Sunrun', 'SolarCity', 'Tesla', 'SunPower', 'Sunnova', 'Vivint', 'Spruce'].map(n => (
-                                            <div key={n} className="bg-white text-slate-900 font-bold p-4 rounded flex items-center justify-center h-24 text-xl">{n}</div>
-                                        ))}
-                                    </div>
-                                } />
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Ownership",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_ownership" alt="Ownership Types" fallback={null} />
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl mt-8">
-                                    <div className="bg-slate-800 p-8 rounded border-l-8 border-yellow-500">
-                                        <h3 className="text-4xl font-bold mb-4">True Ownership</h3>
-                                        <p className="text-3xl text-slate-300">Purchase or Loan. You own the system. The loan is just debt.</p>
-                                    </div>
-                                    <div className="bg-slate-800 p-8 rounded border-l-8 border-blue-500">
-                                        <h3 className="text-4xl font-bold mb-4">TPO (Lease / PPA)</h3>
-                                        <p className="text-3xl text-slate-300">
-                                            Third Party Ownership. Don't let the word "Purchase" in PPA fool you. You are buying the <strong>power</strong>, not the <strong>panels</strong>.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Solar Financing: TPO",
-                        subtitle: "Third Party Ownership",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center">
-                                <p className="text-2xl mb-8">Two flavors of the same concept:</p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mb-8">
-                                    <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-yellow-500 text-left">
-                                        <h3 className="text-3xl font-bold mb-2">Lease</h3>
-                                        <p className="text-xl text-slate-300">You rent the <strong>equipment</strong>.</p>
-                                        <p className="mt-4 text-sm text-slate-400">Example: $150/month fixed rent for the panels on the roof.</p>
-                                    </div>
-                                    <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-blue-500 text-left">
-                                        <h3 className="text-3xl font-bold mb-2">PPA</h3>
-                                        <p className="text-xl text-slate-300">You buy the <strong>power</strong>.</p>
-                                        <p className="mt-4 text-sm text-slate-400">Example: $0.18 per kWh produced by the system.</p>
-                                    </div>
-                                </div>
-                                <div className="bg-slate-800/50 p-6 rounded-lg max-w-4xl text-left border border-slate-600">
-                                    <p className="text-2xl font-bold text-yellow-500 mb-2">Why do both exist?</p>
-                                    <p className="text-xl text-slate-300 leading-relaxed">
-                                        Mainly due to regulatory laws. In some states, selling power (kWh) classifies you as a "Utility" (illegal for private companies). 
-                                        To bypass this, they "lease equipment" instead. In California, both are legal, but the end result is effectively the same: <strong>You do not own the system.</strong>
-                                    </p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "TPO Pros & Cons",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left w-full">
-                                <div className="bg-slate-800/50 p-6 rounded border border-green-500/30">
-                                    <h3 className="text-green-400 font-bold text-2xl mb-4 flex items-center"><ThumbsUp className="mr-2"/> Pros</h3>
-                                    <ul className="space-y-3">
-                                        <li className="flex items-start"><CheckCircle className="text-green-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>Low Upfront Cost:</strong> Accessible without down payment.</span></li>
-                                        <li className="flex items-start"><CheckCircle className="text-green-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>Repair-Free:</strong> Company handles maintenance (theoretically).</span></li>
-                                        <li className="flex items-start"><CheckCircle className="text-green-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>Immediate Savings:</strong> Bill is usually lower than utility.</span></li>
-                                    </ul>
-                                </div>
-                                <div className="bg-slate-800/50 p-6 rounded border border-red-500/30">
-                                    <h3 className="text-red-400 font-bold text-2xl mb-4 flex items-center"><ThumbsDown className="mr-2"/> Cons</h3>
-                                    <ul className="space-y-3">
-                                        <li className="flex items-start"><X className="text-red-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>No Home Value Increase:</strong> You don't own the asset.</span></li>
-                                        <li className="flex items-start"><X className="text-red-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>No Tax Credits:</strong> The leasing company keeps the 30% ITC.</span></li>
-                                        <li className="flex items-start"><X className="text-red-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>Complicates Sales:</strong> Buyer must qualify and assume the lease.</span></li>
-                                        <li className="flex items-start"><X className="text-red-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>Escalators:</strong> Costs can rise 2.9% every year.</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Agreement",
-                        subtitle: "30 Pages of Legalese... Only 5 Things Matter",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-6xl items-center">
-                                    {/* Left Side: The Problem (The massive contract) */}
-                                    <div className="flex flex-col items-center opacity-80">
-                                        <div className="relative w-full h-64 md:h-80 bg-white text-slate-900 rounded-lg shadow-2xl p-4 flex flex-col items-center justify-center border-4 border-slate-600 transform -rotate-2">
-                                            <FileText size={80} className="text-slate-400 mb-4" />
-                                            <h3 className="text-2xl font-bold uppercase mb-2">Transfer Agreement</h3>
-                                            <p className="text-slate-500 font-mono text-sm">Page 1 of 34</p>
-                                            <div className="w-3/4 h-2 bg-slate-200 mt-4 rounded"></div>
-                                            <div className="w-3/4 h-2 bg-slate-200 mt-2 rounded"></div>
-                                            <div className="w-1/2 h-2 bg-slate-200 mt-2 rounded"></div>
-                                            {/* Stamp */}
-                                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -rotate-12 border-4 border-red-500 text-red-500 font-bold text-4xl p-2 rounded opacity-30">
-                                                LEGALESE
-                                            </div>
-                                        </div>
-                                        <p className="mt-6 text-2xl text-slate-400">Typical Length: <strong>20-30 Pages</strong></p>
-                                    </div>
-
-                                    {/* Right Side: The Solution (The Big 5) */}
-                                    <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-xl w-full">
-                                        <h3 className="text-3xl font-bold text-yellow-500 mb-6 border-b border-slate-700 pb-4">The Big 5</h3>
-                                        <ul className="space-y-4 text-left text-xl text-slate-200">
-                                            <li className="flex items-center"><DollarSign className="text-green-400 mr-4 flex-shrink-0" /> <span><strong>1. Price:</strong> Rate (PPA) or Rent (Lease)?</span></li>
-                                            <li className="flex items-center"><BarChart3 className="text-red-400 mr-4 flex-shrink-0" /> <span><strong>2. Escalator:</strong> Does cost rise annually?</span></li>
-                                            <li className="flex items-center"><Wrench className="text-blue-400 mr-4 flex-shrink-0" /> <span><strong>3. Equipment:</strong> Listed vs Installed?</span></li>
-                                            <li className="flex items-center"><ShieldCheck className="text-yellow-400 mr-4 flex-shrink-0" /> <span><strong>4. Guarantee:</strong> Production promised?</span></li>
-                                            <li className="flex items-center"><ExternalLink className="text-purple-400 mr-4 flex-shrink-0" /> <span><strong>5. Transfer:</strong> Buyout terms?</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Financial Health Check",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="w-full max-w-5xl flex flex-col gap-8">
-                                {/* Price Section */}
-                                <div>
-                                    <h3 className="text-2xl text-left mb-4 font-bold text-white border-l-8 border-yellow-500 pl-4">1. Price per kWh</h3>
-                                    <div className="grid grid-cols-3 gap-4 text-center">
-                                        <div className="bg-green-900/30 p-6 rounded border border-green-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">Great</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-green-400">$0.15 - $0.20</p>
-                                            <p className="text-sm text-slate-400 mt-2">Money Saver</p>
-                                        </div>
-                                        <div className="bg-yellow-900/30 p-6 rounded border border-yellow-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">High</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-yellow-400">$0.25+</p>
-                                            <p className="text-sm text-slate-400 mt-2">Marginal Savings</p>
-                                        </div>
-                                        <div className="bg-slate-700/50 p-6 rounded border border-slate-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">Utility Avg</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-white">$0.35+</p>
-                                            <p className="text-sm text-slate-400 mt-2">PG&E / SMUD</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Escalator Section */}
-                                <div>
-                                    <h3 className="text-2xl text-left mb-4 font-bold text-white border-l-8 border-blue-500 pl-4">2. Annual Escalator</h3>
-                                    <div className="grid grid-cols-3 gap-4 text-center">
-                                        <div className="bg-green-900/30 p-6 rounded border border-green-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">Ideal</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-green-400">0.0%</p>
-                                            <p className="text-sm text-slate-400 mt-2">Fixed Rate</p>
-                                        </div>
-                                        <div className="bg-yellow-900/30 p-6 rounded border border-yellow-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">Standard</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-yellow-400">2.9%</p>
-                                            <p className="text-sm text-slate-400 mt-2">Compounding</p>
-                                        </div>
-                                        <div className="bg-red-900/30 p-6 rounded border border-red-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">High</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-red-400">3.5%+</p>
-                                            <p className="text-sm text-slate-400 mt-2">Erodes Savings</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Impact of Escalators",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="w-full max-w-3xl overflow-x-auto">
-                                <table className="w-full text-left border-collapse text-lg">
-                                    <thead>
-                                        <tr className="border-b border-slate-600">
-                                            <th className="p-4 text-yellow-500">Escalator</th>
-                                            <th className="p-4">Year 1</th>
-                                            <th className="p-4">Year 10</th>
-                                            <th className="p-4">Year 20</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr className="bg-green-900/20">
-                                            <td className="p-4 font-bold text-green-400">0% (Flat)</td>
-                                            <td className="p-4">$150</td>
-                                            <td className="p-4">$150</td>
-                                            <td className="p-4">$150</td>
-                                        </tr>
-                                        <tr>
-                                            <td className="p-4 font-bold text-yellow-400">2.9%</td>
-                                            <td className="p-4">$150</td>
-                                            <td className="p-4">$194</td>
-                                            <td className="p-4">$258</td>
-                                        </tr>
-                                        <tr className="bg-red-900/20">
-                                            <td className="p-4 font-bold text-red-400">3.5%</td>
-                                            <td className="p-4">$150</td>
-                                            <td className="p-4">$205</td>
-                                            <td className="p-4">$290</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <p className="mt-4 text-slate-400 text-sm">Compounding interest significantly reduces long-term value.</p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Discrepancy #1: Quantity",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center">
-                                <RenderImageOrFallback imageKey="slide_myth3" alt="27 vs 24 Panels" fallback={null} />
-                                <div className="bg-slate-800 p-6 rounded-lg border-l-4 border-red-500 text-left mt-4 max-w-2xl">
-                                    <h3 className="text-xl font-bold text-red-400 mb-2">Paperwork != Roof</h3>
-                                    <p>The Lease Document listed <strong>27</strong> solar panels.</p>
-                                    <p>Only <strong>24</strong> were actually installed.</p>
-                                    <p className="mt-2 italic text-slate-400">We catch this during visual inspection.</p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Performance Guarantees",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col gap-8 w-full max-w-6xl">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-                                    {/* Lease Logic */}
-                                    <div className="bg-slate-800 p-8 rounded-xl border-t-8 border-yellow-500 text-left flex flex-col">
-                                        <h3 className="text-3xl font-bold text-yellow-500 mb-4">Leases: The Guarantee Table</h3>
-                                        <RenderImageOrFallback imageKey="tpo_guarantee_table" alt="Guarantee Table" fallback={<div className="bg-white text-slate-900 font-bold p-4 h-32 flex items-center justify-center mb-4 rounded border border-slate-400">Example: Year 1 - 10,000 kWh Guaranteed</div>} className="max-h-40 w-auto mb-4 self-center" />
-                                        <p className="text-xl text-slate-200 mb-4 flex-grow">
-                                            For a Lease (fixed monthly rent), this table is <strong>vital</strong>. It holds the company accountable. 
-                                            If the system produces less than the guaranteed amount, they must compensate the homeowner.
-                                        </p>
-                                        <div className="bg-red-900/30 p-4 rounded border border-red-500 text-center">
-                                            <p className="text-red-400 font-bold text-xl">No Table = No Recourse</p>
-                                        </div>
-                                    </div>
-
-                                    {/* PPA Logic */}
-                                    <div className="bg-slate-800 p-8 rounded-xl border-t-8 border-blue-500 text-left flex flex-col">
-                                        <h3 className="text-3xl font-bold text-blue-500 mb-4">PPAs: "Self Policing"</h3>
-                                        <div className="flex-grow">
-                                            <p className="text-xl text-slate-200 mb-4">
-                                                PPAs are pay-per-kWh. If the system underproduces, the bill drops automatically. You only pay for what is produced.
-                                            </p>
-                                            <div className="flex items-center gap-4 bg-slate-900 p-4 rounded border border-slate-700 mb-4">
-                                                <Scale size={48} className="text-blue-500 flex-shrink-0" />
-                                                <p className="text-lg text-slate-400 italic">
-                                                    "If it doesn't work, you don't pay. No harm, no foul."
-                                                </p>
-                                            </div>
-                                            <p className="text-lg text-slate-300">
-                                                <strong className="text-white">The Catch:</strong> While you aren't paying the solar company, you lose the savings and buy expensive power from the utility instead.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Buyout vs. Pre-Pay",
-                        subtitle: "Two Ways to Pay Off a Lease (Very Different)",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center justify-center h-full">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl">
-                                    {/* Pre-Pay */}
-                                    <div className="bg-slate-800 p-8 rounded-xl border border-green-500/50 flex flex-col items-center text-center">
-                                        <div className="bg-green-900/20 p-6 rounded-full mb-6">
-                                            <CheckCircle size={48} className="text-green-500" />
-                                        </div>
-                                        <h3 className="text-3xl font-bold text-white mb-2">Pre-Pay (Smart Move)</h3>
-                                        <p className="text-xl text-slate-400 mb-6">Paying all remaining monthly payments upfront.</p>
-                                        <div className="bg-green-500/10 p-4 rounded-lg w-full mt-auto border border-green-500/30 text-left">
-                                            <ul className="space-y-2 text-green-200">
-                                                <li className="flex items-start"><CheckCircle size={20} className="mr-2 mt-1 flex-shrink-0"/> Cheaper than Buyout.</li>
-                                                <li className="flex items-start"><CheckCircle size={20} className="mr-2 mt-1 flex-shrink-0"/> Buyer gets $0 monthly payment.</li>
-                                                <li className="flex items-start"><CheckCircle size={20} className="mr-2 mt-1 flex-shrink-0"/> <strong>TPO Warranty stays intact.</strong></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    {/* Buyout */}
-                                    <div className="bg-slate-800 p-8 rounded-xl border border-red-500/50 flex flex-col items-center text-center">
-                                        <div className="bg-slate-700 p-6 rounded-full mb-6">
-                                            <DollarSign size={48} className="text-slate-300" />
-                                        </div>
-                                        <h3 className="text-3xl font-bold text-white mb-2">Full Buyout (Expensive)</h3>
-                                        <p className="text-xl text-slate-400 mb-6">Paying FMV to own the equipment.</p>
-                                        <div className="bg-red-500/10 p-4 rounded-lg w-full mt-auto border border-red-500/30 text-left">
-                                            <ul className="space-y-2 text-red-200">
-                                                <li className="flex items-start"><X size={20} className="mr-2 mt-1 flex-shrink-0"/> Usually costs more.</li>
-                                                <li className="flex items-start"><X size={20} className="mr-2 mt-1 flex-shrink-0"/> You take ownership & liability.</li>
-                                                <li className="flex items-start"><X size={20} className="mr-2 mt-1 flex-shrink-0"/> Service contract may end.</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Protecting Your Client",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center justify-center h-full">
-                                <p className="text-3xl text-slate-300 mb-12 max-w-4xl">Whether you represent the Seller or the Buyer, the solar agreement is a critical transaction point.</p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-6xl">
-                                    {/* Listing Agent */}
-                                    <div className="bg-slate-800 p-8 rounded-xl border-t-8 border-yellow-500 shadow-xl flex flex-col text-left">
-                                        <div className="flex items-center mb-6">
-                                            <div className="bg-yellow-500/20 p-4 rounded-full mr-4">
-                                                <FileText size={40} className="text-yellow-500" />
-                                            </div>
-                                            <h3 className="text-3xl font-bold text-white">Listing Agent</h3>
-                                        </div>
-                                        <p className="text-xl text-slate-300 leading-relaxed mb-4">
-                                            <strong>The Risk:</strong> A predatory TPO agreement (high escalator, low production) can scare off potential buyers or kill the deal during escrow.
-                                        </p>
-                                        <div className="mt-auto p-4 bg-yellow-500/10 rounded border border-yellow-500/30">
-                                            <p className="text-lg text-yellow-200">
-                                                <strong>Goal:</strong> Know the terms upfront. If it's a bad lease, prepare a strategy (buyout vs. concession) <em>before</em> listing.
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* Buyer's Agent */}
-                                    <div className="bg-slate-800 p-8 rounded-xl border-t-8 border-blue-500 shadow-xl flex flex-col text-left">
-                                        <div className="flex items-center mb-6">
-                                            <div className="bg-blue-500/20 p-4 rounded-full mr-4">
-                                                <ShieldCheck size={40} className="text-blue-500" />
-                                            </div>
-                                            <h3 className="text-3xl font-bold text-white">Buyer's Agent</h3>
-                                        </div>
-                                        <p className="text-xl text-slate-300 leading-relaxed mb-4">
-                                            <strong>The Risk:</strong> Your buyer might assume a liability that costs more than the utility company, with no way out for 20 years.
-                                        </p>
-                                        <div className="mt-auto p-4 bg-blue-500/10 rounded border border-blue-500/30">
-                                            <p className="text-lg text-blue-200">
-                                                <strong>Goal:</strong> Ensure the system works and the financial terms are favorable. Don't let them sign a bad deal blindly.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Let's Work Together",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="text-center flex flex-col items-center">
-                                <div className="w-full max-w-sm mb-4">
-                                    <RenderImageOrFallback imageKey="slide19_logo" alt="RSR Logo" fallback={<Sun size={80} className="text-yellow-500 mx-auto" />} />
-                                </div>
-                                <p className="text-3xl font-bold text-white mb-6">Rocklin Solar Repair</p>
-                                <div className="inline-block bg-yellow-500 text-slate-900 px-8 py-4 rounded-lg text-3xl font-bold shadow-lg mb-8 hover:scale-105 transition-transform">
-                                    916-741-0194
-                                </div>
-                                <div className="w-full max-w-xs"><RenderImageOrFallback imageKey="qrCode" alt="Scan to Contact" fallback={null} /><p className="text-slate-400 font-bold">Scan QR to save contact</p></div>
-                            </div>
-                        )
-                    }
-                ],
-
-                // =========================================================================
-                // *** LOCKED CONTENT: FOR SELLERS ***
-                // =========================================================================
-                sellers: [
-                    {
-                        title: "Selling a Solar Home",
-                        subtitle: "Protect Your Equity & Close on Time",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="text-center flex flex-col items-center justify-center h-full">
-                                <div className="bg-yellow-500/20 p-8 rounded-full mb-8">
-                                    <Home size={100} className="text-yellow-500" />
-                                </div>
-                                <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Don't Let Solar Kill Your Deal</h1>
-                                <p className="text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
-                                    Selling a home with solar requires a specific strategy. Whether it's owned or leased, the paperwork and transfer process can delay closing if not handled immediately.
-                                </p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Timeline",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center">
-                                <p className="text-3xl text-white font-bold mb-12">The Golden Rule: Start EARLY</p>
-                                <div className="relative border-l-4 border-slate-700 ml-6 md:ml-0 pl-8 md:pl-0 space-y-12 w-full max-w-3xl">
-                                    {/* Step 1 */}
-                                    <div className="relative md:text-center md:pt-12">
-                                        <div className="absolute -left-12 md:left-1/2 md:-ml-4 top-0 bg-green-500 w-8 h-8 rounded-full border-4 border-slate-900"></div>
-                                        <h3 className="text-2xl font-bold text-green-400">Day 1: Listing Signed</h3>
-                                        <p className="text-xl text-slate-300">Call RSR. Initiate the solar transfer case with the TPO provider immediately.</p>
-                                    </div>
-                                    {/* Step 2 */}
-                                    <div className="relative md:text-center md:pt-12">
-                                        <div className="absolute -left-12 md:left-1/2 md:-ml-4 top-0 bg-yellow-500 w-8 h-8 rounded-full border-4 border-slate-900"></div>
-                                        <h3 className="text-2xl font-bold text-yellow-500">Day 15: Credit Check</h3>
-                                        <p className="text-xl text-slate-300">Buyer must pass a credit check to assume the lease. Do not wait for contingencies removal.</p>
-                                    </div>
-                                    {/* Step 3 */}
-                                    <div className="relative md:text-center md:pt-12">
-                                        <div className="absolute -left-12 md:left-1/2 md:-ml-4 top-0 bg-red-500 w-8 h-8 rounded-full border-4 border-slate-900"></div>
-                                        <h3 className="text-2xl font-bold text-red-500">Day 25: The "Gap"</h3>
-                                        <p className="text-xl text-slate-300">TPO companies often go silent here. This is where deals get delayed.</p>
-                                    </div>
-                                    {/* Step 4 */}
-                                    <div className="relative md:text-center md:pt-12">
-                                        <div className="absolute -left-12 md:left-1/2 md:-ml-4 top-0 bg-blue-500 w-8 h-8 rounded-full border-4 border-slate-900"></div>
-                                        <h3 className="text-2xl font-bold text-blue-500">Day 30+: Closing</h3>
-                                        <p className="text-xl text-slate-300">Title records the transfer. UCC-1 lien is lifted/updated.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The UCC-1 Panic",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full max-w-6xl">
-                                <div className="text-left">
-                                    <h3 className="text-3xl font-bold text-red-400 mb-4">What is a UCC-1?</h3>
-                                    <p className="text-xl text-slate-300 leading-relaxed mb-6">
-                                        It stands for "Uniform Commercial Code". It is a public filing that acts as a lien on the <strong>solar equipment</strong> (not the home itself).
-                                    </p>
-                                    <p className="text-xl text-slate-300 leading-relaxed">
-                                        However, it appears on the Preliminary Title Report. <strong className="text-white">Mortgage lenders will NOT fund the loan</strong> until this is subordinated or terminated.
-                                    </p>
-                                </div>
-                                <div className="bg-white p-8 rounded-lg shadow-2xl text-slate-800 transform rotate-2">
-                                    <div className="border-b-2 border-slate-300 mb-4 pb-2">
-                                        <h4 className="font-bold text-xl uppercase">Preliminary Title Report</h4>
-                                    </div>
-                                    <div className="space-y-4 font-mono text-sm">
-                                        <p>1. Property Taxes... <span className="float-right text-green-600">PAID</span></p>
-                                        <p>2. Deed of Trust... <span className="float-right text-green-600">PAID</span></p>
-                                        <div className="bg-yellow-100 p-2 border border-yellow-300 rounded">
-                                            <p className="font-bold text-red-600">3. UCC-1 FINANCING STATEMENT</p>
-                                            <p>Claimant: SUNRUN INC.</p>
-                                            <p>Debtor: JOHN DOE</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Health Check",
-                        subtitle: "Is it actually working?",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center">
-                                <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-yellow-500 max-w-4xl text-left shadow-lg">
-                                    <h3 className="text-3xl font-bold text-white mb-4">The Nightmare Scenario</h3>
-                                    <p className="text-xl text-slate-300 leading-relaxed mb-6">
-                                        You are 3 days from closing. The Buyer does a final walkthrough and asks to see the solar app. 
-                                        The system shows <strong>zero production</strong> for the last 6 months.
-                                    </p>
-                                    <div className="p-4 bg-red-900/20 rounded border border-red-500/50">
-                                        <p className="text-xl text-red-300 font-bold">
-                                            Result: The Seller pays a huge credit (thousands of $$) to keep the deal alive, or the deal dies.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="mt-8 flex items-center gap-4">
-                                    <CheckCircle size={40} className="text-green-500" />
-                                    <p className="text-2xl text-white">Inspect <strong>before listing</strong> to fix issues under warranty.</p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The \"Unknown\" Factor",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_questions" alt="Confused Homeowner" fallback={null} />
-                                <div className="max-w-4xl mx-auto text-left">
-                                    <p className="text-3xl text-white mb-6 font-bold">Does this sound familiar?</p>
-                                    <ul className="space-y-6 text-2xl text-slate-300 list-disc pl-8">
-                                        <li>"We inherited the system from our parents, we don't know anything about it."</li>
-                                        <li>"I haven't looked at the monitoring app in 3 years."</li>
-                                        <li>"It's on the roof, so it must be working, right?"</li>
-                                    </ul>
-                                    <div className="mt-8 p-6 bg-red-900/20 border border-red-500 rounded-xl">
-                                        <p className="text-xl text-red-200">
-                                            <strong>The Risk:</strong> Listing a home with "unknown" solar status is a liability time-bomb waiting to go off during the buyer's inspection.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Bankruptcy Problem",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full max-w-6xl">
-                                <div className="text-left">
-                                    <h3 className="text-3xl font-bold text-red-500 mb-4">"My solar company went bust."</h3>
-                                    <p className="text-xl text-slate-300 leading-relaxed mb-6">
-                                        It's a common story. The installer is gone. The manufacturer is bankrupt. The seller has no one to call for service or transfer paperwork.
-                                    </p>
-                                    <div className="bg-slate-800 p-6 rounded border-l-4 border-yellow-500">
-                                        <p className="text-xl text-white">
-                                            <strong>RSR is the solution.</strong> We can get the system working properly and serve as the maintenance company going forward.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="flex justify-center">
-                                    <RenderImageOrFallback imageKey="slide_wildwest" alt="Wild West" fallback={<div className="bg-slate-700 w-full h-64 flex items-center justify-center">Ghost Town Image</div>} />
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Negotiating the Buyout",
-                        subtitle: "Don't Overpay the TPO Company",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center">
-                                <div className="max-w-4xl text-center mb-8">
-                                    <p className="text-3xl text-white font-bold mb-4">The Buyer Demands a Payoff.</p>
-                                    <p className="text-xl text-slate-300 mb-6">
-                                        Often, a buyer will refuse to assume the lease and demand the system be paid off. The TPO company will quote a "Fair Market Value" that is often inflated.
-                                    </p>
-                                </div>
-                                <div className="bg-slate-800 p-8 rounded-xl border border-blue-500 shadow-xl max-w-5xl w-full">
-                                    <div className="flex items-center mb-4">
-                                        <div className="bg-blue-500/20 p-3 rounded-full mr-4"><FileText size={32} className="text-blue-400" /></div>
-                                        <h3 className="text-2xl font-bold text-white">The RSR Solution: FMV Report</h3>
-                                    </div>
-                                    <p className="text-xl text-slate-300 mb-6">
-                                        We provide an independent <strong>Fair Market Value Report</strong> based on the system's age, condition, and current technology prices.
-                                    </p>
-                                    <div className="bg-green-900/20 p-4 rounded border-l-4 border-green-500">
-                                        <p className="text-lg text-green-300 font-bold">
-                                            <strong>Leverage:</strong> Use our report to negotiate a lower buyout price from the leasing company, potentially saving the seller thousands.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Buyout vs. Pre-Pay",
-                        subtitle: "If You MUST Pay It Off...",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center justify-center h-full">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl">
-                                    {/* Pre-Pay */}
-                                    <div className="bg-slate-800 p-8 rounded-xl border border-green-500/50 flex flex-col items-center text-center">
-                                        <div className="bg-green-900/20 p-6 rounded-full mb-6">
-                                            <CheckCircle size={48} className="text-green-500" />
-                                        </div>
-                                        <h3 className="text-3xl font-bold text-white mb-2">Pre-Pay (Smart Move)</h3>
-                                        <p className="text-xl text-slate-400 mb-6">Paying all remaining monthly payments upfront.</p>
-                                        <div className="bg-green-500/10 p-4 rounded-lg w-full mt-auto border border-green-500/30 text-left">
-                                            <ul className="space-y-2 text-green-200">
-                                                <li className="flex items-start"><CheckCircle size={20} className="mr-2 mt-1 flex-shrink-0"/> Cheaper than Buyout.</li>
-                                                <li className="flex items-start"><CheckCircle size={20} className="mr-2 mt-1 flex-shrink-0"/> Buyer gets $0 monthly payment.</li>
-                                                <li className="flex items-start"><CheckCircle size={20} className="mr-2 mt-1 flex-shrink-0"/> <strong>TPO Warranty stays intact.</strong></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    {/* Buyout */}
-                                    <div className="bg-slate-800 p-8 rounded-xl border border-red-500/50 flex flex-col items-center text-center">
-                                        <div className="bg-slate-700 p-6 rounded-full mb-6">
-                                            <DollarSign size={48} className="text-slate-300" />
-                                        </div>
-                                        <h3 className="text-3xl font-bold text-white mb-2">Full Buyout (Expensive)</h3>
-                                        <p className="text-xl text-slate-400 mb-6">Paying FMV to own the equipment.</p>
-                                        <div className="bg-red-500/10 p-4 rounded-lg w-full mt-auto border border-red-500/30 text-left">
-                                            <ul className="space-y-2 text-red-200">
-                                                <li className="flex items-start"><X size={20} className="mr-2 mt-1 flex-shrink-0"/> Usually costs more.</li>
-                                                <li className="flex items-start"><X size={20} className="mr-2 mt-1 flex-shrink-0"/> You take ownership & liability.</li>
-                                                <li className="flex items-start"><X size={20} className="mr-2 mt-1 flex-shrink-0"/> Service contract may end.</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Summary: The Pre-Listing Advantage",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="w-full max-w-6xl">
-                                <p className="text-3xl text-white mb-8">A single pre-inspection solves every issue we've discussed.</p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-green-500/30">
-                                        <ul className="space-y-4 text-xl text-slate-300">
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Unknown History?</strong> We document system health.</span></li>
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Broken System?</strong> Fix it before the buyer walks.</span></li>
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Scary Lease?</strong> We prove the savings math.</span></li>
-                                        </ul>
-                                    </div>
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-green-500/30">
-                                        <ul className="space-y-4 text-xl text-slate-300">
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Bankrupt Company?</strong> We take over service.</span></li>
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Buyout Demands?</strong> We provide FMV leverage.</span></li>
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Timeline Risk?</strong> We start on Day 1.</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div className="mt-8 p-4 bg-yellow-500/10 rounded-lg border border-yellow-500 text-yellow-200 text-2xl font-bold">
-                                    Don't let a solar surprise kill your transaction.
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Let's Work Together",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="text-center flex flex-col items-center">
-                                <div className="w-full max-w-sm mb-4">
-                                    <RenderImageOrFallback imageKey="slide19_logo" alt="RSR Logo" fallback={<Sun size={80} className="text-yellow-500 mx-auto" />} />
-                                </div>
-                                <p className="text-3xl font-bold text-white mb-6">Rocklin Solar Repair</p>
-                                <div className="inline-block bg-yellow-500 text-slate-900 px-8 py-4 rounded-lg text-3xl font-bold shadow-lg mb-8 hover:scale-105 transition-transform">
-                                    916-741-0194
-                                </div>
-                                <div className="w-full max-w-xs"><RenderImageOrFallback imageKey="qrCode" alt="Scan to Contact" fallback={null} /><p className="text-slate-400 font-bold">Scan QR to save contact</p></div>
-                            </div>
-                        )
-                    }
-                ],
-
-                // =========================================================================
-                // *** ACTIVE EDITING: AGENT CHECKLIST ***
-                // =========================================================================
-                checklist: [
-                    {
-                        title: "Buyer's Agent Solar Checklist",
-                        subtitle: "Due Diligence & Transaction Prep",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="w-full max-w-5xl mx-auto flex flex-col gap-8 pb-12 print:pb-0">
-                                {/* Print Header (Hidden on Screen) */}
-                                <div className="hidden print:block text-center mb-8 border-b-2 border-slate-300 pb-4">
-                                    <h1 className="text-4xl font-bold mb-2 text-black">Buyer's Agent Solar Checklist</h1>
-                                    <p className="text-lg text-slate-600">Rocklin Solar Repair • 916-741-0194 • Lic# 1050566</p>
-                                </div>
-
-                                {/* Intro */}
-                                <div className="bg-slate-800 p-6 rounded-xl border-l-8 border-yellow-500 shadow-lg print:border print:shadow-none">
-                                    <p className="text-xl text-slate-200 print:text-black">
-                                        <strong>Your Role: Gather the Documents. We Handle the Analysis.</strong><br/>
-                                        Use this checklist to gather the necessary information during the inspection period. Once collected, forward to the solar inspector for a comprehensive audit.
-                                    </p>
-                                </div>
-
-                                {/* Checklist Grid */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 print:block print:space-y-8">
-                                    
-                                    {/* Column 1: Documents (The Priority) */}
-                                    <div className="space-y-8">
-                                        <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg print:border-slate-300 print:shadow-none h-full">
-                                            <h3 className="text-2xl font-bold text-white mb-4 flex items-center print:text-black">
-                                                <FileSearch className="mr-3 text-blue-400 print:text-black" /> 1. Document Discovery (Required)
-                                            </h3>
-                                            <ul className="space-y-4 text-lg text-slate-300 print:text-black">
-                                                <li className="flex items-start">
-                                                    <Square className="mr-3 mt-1 flex-shrink-0 text-slate-500" />
-                                                    <span><strong>Pull Title:</strong> Check for a UCC-1 Financing Statement (Lien on equipment).</span>
-                                                </li>
-                                                <li className="flex items-start">
-                                                    <Square className="mr-3 mt-1 flex-shrink-0 text-slate-500" />
-                                                    <span><strong>Request Contract:</strong> Obtain the original Lease, PPA, or Loan agreement. Identify "Transfer Terms".</span>
-                                                </li>
-                                                <li className="flex items-start">
-                                                    <Square className="mr-3 mt-1 flex-shrink-0 text-slate-500" />
-                                                    <span><strong>Get Utility History:</strong> Gather the "True-Up" statement or 12 months of utility bills.</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    {/* Column 2: Physical & Financial (The Inspection) */}
-                                    <div className="space-y-8">
-                                        <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-lg print:border-slate-300 print:shadow-none">
-                                            <h3 className="text-2xl font-bold text-white mb-4 flex items-center print:text-black">
-                                                <Wrench className="mr-3 text-yellow-500 print:text-black" /> 2. Inspection & Review
-                                            </h3>
-                                            <p className="text-slate-400 mb-4 text-sm print:text-slate-600">The solar inspector will verify these items based on the documents you provide:</p>
-                                            <ul className="space-y-4 text-lg text-slate-300 print:text-black">
-                                                <li className="flex items-start">
-                                                    <Square className="mr-3 mt-1 flex-shrink-0 text-slate-500" />
-                                                    <span><strong>Installation Quality:</strong> Check the physical installation quality (Roof, Wiring, Inverter).</span>
-                                                </li>
-                                                <li className="flex items-start">
-                                                    <Square className="mr-3 mt-1 flex-shrink-0 text-slate-500" />
-                                                    <span><strong>Performance Evaluation:</strong> Evaluate the system's historical performance vs. promises.</span>
-                                                </li>
-                                                <li className="flex items-start">
-                                                    <Square className="mr-3 mt-1 flex-shrink-0 text-slate-500" />
-                                                    <span><strong>Post-Inspection Support:</strong> Help the buyer with their questions and provide leverage for negotiation.</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Scheduling / QR Code Section (Replaces Red Flags) */}
-                                <div className="mt-4 p-6 bg-slate-800 rounded-xl border border-yellow-500 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6 print:bg-white print:border-slate-400 print:shadow-none">
-                                    <div className="text-left flex-1">
-                                        <h3 className="text-3xl font-bold text-white mb-2 print:text-black">Schedule Inspection</h3>
-                                        <p className="text-xl text-slate-300 mb-4 print:text-slate-600">
-                                            Scan the QR code to reserve your inspection date & time.
-                                        </p>
-                                        <p className="text-2xl text-yellow-500 font-bold print:text-black">916-741-0194</p>
-                                    </div>
-                                    <div className="flex-shrink-0 bg-white p-2 rounded-lg">
-                                        <img src={projectImages.qrCode} alt="Scan to Schedule" className="w-32 h-32 md:w-40 md:h-40 object-contain" />
-                                    </div>
-                                </div>
-
-                                {/* Footer & Print Button */}
-                                <div className="mt-8 flex flex-col items-center">
-                                    <button 
-                                        onClick={() => window.print()}
-                                        className="no-print bg-white text-slate-900 px-8 py-4 rounded-lg font-bold text-xl flex items-center hover:bg-gray-200 transition-colors shadow-lg"
-                                    >
-                                        <Printer className="mr-3" /> Print Checklist
-                                    </button>
-                                    
-                                    <div className="mt-8 text-center border-t border-slate-700 pt-6 w-full print:border-t-2 print:border-slate-300">
-                                        <h3 className="text-2xl font-bold text-white print:text-black">Rocklin Solar Repair</h3>
-                                        <p className="text-xl text-yellow-500 font-bold my-2 print:text-black">916-741-0194</p>
-                                        <p className="text-slate-400 print:text-slate-600">Lic# 1050566 • Bonded • Insured</p>
-                                    </div>
-                                </div>
-                                
-                                {/* Print Footer (Visible only on print) */}
-                                <div className="print-footer">
-                                    &copy; {new Date().getFullYear()} Rocklin Solar Repair. All Rights Reserved.
-                                </div>
-                            </div>
-                        )
-                    }
-                ]
-            };
-
-            const SlideView = ({ data, index, total }) => (
-                <div className="flex flex-col h-full bg-slate-900 text-slate-100 animate-fadeIn">
-                    <div className="p-8 pb-0 flex justify-between items-start">
-                        <div className="flex-1">
-                            <h2 className="text-5xl md:text-7xl font-bold text-yellow-500 mb-2 tracking-tight">{data.title}</h2>
-                            {data.subtitle && <h3 className="text-3xl text-slate-400">{data.subtitle}</h3>}
-                        </div>
-                        <div className="flex items-start gap-6">
-                            {data.headerLogo && (
-                                <img src={data.headerLogo} className="h-24 w-auto object-contain hidden md:block" alt="Header Logo" />
-                            )}
-                            <div className="flex flex-col items-end">
-                                <span className="text-yellow-500 text-5xl font-bold font-mono">{index + 1}</span>
-                                <span className="text-slate-500 text-xl font-mono">of {total}</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className="flex-grow flex flex-col items-center justify-center p-8 text-center overflow-y-auto min-h-0">
-                        <div className="w-full max-w-7xl">
-                            {data.content}
-                        </div>
-                    </div>
-
-                    <div className="p-6 bg-slate-800 flex justify-between items-center border-t border-slate-700">
-                        <button 
-                            onClick={prevSlide} 
-                            disabled={index === 0}
-                            className="flex items-center px-8 py-4 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 rounded-lg text-2xl font-bold transition"
-                        >
-                            <ChevronLeft className="mr-2" size={32} /> Previous
-                        </button>
-                        <div className="text-slate-400 text-lg uppercase tracking-widest hidden md:block">
-                            Rocklin Solar Repair • Presentation Mode • v{APP_VERSION}
-                        </div>
-                        <button 
-                            onClick={nextSlide} 
-                            disabled={index === total - 1}
-                            className="flex items-center px-8 py-4 bg-yellow-500 hover:bg-yellow-400 text-slate-900 rounded-lg text-2xl font-bold transition"
-                        >
-                            Next <ChevronRight className="ml-2" size={32} />
-                        </button>
-                    </div>
+            <div className="grid md:grid-cols-3 gap-8 text-sm mb-8 max-w-4xl mx-auto">
+                <div className="flex flex-col items-center gap-2">
+                    <Phone className="text-yellow-500" size={20} />
+                    <span className="text-slate-300">916-741-0194</span>
                 </div>
-            );
-
-            const WebModeView = ({ data }) => (
-                <div className="container mx-auto px-4 py-12 max-w-4xl print:max-w-full print:p-0">
-                    {data.map((item, idx) => (
-                        <div key={idx} className="mb-16 bg-slate-800 rounded-xl p-8 border border-slate-700 shadow-xl print:shadow-none print:border-none print:p-0 print:mb-0 print:bg-white">
-                            <div className="mb-6 border-b border-slate-700 pb-4 flex justify-between items-start print:hidden">
-                                <div>
-                                    <h2 className="text-3xl font-bold text-yellow-500">{item.title}</h2>
-                                    {item.subtitle && <p className="text-xl text-slate-400 mt-1">{item.subtitle}</p>}
-                                </div>
-                                <div className="flex items-center gap-4">
-                                    {item.headerLogo && (
-                                        <img src={item.headerLogo} alt="Header Logo" className="h-16 w-auto object-contain" />
-                                    )}
-                                    <span className="text-slate-600 font-mono text-4xl font-bold opacity-30 select-none">
-                                        {String(idx + 1).padStart(2, '0')}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="text-slate-200 text-lg leading-relaxed print:text-black">
-                                {item.content}
-                            </div>
-                        </div>
-                    ))}
-                    <footer className="text-center py-8 text-slate-500 border-t border-slate-800 mt-8 space-y-2 no-print">
-                        <p>&copy; {new Date().getFullYear()} Rocklin Solar Repair. All Rights Reserved.</p>
-                        <p className="text-sm">CA License # 1050566 • Bonded • Insured • v{APP_VERSION}</p>
-                    </footer>
+                <div className="flex flex-col items-center gap-2">
+                    <MapPin className="text-yellow-500" size={20} />
+                    <span className="text-slate-300">6518 Lonetree Blvd #2050<br/>Rocklin, CA 95765</span>
                 </div>
-            );
-
-            return (
-                <div className="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-yellow-500 selection:text-slate-900 print:bg-white print:text-black">
-                    {!isPresenting && (
-                        <header className="bg-slate-900 border-b border-slate-700 sticky top-0 z-50 print:hidden">
-                            <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-                                <div className="flex items-center space-x-2">
-                                    <Sun className="text-yellow-500 fill-yellow-500/20" />
-                                    <div className="flex flex-col">
-                                        <span className="font-bold text-lg leading-none text-slate-100 hidden sm:block">Rocklin Solar Repair</span>
-                                        <span className="text-xs text-yellow-500 hidden sm:block font-bold">Lic# 1050566</span>
-                                    </div>
-                                    <span className="font-bold text-lg md:text-xl text-slate-100 sm:hidden">RSR</span>
-                                </div>
-
-                                <nav className="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
-                                    <button onClick={() => handleTabChange('home')} className={`hover:text-yellow-500 transition-colors ${activeTab === 'home' ? 'text-yellow-500' : ''}`}>Home</button>
-                                    <button onClick={() => handleTabChange('inspections')} className={`hover:text-yellow-500 transition-colors ${activeTab === 'inspections' ? 'text-yellow-500' : ''}`}>Inspections 101</button>
-                                    <button onClick={() => handleTabChange('tpo')} className={`hover:text-yellow-500 transition-colors ${activeTab === 'tpo' ? 'text-yellow-500' : ''}`}>TPO & Leases</button>
-                                    <button onClick={() => handleTabChange('sellers')} className={`hover:text-yellow-500 transition-colors ${activeTab === 'sellers' ? 'text-yellow-500' : ''}`}>For Sellers</button>
-                                    <button onClick={() => handleTabChange('checklist')} className={`hover:text-yellow-500 transition-colors ${activeTab === 'checklist' ? 'text-yellow-500' : ''}`}>Agent Checklist</button>
-                                </nav>
-
-                                <div className="flex items-center space-x-4">
-                                    <a href="tel:9167410194" className="hidden lg:flex items-center text-yellow-500 font-bold bg-yellow-500/10 px-3 py-1 rounded-full hover:bg-yellow-500 hover:text-slate-900 transition-all">
-                                        <Phone size={16} className="mr-2" /> 916-741-0194
-                                    </a>
-                                    <button 
-                                        onClick={togglePresentation} 
-                                        className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-md text-sm font-bold transition-colors border border-slate-600"
-                                    >
-                                        {isPresenting ? "Exit Mode" : "Presentation Mode"}
-                                    </button>
-                                    <button className="md:hidden text-slate-300" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                                        {isMobileMenuOpen ? <X /> : <Menu />}
-                                    </button>
-                                </div>
-                            </div>
-
-                            {isMobileMenuOpen && (
-                                <div className="md:hidden bg-slate-800 border-t border-slate-700 p-4 space-y-4">
-                                    <button onClick={() => handleTabChange('home')} className="block w-full text-left text-slate-300">Home</button>
-                                    <button onClick={() => handleTabChange('inspections')} className="block w-full text-left text-slate-300">Inspections 101</button>
-                                    <button onClick={() => handleTabChange('tpo')} className="block w-full text-left text-slate-300">TPO & Leases</button>
-                                    <button onClick={() => handleTabChange('sellers')} className="block w-full text-left text-slate-300">For Sellers</button>
-                                    <button onClick={() => handleTabChange('checklist')} className="block w-full text-left text-slate-300">Agent Checklist</button>
-                                    <div className="pt-4 border-t border-slate-700 text-yellow-500 font-bold text-center">916-741-0194</div>
-                                </div>
-                            )}
-                        </header>
-                    )}
-
-                    {isPresenting ? (
-                        <div className="h-screen w-full fixed inset-0 z-50 bg-slate-900 print:hidden">
-                            <button 
-                                onClick={togglePresentation}
-                                className="absolute top-4 right-4 z-50 p-2 bg-slate-800/50 hover:bg-slate-700 rounded-full text-slate-400 hover:text-white transition"
-                            >
-                                <X size={24} />
-                            </button>
-                            <SlideView 
-                                data={contentData[activeTab][currentSlide]} 
-                                index={currentSlide} 
-                                total={contentData[activeTab].length} 
-                            />
-                        </div>
-                    ) : (
-                        <WebModeView data={contentData[activeTab]} />
-                    )}
+                <div className="flex flex-col items-center gap-2">
+                    <FileText className="text-yellow-500" size={20} />
+                    <span className="text-slate-300">Contractors Lic #1050566<br/>Solar (C46) & General B</span>
                 </div>
-            );
-        };
+            </div>
 
-        const root = createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+            <p className="text-xs text-slate-600">© {new Date().getFullYear()} Rocklin Solar Repair. All rights reserved.</p>
+          </div>
+        </footer>
+      )}
+
+      {/* Custom Animations */}
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: scale(0.98); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.4s ease-out forwards;
+        }
+        .animate-fade-in-up {
+          animation: fadeInUp 0.5s ease-out forwards;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
 </body>
 </html>
