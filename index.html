@@ -935,12 +935,12 @@
                                 <RenderImageOrFallback imageKey="slide_ownership" alt="Ownership Types" fallback={null} />
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl mt-8">
                                     <div className="bg-slate-800 p-8 rounded border-l-8 border-yellow-500">
-                                        <h3 className="text-4xl font-bold mb-4">True Ownership</h3>
-                                        <p className="text-3xl text-slate-300">Purchase or Loan. You own the system. The loan is just debt.</p>
+                                        <h3 className="text-3xl md:text-4xl font-bold mb-4">True Ownership</h3>
+                                        <p className="text-2xl md:text-3xl text-slate-300">Purchase or Loan. You own the system. The loan is just debt.</p>
                                     </div>
                                     <div className="bg-slate-800 p-8 rounded border-l-8 border-blue-500">
-                                        <h3 className="text-4xl font-bold mb-4">TPO (Lease / PPA)</h3>
-                                        <p className="text-3xl text-slate-300">
+                                        <h3 className="text-3xl md:text-4xl font-bold mb-4">TPO (Lease / PPA)</h3>
+                                        <p className="text-2xl md:text-3xl text-slate-300">
                                             Third Party Ownership. Don't let the word "Purchase" in PPA fool you. You are buying the <strong>power</strong>, not the <strong>panels</strong>.
                                         </p>
                                     </div>
@@ -954,22 +954,22 @@
                         headerLogo: projectImages.logo,
                         content: (
                             <div className="flex flex-col items-center">
-                                <p className="text-2xl mb-8">Two flavors of the same concept:</p>
+                                <p className="text-3xl mb-8">Two flavors of the same concept:</p>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl mb-8">
                                     <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-yellow-500 text-left">
                                         <h3 className="text-3xl font-bold mb-2">Lease</h3>
-                                        <p className="text-xl text-slate-300">You rent the <strong>equipment</strong>.</p>
-                                        <p className="mt-4 text-sm text-slate-400">Example: $150/month fixed rent for the panels on the roof.</p>
+                                        <p className="text-2xl text-slate-300">You rent the <strong>equipment</strong>.</p>
+                                        <p className="mt-4 text-xl text-slate-400">Example: $150/month fixed rent for the panels on the roof.</p>
                                     </div>
                                     <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-blue-500 text-left">
                                         <h3 className="text-3xl font-bold mb-2">PPA</h3>
-                                        <p className="text-xl text-slate-300">You buy the <strong>power</strong>.</p>
-                                        <p className="mt-4 text-sm text-slate-400">Example: $0.18 per kWh produced by the system.</p>
+                                        <p className="text-2xl text-slate-300">You buy the <strong>power</strong>.</p>
+                                        <p className="mt-4 text-xl text-slate-400">Example: $0.18 per kWh produced by the system.</p>
                                     </div>
                                 </div>
                                 <div className="bg-slate-800/50 p-6 rounded-lg max-w-4xl text-left border border-slate-600">
-                                    <p className="text-2xl font-bold text-yellow-500 mb-2">Why do both exist?</p>
-                                    <p className="text-xl text-slate-300 leading-relaxed">
+                                    <p className="text-3xl font-bold text-yellow-500 mb-2">Why do both exist?</p>
+                                    <p className="text-2xl text-slate-300 leading-relaxed">
                                         Mainly due to regulatory laws. In some states, selling power (kWh) classifies you as a "Utility" (illegal for private companies). 
                                         To bypass this, they "lease equipment" instead. In California, both are legal, but the end result is effectively the same: <strong>You do not own the system.</strong>
                                     </p>
@@ -998,12 +998,12 @@
                                     </div>
                                     <div className="bg-slate-800 p-8 rounded-xl border border-slate-700 shadow-xl w-full">
                                         <h3 className="text-3xl font-bold text-yellow-500 mb-6 border-b border-slate-700 pb-4">The Big 5</h3>
-                                        <ul className="space-y-4 text-left text-xl text-slate-200">
-                                            <li className="flex items-center"><DollarSign className="text-green-400 mr-4 flex-shrink-0" /> <span><strong>1. Price:</strong> Rate (PPA) or Rent (Lease)?</span></li>
-                                            <li className="flex items-center"><BarChart3 className="text-red-400 mr-4 flex-shrink-0" /> <span><strong>2. Escalator:</strong> Does cost rise annually?</span></li>
-                                            <li className="flex items-center"><Wrench className="text-blue-400 mr-4 flex-shrink-0" /> <span><strong>3. Equipment:</strong> Listed vs Installed?</span></li>
-                                            <li className="flex items-center"><ShieldCheck className="text-yellow-400 mr-4 flex-shrink-0" /> <span><strong>4. Guarantee:</strong> Production promised?</span></li>
-                                            <li className="flex items-center"><ExternalLink className="text-purple-400 mr-4 flex-shrink-0" /> <span><strong>5. Transfer:</strong> Buyout terms?</span></li>
+                                        <ul className="space-y-4 text-left text-2xl text-slate-200">
+                                            <li className="flex items-center"><DollarSign className="text-green-400 mr-4 flex-shrink-0" size={32} /> <span><strong>1. Price:</strong> Rate (PPA) or Rent (Lease)?</span></li>
+                                            <li className="flex items-center"><BarChart3 className="text-red-400 mr-4 flex-shrink-0" size={32} /> <span><strong>2. Escalator:</strong> Does cost rise annually?</span></li>
+                                            <li className="flex items-center"><Wrench className="text-blue-400 mr-4 flex-shrink-0" size={32} /> <span><strong>3. Equipment:</strong> Listed vs Installed?</span></li>
+                                            <li className="flex items-center"><ShieldCheck className="text-yellow-400 mr-4 flex-shrink-0" size={32} /> <span><strong>4. Guarantee:</strong> Production promised?</span></li>
+                                            <li className="flex items-center"><ExternalLink className="text-purple-400 mr-4 flex-shrink-0" size={32} /> <span><strong>5. Transfer:</strong> Buyout terms?</span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -1016,42 +1016,44 @@
                         content: (
                             <div className="w-full max-w-5xl flex flex-col gap-8">
                                 <div>
-                                    <h3 className="text-2xl text-left mb-4 font-bold text-white border-l-8 border-yellow-500 pl-4">1. Price per kWh</h3>
+                                    <h3 className="text-3xl text-left mb-4 font-bold text-white border-l-8 border-yellow-500 pl-4">1. Price per kWh</h3>
                                     <div className="grid grid-cols-3 gap-4 text-center">
                                         <div className="bg-green-900/30 p-6 rounded border border-green-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">Great</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-green-400">$0.15 - $0.20</p>
-                                            <p className="text-sm text-slate-400 mt-2">Money Saver</p>
+                                            <h3 className="text-2xl font-bold mb-1 text-slate-300">Great</h3>
+                                            <p className="text-3xl md:text-5xl font-bold text-green-400">$0.15 - $0.20</p>
+                                            <p className="text-xl text-slate-400 mt-2">Money Saver</p>
                                         </div>
                                         <div className="bg-yellow-900/30 p-6 rounded border border-yellow-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">High</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-yellow-400">$0.25+</p>
-                                            <p className="text-sm text-slate-400 mt-2">Marginal Savings</p>
+                                            <h3 className="text-2xl font-bold mb-1 text-slate-300">High</h3>
+                                            <p className="text-3xl md:text-5xl font-bold text-yellow-400">$0.25+</p>
+                                            <p className="text-xl text-slate-400 mt-2">Marginal Savings</p>
                                         </div>
                                         <div className="bg-slate-700/50 p-6 rounded border border-slate-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">Utility Avg</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-white">$0.35+</p>
-                                            <p className="text-sm text-slate-400 mt-2">PG&E / SMUD</p>
+                                            <h3 className="text-2xl font-bold mb-1 text-slate-300">Utility Avg</h3>
+                                            <p className="text-3xl md:text-5xl font-bold text-white">$0.35+</p>
+                                            <p className="text-xl text-slate-400 mt-2">PG&E / SMUD</p>
                                         </div>
                                     </div>
                                 </div>
+
+                                {/* Escalator Section */}
                                 <div>
-                                    <h3 className="text-2xl text-left mb-4 font-bold text-white border-l-8 border-blue-500 pl-4">2. Annual Escalator</h3>
+                                    <h3 className="text-3xl text-left mb-4 font-bold text-white border-l-8 border-blue-500 pl-4">2. Annual Escalator</h3>
                                     <div className="grid grid-cols-3 gap-4 text-center">
                                         <div className="bg-green-900/30 p-6 rounded border border-green-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">Ideal</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-green-400">0.0%</p>
-                                            <p className="text-sm text-slate-400 mt-2">Fixed Rate</p>
+                                            <h3 className="text-2xl font-bold mb-1 text-slate-300">Ideal</h3>
+                                            <p className="text-3xl md:text-5xl font-bold text-green-400">0.0%</p>
+                                            <p className="text-xl text-slate-400 mt-2">Fixed Rate</p>
                                         </div>
                                         <div className="bg-yellow-900/30 p-6 rounded border border-yellow-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">Standard</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-yellow-400">2.9%</p>
-                                            <p className="text-sm text-slate-400 mt-2">Compounding</p>
+                                            <h3 className="text-2xl font-bold mb-1 text-slate-300">Standard</h3>
+                                            <p className="text-3xl md:text-5xl font-bold text-yellow-400">2.9%</p>
+                                            <p className="text-xl text-slate-400 mt-2">Compounding</p>
                                         </div>
                                         <div className="bg-red-900/30 p-6 rounded border border-red-500">
-                                            <h3 className="text-xl font-bold mb-1 text-slate-300">High</h3>
-                                            <p className="text-3xl md:text-4xl font-bold text-red-400">3.5%+</p>
-                                            <p className="text-sm text-slate-400 mt-2">Erodes Savings</p>
+                                            <h3 className="text-2xl font-bold mb-1 text-slate-300">High</h3>
+                                            <p className="text-3xl md:text-5xl font-bold text-red-400">3.5%+</p>
+                                            <p className="text-xl text-slate-400 mt-2">Erodes Savings</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1062,38 +1064,38 @@
                         title: "The Impact of Escalators",
                         headerLogo: projectImages.logo,
                         content: (
-                            <div className="w-full max-w-3xl overflow-x-auto">
-                                <table className="w-full text-left border-collapse text-lg">
+                            <div className="w-full max-w-4xl mx-auto overflow-x-auto">
+                                <table className="w-full text-left border-collapse text-2xl">
                                     <thead>
                                         <tr className="border-b border-slate-600">
-                                            <th className="p-4 text-yellow-500">Escalator</th>
-                                            <th className="p-4">Year 1</th>
-                                            <th className="p-4">Year 10</th>
-                                            <th className="p-4">Year 20</th>
+                                            <th className="p-6 text-yellow-500">Escalator</th>
+                                            <th className="p-6">Year 1</th>
+                                            <th className="p-6">Year 10</th>
+                                            <th className="p-6">Year 20</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr className="bg-green-900/20">
-                                            <td className="p-4 font-bold text-green-400">0% (Flat)</td>
-                                            <td className="p-4">$150</td>
-                                            <td className="p-4">$150</td>
-                                            <td className="p-4">$150</td>
+                                        <tr className="bg-green-900/20 border-b border-slate-700/50">
+                                            <td className="p-6 font-bold text-green-400">0% (Flat)</td>
+                                            <td className="p-6">$150</td>
+                                            <td className="p-6">$150</td>
+                                            <td className="p-6">$150</td>
                                         </tr>
-                                        <tr>
-                                            <td className="p-4 font-bold text-yellow-400">2.9%</td>
-                                            <td className="p-4">$150</td>
-                                            <td className="p-4">$194</td>
-                                            <td className="p-4">$258</td>
+                                        <tr className="border-b border-slate-700/50">
+                                            <td className="p-6 font-bold text-yellow-400">2.9%</td>
+                                            <td className="p-6">$150</td>
+                                            <td className="p-6">$194</td>
+                                            <td className="p-6">$258</td>
                                         </tr>
                                         <tr className="bg-red-900/20">
-                                            <td className="p-4 font-bold text-red-400">3.5%</td>
-                                            <td className="p-4">$150</td>
-                                            <td className="p-4">$205</td>
-                                            <td className="p-4">$290</td>
+                                            <td className="p-6 font-bold text-red-400">3.5%</td>
+                                            <td className="p-6">$150</td>
+                                            <td className="p-6">$205</td>
+                                            <td className="p-6">$290</td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <p className="mt-4 text-slate-400 text-sm">Compounding interest significantly reduces long-term value.</p>
+                                <p className="mt-8 text-slate-400 text-xl text-center">Compounding interest significantly reduces long-term value.</p>
                             </div>
                         )
                     },
@@ -1101,22 +1103,22 @@
                         title: "TPO Pros & Cons",
                         headerLogo: projectImages.logo,
                         content: (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left w-full">
-                                <div className="bg-slate-800/50 p-6 rounded border border-green-500/30">
-                                    <h3 className="text-green-400 font-bold text-2xl mb-4 flex items-center"><ThumbsUp className="mr-2"/> Pros</h3>
-                                    <ul className="space-y-3">
-                                        <li className="flex items-start"><CheckCircle className="text-green-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>Low Upfront Cost:</strong> Accessible without down payment.</span></li>
-                                        <li className="flex items-start"><CheckCircle className="text-green-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>Repair-Free:</strong> Company handles maintenance (theoretically).</span></li>
-                                        <li className="flex items-start"><CheckCircle className="text-green-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>Immediate Savings:</strong> Bill is usually lower than utility.</span></li>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left w-full max-w-6xl mx-auto">
+                                <div className="bg-slate-800/50 p-8 rounded border border-green-500/30">
+                                    <h3 className="text-green-400 font-bold text-3xl mb-6 flex items-center"><ThumbsUp className="mr-3" size={36}/> Pros</h3>
+                                    <ul className="space-y-6 text-2xl">
+                                        <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 mt-1 flex-shrink-0" size={28}/> <span><strong>Low Upfront Cost:</strong> Accessible without down payment.</span></li>
+                                        <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 mt-1 flex-shrink-0" size={28}/> <span><strong>Repair-Free:</strong> Company handles maintenance (theoretically).</span></li>
+                                        <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 mt-1 flex-shrink-0" size={28}/> <span><strong>Immediate Savings:</strong> Bill is usually lower than utility.</span></li>
                                     </ul>
                                 </div>
-                                <div className="bg-slate-800/50 p-6 rounded border border-red-500/30">
-                                    <h3 className="text-red-400 font-bold text-2xl mb-4 flex items-center"><ThumbsDown className="mr-2"/> Cons</h3>
-                                    <ul className="space-y-3">
-                                        <li className="flex items-start"><X className="text-red-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>No Home Value Increase:</strong> You don't own the asset.</span></li>
-                                        <li className="flex items-start"><X className="text-red-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>No Tax Credits:</strong> The leasing company keeps the 30% ITC.</span></li>
-                                        <li className="flex items-start"><X className="text-red-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>Complicates Sales:</strong> Buyer must qualify and assume the lease.</span></li>
-                                        <li className="flex items-start"><X className="text-red-500 mr-2 mt-1 flex-shrink-0" size={16}/> <span><strong>Escalators:</strong> Costs can rise 2.9% every year.</span></li>
+                                <div className="bg-slate-800/50 p-8 rounded border border-red-500/30">
+                                    <h3 className="text-red-400 font-bold text-3xl mb-6 flex items-center"><ThumbsDown className="mr-3" size={36}/> Cons</h3>
+                                    <ul className="space-y-6 text-2xl">
+                                        <li className="flex items-start"><X className="text-red-500 mr-3 mt-1 flex-shrink-0" size={28}/> <span><strong>No Home Value Increase:</strong> You don't own the asset.</span></li>
+                                        <li className="flex items-start"><X className="text-red-500 mr-3 mt-1 flex-shrink-0" size={28}/> <span><strong>No Tax Credits:</strong> The leasing company keeps the 30% ITC.</span></li>
+                                        <li className="flex items-start"><X className="text-red-500 mr-3 mt-1 flex-shrink-0" size={28}/> <span><strong>Complicates Sales:</strong> Buyer must qualify and assume the lease.</span></li>
+                                        <li className="flex items-start"><X className="text-red-500 mr-3 mt-1 flex-shrink-0" size={28}/> <span><strong>Escalators:</strong> Costs can rise 2.9% every year.</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -1130,11 +1132,11 @@
                             <div className="flex flex-col items-center">
                                 <RenderImageOrFallback imageKey="tpo_execs" alt="Executives transferring agreement" fallback={<div className="bg-slate-700 w-full h-64 flex items-center justify-center">Image: Executives passing contract</div>} />
                                 <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-red-500 text-left mt-6 max-w-4xl mx-auto shadow-lg">
-                                    <h3 className="text-3xl font-bold text-white mb-4">The Homeowner is an Afterthought</h3>
-                                    <p className="text-2xl text-slate-300 leading-relaxed">
+                                    <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">The Homeowner is an Afterthought</h3>
+                                    <p className="text-2xl md:text-3xl text-slate-300 leading-relaxed">
                                         When a massive solar installer goes bankrupt, their portfolio of thousands of 25-year TPO contracts is treated as a <strong>purely financial asset</strong>. 
                                     </p>
-                                    <p className="text-2xl text-slate-300 leading-relaxed mt-4">
+                                    <p className="text-2xl md:text-3xl text-slate-300 leading-relaxed mt-4">
                                         These contracts are bought for pennies on the dollar by collection agencies and administrators whose sole purpose is to enforce the monthly payment, not to maintain a functioning solar array.
                                     </p>
                                 </div>
@@ -1755,7 +1757,7 @@
 
             const SlideView = ({ data, index, total }) => (
                 <div className="flex flex-col h-full bg-slate-900 text-slate-100 animate-fadeIn">
-                    <div className="p-8 pb-0 flex justify-between items-start">
+                    <div className="p-8 pb-0 flex justify-between items-start flex-shrink-0">
                         <div className="flex-1">
                             <h2 className="text-5xl md:text-7xl font-bold text-yellow-500 mb-2 tracking-tight">{data.title}</h2>
                             {data.subtitle && <h3 className="text-3xl text-slate-400">{data.subtitle}</h3>}
@@ -1771,13 +1773,13 @@
                         </div>
                     </div>
                     
-                    <div className="flex-grow flex flex-col items-center justify-center p-8 text-center overflow-y-auto min-h-0">
-                        <div className="w-full max-w-7xl">
+                    <div className="flex-grow flex flex-col items-center justify-center p-8 text-center overflow-y-auto">
+                        <div className="w-full max-w-7xl my-auto py-8">
                             {data.content}
                         </div>
                     </div>
 
-                    <div className="p-6 bg-slate-800 flex justify-between items-center border-t border-slate-700">
+                    <div className="p-6 bg-slate-800 flex justify-between items-center border-t border-slate-700 flex-shrink-0">
                         <button 
                             onClick={prevSlide} 
                             disabled={index === 0}
