@@ -147,7 +147,7 @@
             ThumbsUp, ThumbsDown, Scale, FileSearch, ArrowRight, Printer, Square
         } from 'lucide-react';
 
-        const APP_VERSION = "1.8.0";
+        const APP_VERSION = "1.8.1";
 
         // --- IMAGE CONFIGURATION LIST ---
         const projectImages = {
@@ -1339,265 +1339,37 @@
                         )
                     },
                     {
-                        title: "Summary: The Pre-Listing Advantage",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="w-full max-w-6xl">
-                                <p className="text-3xl text-white mb-8">A single pre-inspection solves every issue we've discussed.</p>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-green-500/30">
-                                        <ul className="space-y-4 text-xl text-slate-300">
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Unknown History?</strong> We document system health.</span></li>
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Broken System?</strong> Fix it before the buyer walks.</span></li>
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Scary Lease?</strong> We prove the savings math.</span></li>
-                                        </ul>
-                                    </div>
-                                    <div className="bg-slate-800 p-6 rounded-xl border border-green-500/30">
-                                        <ul className="space-y-4 text-xl text-slate-300">
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Bankrupt Company?</strong> We take over service.</span></li>
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Buyout Demands?</strong> We provide FMV leverage.</span></li>
-                                            <li className="flex items-start"><CheckCircle className="text-green-500 mr-3 flex-shrink-0" /> <span><strong>Timeline Risk?</strong> We start on Day 1.</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div className="mt-8 p-4 bg-yellow-500/10 rounded-lg border border-yellow-500 text-yellow-200 text-2xl font-bold">
-                                    Don't let a solar surprise kill your transaction.
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Let's Work Together",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="text-center flex flex-col items-center">
-                                <div className="w-full max-w-sm mb-4">
-                                    <RenderImageOrFallback imageKey="slide19_logo" alt="RSR Logo" fallback={<Sun size={80} className="text-yellow-500 mx-auto" />} />
-                                </div>
-                                <p className="text-3xl font-bold text-white mb-6">Rocklin Solar Repair</p>
-                                <div className="inline-block bg-yellow-500 text-slate-900 px-8 py-4 rounded-lg text-3xl font-bold shadow-lg mb-8 hover:scale-105 transition-transform">
-                                    916-741-0194
-                                </div>
-                                <div className="w-full max-w-xs"><RenderImageOrFallback imageKey="qrCode" alt="Scan to Contact" fallback={null} /><p className="text-slate-400 font-bold">Scan QR to save contact</p></div>
-                            </div>
-                        )
-                    }
-                ],
-
-                // =========================================================================
-                // *** LOCKED CONTENT: FOR SELLERS ***
-                // =========================================================================
-                sellers: [
-                    {
-                        title: "Selling a Solar Home",
-                        subtitle: "Protect Your Equity & Close on Time",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="text-center flex flex-col items-center justify-center h-full">
-                                <div className="bg-yellow-500/20 p-8 rounded-full mb-8">
-                                    <Home size={100} className="text-yellow-500" />
-                                </div>
-                                <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Don't Let Solar Kill Your Deal</h1>
-                                <p className="text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
-                                    Selling a home with solar requires a specific strategy. Whether it's owned or leased, the paperwork and transfer process can delay closing if not handled immediately.
-                                </p>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Timeline",
+                        title: "The \"Kelly Blue Book\" of Solar",
+                        subtitle: "Never Accept the First Offer",
                         headerLogo: projectImages.logo,
                         content: (
                             <div className="flex flex-col items-center">
-                                <p className="text-3xl text-white font-bold mb-12">The Golden Rule: Start EARLY</p>
-                                <div className="relative border-l-4 border-slate-700 ml-6 md:ml-0 pl-8 md:pl-0 space-y-12 w-full max-w-3xl">
-                                    <div className="relative md:text-center md:pt-12">
-                                        <div className="absolute -left-12 md:left-1/2 md:-ml-4 top-0 bg-green-500 w-8 h-8 rounded-full border-4 border-slate-900"></div>
-                                        <h3 className="text-2xl font-bold text-green-400">Day 1: Listing Signed</h3>
-                                        <p className="text-xl text-slate-300">Call RSR. Initiate the solar transfer case with the TPO provider immediately.</p>
-                                    </div>
-                                    <div className="relative md:text-center md:pt-12">
-                                        <div className="absolute -left-12 md:left-1/2 md:-ml-4 top-0 bg-yellow-500 w-8 h-8 rounded-full border-4 border-slate-900"></div>
-                                        <h3 className="text-2xl font-bold text-yellow-500">Day 15: Credit Check</h3>
-                                        <p className="text-xl text-slate-300">Buyer must pass a credit check to assume the lease. Do not wait for contingencies removal.</p>
-                                    </div>
-                                    <div className="relative md:text-center md:pt-12">
-                                        <div className="absolute -left-12 md:left-1/2 md:-ml-4 top-0 bg-red-500 w-8 h-8 rounded-full border-4 border-slate-900"></div>
-                                        <h3 className="text-2xl font-bold text-red-500">Day 25: The "Gap"</h3>
-                                        <p className="text-xl text-slate-300">TPO companies often go silent here. This is where deals get delayed.</p>
-                                    </div>
-                                    <div className="relative md:text-center md:pt-12">
-                                        <div className="absolute -left-12 md:left-1/2 md:-ml-4 top-0 bg-blue-500 w-8 h-8 rounded-full border-4 border-slate-900"></div>
-                                        <h3 className="text-2xl font-bold text-blue-500">Day 30+: Closing</h3>
-                                        <p className="text-xl text-slate-300">Title records the transfer. UCC-1 lien is lifted/updated.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The UCC-1 Panic",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full max-w-6xl">
-                                <div className="text-left">
-                                    <h3 className="text-3xl font-bold text-red-400 mb-4">What is a UCC-1?</h3>
-                                    <p className="text-xl text-slate-300 leading-relaxed mb-6">
-                                        It stands for "Uniform Commercial Code". It is a public filing that acts as a lien on the <strong>solar equipment</strong> (not the home itself).
-                                    </p>
+                                <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-red-500 shadow-xl w-full max-w-5xl mb-8 text-left">
+                                    <h3 className="text-3xl font-bold text-white mb-4">The Inflated Buyout Demand</h3>
                                     <p className="text-xl text-slate-300 leading-relaxed">
-                                        However, it appears on the Preliminary Title Report. <strong className="text-white">Mortgage lenders will NOT fund the loan</strong> until this is subordinated or terminated.
+                                        When you request a payoff amount to own the system outright, the TPO company almost always sends back an artificially inflated number. Often, these figures are not even contractually accurate based on their own depreciation schedules.
                                     </p>
                                 </div>
-                                <div className="bg-white p-8 rounded-lg shadow-2xl text-slate-800 transform rotate-2">
-                                    <div className="border-b-2 border-slate-300 mb-4 pb-2">
-                                        <h4 className="font-bold text-xl uppercase">Preliminary Title Report</h4>
-                                    </div>
-                                    <div className="space-y-4 font-mono text-sm">
-                                        <p>1. Property Taxes... <span className="float-right text-green-600">PAID</span></p>
-                                        <p>2. Deed of Trust... <span className="float-right text-green-600">PAID</span></p>
-                                        <div className="bg-yellow-100 p-2 border border-yellow-300 rounded">
-                                            <p className="font-bold text-red-600">3. UCC-1 FINANCING STATEMENT</p>
-                                            <p>Claimant: SUNRUN INC.</p>
-                                            <p>Debtor: JOHN DOE</p>
+                                
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
+                                    <div className="bg-slate-800 p-8 rounded-xl border border-blue-500 shadow-lg text-left">
+                                        <div className="flex items-center mb-4">
+                                            <div className="bg-blue-500/20 p-3 rounded-full mr-4"><BookOpen size={32} className="text-blue-400" /></div>
+                                            <h3 className="text-2xl font-bold text-white">The FMV Report</h3>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Health Check",
-                        subtitle: "Is it actually working?",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center">
-                                <div className="bg-slate-800 p-8 rounded-xl border-l-8 border-yellow-500 max-w-4xl text-left shadow-lg">
-                                    <h3 className="text-3xl font-bold text-white mb-4">The Nightmare Scenario</h3>
-                                    <p className="text-xl text-slate-300 leading-relaxed mb-6">
-                                        You are 3 days from closing. The Buyer does a final walkthrough and asks to see the solar app. 
-                                        The system shows <strong>zero production</strong> for the last 6 months.
-                                    </p>
-                                    <div className="p-4 bg-red-900/20 rounded border border-red-500/50">
-                                        <p className="text-xl text-red-300 font-bold">
-                                            Result: The Seller pays a huge credit (thousands of $$) to keep the deal alive, or the deal dies.
+                                        <p className="text-xl text-slate-300">
+                                            Think of us as the <strong>"Kelly Blue Book"</strong> for solar. We generate an independent Fair Market Value (FMV) report based on the system's exact age, condition, and current wholesale hardware prices.
                                         </p>
                                     </div>
-                                </div>
-                                <div className="mt-8 flex items-center gap-4">
-                                    <CheckCircle size={40} className="text-green-500" />
-                                    <p className="text-2xl text-white">Inspect <strong>before listing</strong> to fix issues under warranty.</p>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The \"Unknown\" Factor",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div>
-                                <RenderImageOrFallback imageKey="slide_questions" alt="Confused Homeowner" fallback={null} />
-                                <div className="max-w-4xl mx-auto text-left">
-                                    <p className="text-3xl text-white mb-6 font-bold">Does this sound familiar?</p>
-                                    <ul className="space-y-6 text-2xl text-slate-300 list-disc pl-8">
-                                        <li>"We inherited the system from our parents, we don't know anything about it."</li>
-                                        <li>"I haven't looked at the monitoring app in 3 years."</li>
-                                        <li>"It's on the roof, so it must be working, right?"</li>
-                                    </ul>
-                                    <div className="mt-8 p-6 bg-red-900/20 border border-red-500 rounded-xl">
-                                        <p className="text-xl text-red-200">
-                                            <strong>The Risk:</strong> Listing a home with "unknown" solar status is a liability time-bomb waiting to go off during the buyer's inspection.
+                                    
+                                    <div className="bg-slate-800 p-8 rounded-xl border border-green-500 shadow-lg text-left">
+                                        <div className="flex items-center mb-4">
+                                            <div className="bg-green-500/20 p-3 rounded-full mr-4"><FileText size={32} className="text-green-500" /></div>
+                                            <h3 className="text-2xl font-bold text-white">The Negotiation</h3>
+                                        </div>
+                                        <p className="text-xl text-slate-300">
+                                            We use this hard data to push back against the leasing company. We have successfully negotiated buyout prices down significantly for our clients, though success ultimately depends on the specific language in the original contract.
                                         </p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "The Bankruptcy Problem",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full max-w-6xl">
-                                <div className="text-left">
-                                    <h3 className="text-3xl font-bold text-red-500 mb-4">"My solar company went bust."</h3>
-                                    <p className="text-xl text-slate-300 leading-relaxed mb-6">
-                                        It's a common story. The installer is gone. The manufacturer is bankrupt. The seller has no one to call for service or transfer paperwork.
-                                    </p>
-                                    <div className="bg-slate-800 p-6 rounded border-l-4 border-yellow-500">
-                                        <p className="text-xl text-white">
-                                            <strong>RSR is the solution.</strong> We can get the system working properly and serve as the maintenance company going forward.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="flex justify-center">
-                                    <RenderImageOrFallback imageKey="slide_wildwest" alt="Wild West" fallback={<div className="bg-slate-700 w-full h-64 flex items-center justify-center">Ghost Town Image</div>} />
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Negotiating the Buyout",
-                        subtitle: "Don't Overpay the TPO Company",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center">
-                                <div className="max-w-4xl text-center mb-8">
-                                    <p className="text-3xl text-white font-bold mb-4">The Buyer Demands a Payoff.</p>
-                                    <p className="text-xl text-slate-300 mb-6">
-                                        Often, a buyer will refuse to assume the lease and demand the system be paid off. The TPO company will quote a "Fair Market Value" that is often inflated.
-                                    </p>
-                                </div>
-                                <div className="bg-slate-800 p-8 rounded-xl border border-blue-500 shadow-xl max-w-5xl w-full">
-                                    <div className="flex items-center mb-4">
-                                        <div className="bg-blue-500/20 p-3 rounded-full mr-4"><FileText size={32} className="text-blue-400" /></div>
-                                        <h3 className="text-2xl font-bold text-white">The RSR Solution: FMV Report</h3>
-                                    </div>
-                                    <p className="text-xl text-slate-300 mb-6">
-                                        We provide an independent <strong>Fair Market Value Report</strong> based on the system's age, condition, and current technology prices.
-                                    </p>
-                                    <div className="bg-green-900/20 p-4 rounded border-l-4 border-green-500">
-                                        <p className="text-lg text-green-300 font-bold">
-                                            <strong>Leverage:</strong> Use our report to negotiate a lower buyout price from the leasing company, potentially saving the seller thousands.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    },
-                    {
-                        title: "Buyout vs. Pre-Pay",
-                        subtitle: "If You MUST Pay It Off...",
-                        headerLogo: projectImages.logo,
-                        content: (
-                            <div className="flex flex-col items-center justify-center h-full">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl">
-                                    <div className="bg-slate-800 p-8 rounded-xl border border-green-500/50 flex flex-col items-center text-center">
-                                        <div className="bg-green-900/20 p-6 rounded-full mb-6">
-                                            <CheckCircle size={48} className="text-green-500" />
-                                        </div>
-                                        <h3 className="text-3xl font-bold text-white mb-2">Pre-Pay</h3>
-                                        <p className="text-xl text-slate-400 mb-6">Paying all remaining monthly payments upfront.</p>
-                                        <div className="bg-green-500/10 p-4 rounded-lg w-full mt-auto border border-green-500/30 text-left">
-                                            <ul className="space-y-2 text-green-200">
-                                                <li className="flex items-start"><CheckCircle size={20} className="mr-2 mt-1 flex-shrink-0"/> Cheaper than Buyout.</li>
-                                                <li className="flex items-start"><CheckCircle size={20} className="mr-2 mt-1 flex-shrink-0"/> Buyer gets $0 monthly payment.</li>
-                                                <li className="flex items-start"><CheckCircle size={20} className="mr-2 mt-1 flex-shrink-0"/> <strong>TPO Warranty stays intact.</strong></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div className="bg-slate-800 p-8 rounded-xl border border-red-500/50 flex flex-col items-center text-center">
-                                        <div className="bg-slate-700 p-6 rounded-full mb-6">
-                                            <DollarSign size={48} className="text-slate-300" />
-                                        </div>
-                                        <h3 className="text-3xl font-bold text-white mb-2">Full Buyout</h3>
-                                        <p className="text-xl text-slate-400 mb-6">Paying FMV to own the equipment.</p>
-                                        <div className="bg-red-500/10 p-4 rounded-lg w-full mt-auto border border-red-500/30 text-left">
-                                            <ul className="space-y-2 text-red-200">
-                                                <li className="flex items-start"><X size={20} className="mr-2 mt-1 flex-shrink-0"/> Usually costs more.</li>
-                                                <li className="flex items-start"><X size={20} className="mr-2 mt-1 flex-shrink-0"/> You take ownership & liability.</li>
-                                                <li className="flex items-start"><X size={20} className="mr-2 mt-1 flex-shrink-0"/> Service contract may end.</li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
